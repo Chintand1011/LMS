@@ -1,0 +1,164 @@
+﻿@model IEnumerable<OPBids.Entities.View.DTS.DocumentsVM>
+@Scripts.Render("~/bundles/dtsDashboardScript")
+<div class="p-view-header">
+    <h2 id="headerTitle">Dashboard</h2>
+</div>
+<div class="stat-box" style="padding:0px !important;text-align:center;">
+    <div class="iconItemContainers inner icon-awarded" style="width:32%;display:none;height:145px;">
+        <div class="iconMask" style="height:100%;">
+            <div class="caption">
+                Summary
+            </div>
+            <table id="summary"></table>
+        </div>
+    </div>
+    <div class="iconItemContainers inner icon-procurement" style="width:33%;display:none;height:145px;">
+        <div class="iconMask" style="height:100%;">
+            <div class="caption">
+                Under <span id="DepartmentName"></span>
+            </div>
+            <table id="underDepartment"></table>
+        </div>
+    </div>
+    <div class="iconItemContainers inner icon-aging" style="width:33%;display:none;height:145px;">
+        <div class="iconMask" style="height:100%;">
+            <div class="caption">
+                Document Aging
+            </div>
+            <table id="documentAging" style="margin-right:5% !important;"></table>
+        </div>
+    </div>
+</div>
+
+<div class="scan-barcode-section">
+    <div class="section-content">
+        <div class="row">
+            <div class="col-md-8 col-md-push-1">
+                <input type="text" id="scan_barcode_ref" required caption="Barcode or Batch Number" maxlength="20" style="height: 40px;font-size: 20px;border: 2px solid limegreen;" class="form-control" height="30" size="40" placeholder="Scan Barcode or Type Document Code/Batch No here.." />
+            </div>
+            <div class="col-md-2 col-md-push-1" style="padding-top: 5px;">
+                <button id="btnTrackNow" type="button" class="form-control btn btn-track fa-align-left icon ion-search">Track Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-content db-section" style="margin: 10px 0px;padding:0px 5px;">
+    <div class="row dash-filter" style="padding:5px 10px;vertical-align:middle;">
+        <div id="lstSelected" class="header-title" style="display:inline-block;padding:0px 10px;"></div><button type="button" class="buttonLink" id="btnViewAll">(view all)</button><div style="display:inline-block;"><input type="checkbox" id="chkThisWeek" style="position:relative;margin-left:10px;" /><div style="display:inline-block;padding:0px 10px;">This Week</div><input type="checkbox" id="chkLastWeek" style="position:relative;margin-left:10px;" /><div style="display:inline-block;padding:0px 10px;">Last Week</div></div><select id="cboDocList" style="float:right;width:200px; margin-right:5px;text-transform:uppercase"><option value="0">On-Hand List</option><option value="1">Received List</option><option value="2">Finalized List</option><option value="3">Archived List</option></select>
+    </div>
+    <div style="overflow-x:auto;">
+        @{Html.RenderPartial("~/Views/DTS/DocumentList.cshtml", new List<OPBids.Entities.View.DTS.DocumentsVM>());}
+    </div>
+</div>
+<div class="stat-box" style="padding:0px !important;text-align:center;">
+    <div id="dashboardCategoryLst" class="chartContainers inner col-lg-6 h-100 flex-item" style="text-align:center;margin-top:0px;">
+        <div class="caption" style="text-align:left;padding: 3px 0px;">
+            Documents <span style="font-size:16px;">by</span> Category
+        </div>
+        <div style="vertical-align:top;padding-top:10px;">
+            <table id="categoryLst" class="table table-striped" style="width:48%;margin:0px;float:left;">
+                <thead><tr><th style="">Category</th><th style="width:50px;white-space:nowrap;"># of Docs</th></tr></thead>
+                <tbody></tbody>
+            </table>
+            <div style="height:100%;display:inline-block;padding-bottom:10px;padding-left:20px;">
+                <canvas id="chart1" height="170" width="170"></canvas>
+            </div>
+        </div>
+    </div>
+    <div id="top5Aging" class="chartContainers inner col-lg-6 h-100 flex-item" style="float:right;margin-top:0px;">
+        <div id="top5Caption" class="caption" style="text-align:left;text-overflow:ellipsis;overflow:hidden;padding: 3px 0px;">
+            Top 5 that needs Immediate Action
+        </div>
+        <div style="overflow-x:auto;">
+            <table id="documentAgingLst" style="margin:1%;width:98%;" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Doc Code</th>
+                        <th date style="white-space:nowrap;">
+                            Sent Date
+                        </th>
+                        <th date style="white-space:nowrap;">ETD To Recipient</th>
+                        <th number style="white-space:nowrap;">Aging (CD)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div data-backdrop="static" class="modal fade" id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" style="min-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <div class="circleWhite batchno"></div><div class="modal-title" style="font-weight:normal;float:left;font-size:20px;padding-left:10px;line-height:48px;"></div>
+            </div>
+            <table class="modal-body" style="width:100%;">
+                <tr>
+                    <td style="width:10%;max-width:120px; vertical-align:top;border-right: 1px solid #d8d8d8;">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">General</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                    </td>
+                    <td style="width:90%;padding-top:10px;">
+                        <div id="canvasImage" class="canvasImage">
+                            <div class="form-group" style="text-align:right;padding:0px;padding-right:50px;margin:0px;">
+                                <a class="toolbar-download" href="#" title="Download"><i class="fa fa-download" style="font-size:18px;color:#333"></i></a>
+                                <a class="toolbar-print" href="#" title="Print"><i class="fa fa-print" style="font-size:18px;color:#333"></i></a>
+                            </div>
+                            <form id="formGeneral" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;">
+                                <div class="form-group mainCaption" style="font-size: 16px;color:#808080;">
+                                    <div class="col-md-3 text-right" id="curDateCaption" style="font-weight:bold;"></div>
+                                    <div class="col-md-9" id="curDescription"></div>
+                                </div>
+                                <div class="form-group mainCaption" style="font-size: 16px;color:#808080;">
+                                    <div class="col-md-3 text-right" style="font-weight:bold;">Currently with:</div>
+                                    <div class="col-md-9" id="currentPerson"></div>
+                                </div>
+                                <div class="routesBar"></div>
+                                <table id="lstRoutes" class="lstCollapser" style="margin-bottom:30px;">
+                                    <thead>
+                                        <tr collapse="0">
+                                            <th colspan="100%">ROUTES </th>
+                                        </tr>
+                                        <tr>
+                                            <th number style="max-width:10px;">Route#</th>
+                                            <th>Department</th>
+                                            <th>Recipient</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <table id="lstLogs" class="lstCollapser">
+                                    <thead>
+                                        <tr collapse="0">
+                                            <th colspan="100%">LOGS</th>
+                                        </tr>
+                                        <tr>
+                                            <th date>Date</th>
+                                            <th time>Time</th>
+                                            <th>Status</th>
+                                            <th>Recipient</th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </form>
+                        </div>
+                        <form id="formAttachments" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;"></form>
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-footer dialogFooter" style="border-top: 1px solid #d8d8d8;padding-top: 0px;">
+                <div id="barcodeNote" class="note text-left" style="padding-left:20px;">Please scan barcode to accept physical documents.</div>
+                <div class="col-md-6" id="barcodeAttachmentScan"><input type="text" id="txtBarcodeValidate" placeholder="Scan here..." class="form-control" maxlength="20" required caption="Barcode" /></div>
+                <div class="col-md-3 text-left" style="max-width:180px;"><span class="note" id="validatedEntries" style="line-height:34px;"></span></div>
+                <button type="button" id="btnReceive" class="ui-button ui-corner-all ui-widget positiveDialogButton" style="display:none;"><span style="position:relative;left:-5px;"></span>&nbsp;Receive</button>
+                <button type="button" id="btnAccept" class="ui-button ui-corner-all ui-widget positiveDialogButton" style="display:none;"><span style="position:relative;left:-5px;"></span>&nbsp;Accept</button>
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Close</button>
+            </div>
+        </div>
+    </div>
+</div>

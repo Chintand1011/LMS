@@ -1,0 +1,27 @@
+﻿    @model IEnumerable<OPBids.Entities.View.Setting.BarcodePrintingStatusVM>
+@Scripts.Render("~/bundles/bpsScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+               <th scope="col">@Html.DisplayNameFor(m => m.code)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.description)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td><span class="incrementalNum"></span></td>
+                <td>@Html.DisplayFor(modelItem => item.code)</td>
+                <td>@Html.DisplayFor(modelItem => item.description)</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>

@@ -1,0 +1,100 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E7AFA9E9-8D9C-476D-A004-808986744E2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPBids.Common", "Common\OPBids.Common\OPBids.Common.csproj", "{39560CFF-95A6-4F72-891F-AC31E7A61D62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPBids.Common.BarcodeReader", "Common\OPBids.Common.BarcodeReader\OPBids.Common.BarcodeReader.csproj", "{F85D95BF-FA91-496D-BC64-84FF188CDDFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPBids.Entities", "Common\OPBids.Entities\OPBids.Entities.csproj", "{9C3081B7-F695-4E9F-8227-0B1D32B76768}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{468C8122-7408-4230-90E0-3E212F6A27A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPBids.Service", "Service\OPBids.Service\OPBids.Service.csproj", "{2636376B-7759-42CE-A04D-0B82E49C4E25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPBids.Report", "Service\OPBids.Report\OPBids.Report.csproj", "{2893FEF8-B032-46C9-AF07-20EE0A63B65F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPBids.Web", "Web\OPBids.Web\OPBids.Web.csproj", "{7CF63AE7-A838-48E9-A1FB-9359EDA6A1D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationService", "Web\MigrationService\MigrationService.csproj", "{B318FE25-52CE-4A10-AC68-9FC4ED4E0FA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39560CFF-95A6-4F72-891F-AC31E7A61D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39560CFF-95A6-4F72-891F-AC31E7A61D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39560CFF-95A6-4F72-891F-AC31E7A61D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39560CFF-95A6-4F72-891F-AC31E7A61D62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F85D95BF-FA91-496D-BC64-84FF188CDDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F85D95BF-FA91-496D-BC64-84FF188CDDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F85D95BF-FA91-496D-BC64-84FF188CDDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F85D95BF-FA91-496D-BC64-84FF188CDDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C3081B7-F695-4E9F-8227-0B1D32B76768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C3081B7-F695-4E9F-8227-0B1D32B76768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C3081B7-F695-4E9F-8227-0B1D32B76768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C3081B7-F695-4E9F-8227-0B1D32B76768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2636376B-7759-42CE-A04D-0B82E49C4E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2636376B-7759-42CE-A04D-0B82E49C4E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2636376B-7759-42CE-A04D-0B82E49C4E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2636376B-7759-42CE-A04D-0B82E49C4E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2893FEF8-B032-46C9-AF07-20EE0A63B65F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2893FEF8-B032-46C9-AF07-20EE0A63B65F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2893FEF8-B032-46C9-AF07-20EE0A63B65F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2893FEF8-B032-46C9-AF07-20EE0A63B65F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CF63AE7-A838-48E9-A1FB-9359EDA6A1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF63AE7-A838-48E9-A1FB-9359EDA6A1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF63AE7-A838-48E9-A1FB-9359EDA6A1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF63AE7-A838-48E9-A1FB-9359EDA6A1D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B318FE25-52CE-4A10-AC68-9FC4ED4E0FA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B318FE25-52CE-4A10-AC68-9FC4ED4E0FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B318FE25-52CE-4A10-AC68-9FC4ED4E0FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B318FE25-52CE-4A10-AC68-9FC4ED4E0FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{39560CFF-95A6-4F72-891F-AC31E7A61D62} = {E7AFA9E9-8D9C-476D-A004-808986744E2B}
+		{F85D95BF-FA91-496D-BC64-84FF188CDDFD} = {E7AFA9E9-8D9C-476D-A004-808986744E2B}
+		{9C3081B7-F695-4E9F-8227-0B1D32B76768} = {E7AFA9E9-8D9C-476D-A004-808986744E2B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06AD74D7-79D9-45DB-8B8A-92B7F96EF6B1}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://myrbs.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Web\\OPBids.Web\\OPBids.Web.csproj
+		SccProjectName1 = Web/OPBids.Web
+		SccLocalPath1 = Web\\OPBids.Web
+		SccProjectUniqueName2 = Service\\OPBids.Service\\OPBids.Service.csproj
+		SccProjectName2 = Service/OPBids.Service
+		SccLocalPath2 = Service\\OPBids.Service
+		SccProjectUniqueName3 = Service\\OPBids.Report\\OPBids.Report.csproj
+		SccProjectName3 = Service/OPBids.Report
+		SccLocalPath3 = Service\\OPBids.Report
+		SccProjectUniqueName4 = Common\\OPBids.Common.BarcodeReader\\OPBids.Common.BarcodeReader.csproj
+		SccProjectTopLevelParentUniqueName4 = ITMS.sln
+		SccProjectName4 = Common/OPBids.Common.BarcodeReader
+		SccLocalPath4 = Common\\OPBids.Common.BarcodeReader
+		SccProjectUniqueName5 = Common\\OPBids.Common\\OPBids.Common.csproj
+		SccProjectTopLevelParentUniqueName5 = ITMS.sln
+		SccProjectName5 = Common/OPBids.Common
+		SccLocalPath5 = Common\\OPBids.Common
+		SccProjectUniqueName6 = Common\\OPBids.Entities\\OPBids.Entities.csproj
+		SccProjectTopLevelParentUniqueName6 = ITMS.sln
+		SccProjectName6 = Common/OPBids.Entities
+		SccLocalPath6 = Common\\OPBids.Entities
+		SccProjectUniqueName7 = Web\\MigrationService\\MigrationService.csproj
+		SccProjectName7 = Web/MigrationService
+		SccLocalPath7 = Web\\MigrationService
+	EndGlobalSection
+EndGlobal

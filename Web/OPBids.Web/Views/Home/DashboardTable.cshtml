@@ -1,0 +1,94 @@
+﻿@model OPBids.Entities.View.Home.DashboardTableDataVM
+    <style>
+
+        
+    </style>
+    <section id="#dashboardCategoryLst" class="content db-section">
+        <div class="row dash-row">
+            <div class="table-container">
+                 @*@Html.Partial("~/Views/Tenants/_TenantDetailsPartial.cshtml", Model)*@
+
+                <div class="col-lg-2 col-sm-12">
+                    <span class="header-title">@Model.header.title</span>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                    @*filter here*@
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    @*<select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>*@
+                </div>
+                <div style="padding-left:10px; padding-right:10px">
+                    <table class="table table-striped" id="dashboard_table_1">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item #</th>
+                                <th scope="col">Ref #</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Aging in Days</th>
+                                <th scope="col">Project</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.result.Select((value, index) => new { index, value }))
+                            {
+                                <tr>
+                                    <td class="text-center" scope="row">@(item.index + 1)</td>
+                                    <td class="text-center">@item.value.refNo</td>
+                                    <td>@item.value.category</td>
+                                    <td class="text-center">@item.value.agingInDays</td>
+                                    <td>@item.value.project</td>
+                                    <td class="text-right">₱&nbsp;@item.value.amount.ToString("N2")</td>
+                                    <td>@item.value.status</td>
+                                </tr>
+                            }
+
+                    </table>
+                </div>
+                </div>
+            </div>
+    </section>
+
+@*//delete all rows in table
+    $('#dashboard_table_1').empty();
+
+    //add rows
+    $('#dashboard_table_1 > tbody:last').append('<tr> ... </tr>'); //do the magic*@
+
+@*<section class="content">
+
+        <table id="grdLst" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">RefNo</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Aging in Days</th>
+                    <th scope="col">Project</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int index = 0; index < Model.SummaryTable1.Items.Count; index++)
+                {
+                    var item = Model.SummaryTable1.Items[index];
+                    <tr>
+                        <th class="text-center" scope="row">@(index + 1)</th>
+                        <td class="text-center">@item.RefNo</td>
+                        <td>@item.Category</td>
+                        <td class="text-center">@item.Aging</td>
+                        <td>@item.Project</td>
+                        <td class="text-right">@item.Amount.ToString("N2")</td>
+                        <td>@item.Status</td>
+                    </tr>
+                }
+
+        </table>
+    </section>*@

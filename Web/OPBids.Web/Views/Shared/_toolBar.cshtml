@@ -1,0 +1,61 @@
+﻿<style>
+    .toolbar-content {
+        display:none;
+    }
+
+        .toolbar-content a {
+            padding-left: 5px;
+        }
+
+        .toolbar-content img {
+            height: 18px;
+            margin-top: -5px !important;
+        }
+
+        .toolbar-content .toolbar-search:hover {
+            cursor: pointer;
+        }
+    /* Override for input-groups.less */
+    .input-group-addon {
+        height: 28px;
+        padding: 6px 12px;
+        padding-right: 22px;
+        padding-left: 10px;
+        padding-top: 8px;
+    }
+    /* Override for input-groups.less */
+</style>
+
+<div id="toolbarContent" class="toolbar-content">
+    <div class="row" style="padding-bottom: 3px">
+        <div id="addRemoveToolbar" class="col-md-6">
+            <a class="toolbar-add" href="#">
+                <img src="~/Content/images/icon-add.png" />
+                <span id="toolbar-add-text" style="color: forestgreen">Add <span class="moduleCaption"></span></span>
+            </a>
+            <a class="toolbar-delete" href="#">
+                <img src="~/Content/images/icon-trash.png" />
+                <span id="toolbar-delete-text" style="color: darkred">Remove Selected <span class="moduleCaption"></span></span>
+            </a>
+            <a class="toolbar-add-batch" href="#">
+                <img src="~/Content/images/icon-add.png" />
+                <span id="toolbar-add-batch" style="color: forestgreen">New Batch</span>
+            </a>
+        </div>
+        <div class="col-md-6">
+      
+            <div class="input-group" style="float:right;">
+                @if (this.ViewData["hide-search"] == null)
+                {
+                    <input style="width:300px;height:28px;font-size:12px;" type="text" id="txt_search_key" class="form-control" aria-describedby="basic-addon2" />
+                    <span class="input-group-addon fa fa-search toolbar-search" title="Search" id="basic-addon2"></span>
+                    <a class="toolbar-download" href="#" title="Download"><i class="fa fa-download" style="font-size:18px;color:#333"></i></a>
+                    <a class="toolbar-print" href="#" title="Print"><i class="fa fa-print" style="font-size:18px;color:#333"></i></a>
+                    @*<a class="toolbar-download" href="#" title="Download"><img src="~/Content/images/icon-download.png" /></a>*@
+                    @*<a class="toolbar-print" href="#" title="Print"><img src="~/Content/images/icon-print.png" /></a>*@
+                }
+                <div id="pageContainer" style="display:none;">Page&nbsp;<select class="paging"></select>&nbsp;of&nbsp;<span class="pageTotal"></span></div>
+            </div>
+        </div>
+    </div>
+</div>

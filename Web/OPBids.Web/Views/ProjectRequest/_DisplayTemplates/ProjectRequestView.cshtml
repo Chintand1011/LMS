@@ -1,0 +1,202 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectRequestVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <form>
+        <div id="projectRequestView">
+            <input type="hidden" id="u_id" class="dr-id" />
+            <input type="hidden" id="u_project_substatus" class="dr-project-substatus" />
+
+            @*<div class="form-group">
+                <div class="col-md-3 text-left">@Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label" })</div>
+                <div class="col-md-9"><span class="dr-title"></span></div>
+            </div>*@
+
+            <div class="form-group">
+                <div class="col-md-3 text-left">@Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })</div>
+                <div class="col-md-9"><span class="dr-description"></span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3 text-left">@Html.LabelFor(model => model.grantee_name, htmlAttributes: new { @class = "control-label" })</div>
+                <div class="col-md-9"><span class="dr-grantee"></span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3 text-left">@Html.LabelFor(model => model.estimated_budget, new { htmlAttributes = new { @class = "control-label" } })</div>
+                <div class="col-md-3">₱ <span class="dr-estimated-budget"></span></div>
+
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.required_date, new { htmlAttributes = new { @class = "control-label" } })</div>
+                <div class="col-md-3"><span class="dr-required-date"></span></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-3 text-left">@Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label" })</div>
+                <div class="col-md-9"><span class="dr-category"></span></div>
+            </div>
+        </div>
+    </form>
+}
+
+
+    <script type="text/javascript">
+        var ProjReqView = {
+            Initialize: function () {
+
+                $("#projectRequestView .pr-additional-info").css("display", "none");
+
+                $("#projectRequestViewModal .sectionTab .tabCaption").click(function () {
+                    $("#projectRequestViewModal .sectionTab").removeAttr("selected");
+                    $(this).parent().attr("selected", "");
+                    $("#projectRequestViewModal form").css({ "display": "none" });
+                    $(["#projectRequestViewModal #", $(this).attr("formid")].join('')).css({ "display": "" });
+                });
+                
+                $("#projectRequestViewModal #generalTab").click();
+
+                Site.GenerateControls("#projectRequestViewModal");
+            },
+            ShowClassification: function () {
+                $("#projectRequestView .pr-additional-info").css("display", "block");
+                $('.modal-dialog').attr("style", "height: 700px !important;")
+                $('.modal-content').attr("style", "height: 700px !important;")
+            },
+            EnableFields: function () {
+                $("#projectRequestView .form-control").removeAttr("disabled");
+            },
+            DisableFields: function () {
+                $("#projectRequestView .form-control").attr("disabled", "disabled");
+            },
+            ViewRecord: function (id) {
+
+                var _result;
+
+                var criteria = {
+                    'id': id,
+                    'page_size': 1,
+                    'page_index':1
+                };
+
+                var _filter = JSON.stringify({
+                    'sub_menu_id': CONST.menu_id.Ongoing,
+                    'txn': CONST.transaction_type.get,
+                    'projectSearch': criteria
+                });
+
+                ajaxHelper.Invoke("/Shared/ViewProjectRequestDocument", _filter, "json", ProjReqView.PopuplateModal(_result));
+               
+                //ajaxHelper.Invoke("/Shared/GetProjectLogs", _filter, "json", DocumentRecieve.PopulateLogs(_result));
+
+                ProjReqView.GetProjectItems(id);
+                
+            },
+
+            PopuplateModal: function (data) {
+                return function (data) {
+
+                    if (data.status.code === 0) {
+                        if (data.value.id > 0) {
+                            var pr = data.value;
+                            //$("#projectRequestView .dr-id").val(pr.id);
+                            $("#projectRequestViewModal #processId").html(pr.id);
+                            $("#projectRequestView .dr-project-substatus").val(pr.project_substatus);
+                            //$("#projectRequestView .dr-title").html(pr.title);
+                            $("#projectRequestViewModal #projectTitle").html(pr.title);
+                            $("#projectRequestView .dr-description").html(pr.description);
+                            $("#projectRequestView .dr-grantee").html(pr.grantee);
+                            $("#projectRequestView .dr-estimated-budget").html(pr.estimated_budget);
+                            $("#projectRequestView .dr-required-date").html(pr.required_date);
+                            $("#projectRequestView .dr-category").html(pr.category_desc);
+
+                            $("#projectRequestViewModal .modal-status").html(pr.project_substatus_desc);
+
+                            ProjReqView.DisableAttachment();
+                            ProjReqView.GetAttachments(pr.id);
+                            $("#projectRequestViewModal").modal('show');
+                            $("#projectRequestViewModal #generalTab").click();
+                        }
+                    }
+                    else {
+                        Site.Dialogs.Alert(["Error occured while retrieving project record", "\r<div id='errorContainer' style='text-align:left;padding:20px;'>", "</div>"].join(''), "Ok", null);
+                    }
+                }
+            },
+            GetAttachments: function (project_id) {
+                var _param = JSON.stringify({
+                    'sub_menu_id': localStorage.getItem("sub-menu-id"),
+                    'id': project_id,
+                });
+                var _result;
+                ajaxHelper.Invoke("/ProjectRequest/ProjectAttachments", _param, "json", function (result) {
+                    if (result) {
+                        $("#projectRequestViewModal #formAttachments .attachmentItem").remove();
+
+                        $(result).each(function () {
+                            var imgCls = Utilities.GetFileTypeClass(this.file_name);
+                            $("#projectRequestViewModal #formAttachments").append(["<div status ='", this.status, "'  attachmentid ='", this.id,
+                                "' filename='", this.file_name, "' process='", CONST.transaction_type.update,
+                                "' class='attachmentItem' style='float:left;'><div class='attachmentName breakWord'>",
+                                this.attachment_name, "</div><a target='_blank' href='", FileUploader.GetDocument(this.file_name),
+                                "' title='Click to download' download><div class='", imgCls, "'></div></a><input type='text' placeholder='Barcode' maxlength='20' value='",
+                                this.barcode_no, "' disabled /></div>"].join(''));
+                        });
+
+
+                    }
+                });
+            },
+            DisableAttachment: function () {
+
+                $("#projectRequestViewModal #btnBrowse").parent().hide();
+                $("#projectRequestViewModal #btnBrowse").unbind("click");
+
+                $("#projectRequestViewModal #fleBrowse").unbind("change");
+                $("#projectRequestViewModal #formAttachments").unbind();
+            },
+            GetProjectItems: function (project_id) {
+
+                var _param = JSON.stringify({
+                    'sub_menu_id': localStorage.getItem("sub-menu-id"),
+                    'id': project_id,
+                });
+                var _result;
+
+                ajaxHelper.Invoke("/ProjectRequest/ProjectItems", _param, "json", function (result) {
+                    if (result) {
+                        var $itemsTable = $("#projectRequestViewModal #projectRequestItems #projectItems tbody");
+
+                        $itemsTable.empty();
+
+                        var grandTotal = 0.00;
+                        //form-control text-box single-line
+                        var ctr = 1;
+                        $(result).each(function () {
+                            var tableScope = $itemsTable;
+
+                            var itemTotal = (parseInt(this.quantity.replace(/,/g, '')) * parseFloat(this.unit_cost.replace(/,/g, '')));
+                            grandTotal += itemTotal;
+
+                            tableScope.append(["<tr class='item'>",
+                                "<td>" + ctr++ + "</td>",
+                                "<td>" + this.unit + "</td>",
+                                "<td>" + this.description + "</td>",
+                                "<td class='text-right'>" + this.quantity + "</td>",
+                                "<td class='text-right'>" + this.unit_cost + "</td>",
+                                "<td class='text-right'>" + Site.ToDecimalString(itemTotal) + "</td>",
+                                "</tr > "].join(''));
+                        });
+
+                        Site.GenerateControls($itemsTable);
+
+                        $("#projectRequestViewModal #projectRequestItems span.units-grand-total").html(Site.ToDecimalString(grandTotal));
+
+                    }
+                });
+            }
+
+        };
+        $(document).ready(function () {
+            ProjReqView.Initialize();
+        });
+    </script>

@@ -1,0 +1,79 @@
+﻿
+@model IEnumerable<OPBids.Entities.View.ProjectRequest.ProjectBidVM>
+@Scripts.Render("~/bundles/onGoingBACScript")
+
+<table id="table_bidder_list" class="table table-striped table-batch-main">
+    <thead>
+        <tr>
+            <th scope="col" width="7%" class="text-center">Bidder #</th>
+            <th scope="col" width="20%" class="text-left">Bidder Name</th>
+            <th scope="col" width="10%" class="text-left">Total Bid Price</th>
+            <th scope="col" width="10%" class="text-center">Bid Bond</th>
+            <th scope="col" width="15%" class="text-left">Bid Form</th>
+            <th scope="col" width="10%" class="text-center">Project<br />Duration (cd)</th>
+            <th scope="col" width="5%" class="text-center">Variance</th>
+            <th scope="col" width="3%" class="text-center">Status</th>
+            <th scope="col" width="20%" class="text-left" colspan="2">Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((value, index) => new { index, value }))
+        {
+            <tr id="row-@item.value.id" scope="row" itemscope itemid="@item.value.id"
+                data-bid-title="@item.value.project_request_title"
+                data-bid-open-date="@item.value.bid_opening_date"
+                data-bid-open-time="@item.value.bid_opening_time"
+                data-bid-open-place="@item.value.bid_opening_place"
+                data-bid-bond="@item.value.bid_bond"
+                data-bid-amount="@item.value.bid_amount">
+
+                <td class="text-center">
+                    @(item.index + 1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.created_by_name)
+                </td>
+                <td class="green">
+                    ₱&nbsp;@Html.DisplayFor(modelItem => item.value.bid_amount)
+                </td>
+                <td class="text-center blue">
+                    @Html.DisplayFor(modelItem => item.value.bid_bond)%
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.value.bid_form)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.value.duration)
+                </td>
+                <td class="text-center">
+                    @if (item.value.variance > 0)
+                    {
+                        <span class="red">@Html.DisplayFor(modelItem => item.value.variance)%</span>
+                    }
+                    else
+                    {
+                        <span class="green">@Html.DisplayFor(modelItem => item.value.variance)%</span>
+                    }
+                </td>
+                <td class="text-center">
+                    @if (item.value.bid_status == "P")
+                    {
+                        <span class="green">@Html.DisplayFor(modelItem => item.value.bid_status)</span>
+                    }
+                    else if (item.value.bid_status == "DQ")
+                    {
+                        <span class="red">@Html.DisplayFor(modelItem => item.value.bid_status)</span>
+                    }
+                    else
+                    {
+                        <span class="blue">FC</span>
+                    }
+
+                </td>
+                <td width="13%">
+                    @Html.DisplayFor(modelItem => item.value.notes)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

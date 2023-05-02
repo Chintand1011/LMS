@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2636376B-7759-42CE-A04D-0B82E49C4E25}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OPBids.Service</RootNamespace>
+    <AssemblyName>OPBids.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.3.0-preview5-19254-05\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.3.0-preview5-19254-05\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ActivityLog\ActivityLogController.cs" />
+    <Compile Include="Controllers\Auth\AuthController.cs" />
+    <Compile Include="Controllers\DTS\DTSController.cs" />
+    <Compile Include="Controllers\Home\DashboardController.cs" />
+    <Compile Include="Controllers\ProjectRequest\ProjectRequestController.cs" />
+    <Compile Include="Controllers\Settings\AccessGroupController.cs" />
+    <Compile Include="Controllers\Settings\AccessGroupTypeController.cs" />
+    <Compile Include="Controllers\Settings\AccessTypeController.cs" />
+    <Compile Include="Controllers\Settings\AccessUsersController.cs" />
+    <Compile Include="Controllers\Settings\BarcodePrintingStatusController.cs" />
+    <Compile Include="Controllers\Settings\BarcodeSettingController.cs" />
+    <Compile Include="Controllers\Settings\CategoryController.cs" />
+    <Compile Include="Controllers\Settings\ContractTypeController.cs" />
+    <Compile Include="Controllers\Settings\DashBoardConfigController.cs" />
+    <Compile Include="Controllers\Settings\DeliveryController.cs" />
+    <Compile Include="Controllers\Settings\DepartmentController.cs" />
+    <Compile Include="Controllers\Settings\DocumentCategoryController.cs" />
+    <Compile Include="Controllers\Settings\DocumentSecurityLevelController.cs" />
+    <Compile Include="Controllers\Settings\DocumentTypeController.cs" />
+    <Compile Include="Controllers\Settings\ProcurementMethodController.cs" />
+    <Compile Include="Controllers\Settings\ProcurementTypeController.cs" />
+    <Compile Include="Controllers\Settings\ProjectAreasBarangayController.cs" />
+    <Compile Include="Controllers\Settings\ProjectAreasCityController.cs" />
+    <Compile Include="Controllers\Settings\ProjectAreasController.cs" />
+    <Compile Include="Controllers\Settings\ProjectAreasDistrictController.cs" />
+    <Compile Include="Controllers\Settings\ProjectCategoryController.cs" />
+    <Compile Include="Controllers\Settings\ProjectProponentController.cs" />
+    <Compile Include="Controllers\Settings\ProjectStatusController.cs" />
+    <Compile Include="Controllers\Settings\ProjectSubCategoryController.cs" />
+    <Compile Include="Controllers\Settings\ProjectSubStatusController.cs" />
+    <Compile Include="Controllers\Settings\RecordCategoryController.cs" />
+    <Compile Include="Controllers\Settings\RecordClassificationController.cs" />
+    <Compile Include="Controllers\Settings\SenderRecipientController.cs" />
+    <Compile Include="Controllers\Settings\SettingsController.cs" />
+    <Compile Include="Controllers\Settings\SourceFundsController.cs" />
+    <Compile Include="Controllers\Settings\SupplierController.cs" />
+    <Compile Include="Controllers\Settings\WorkflowController.cs" />
+    <Compile Include="Controllers\Shared\SharedController.cs" />
+    <Compile Include="Controllers\Suppliers\SupplierController.cs" />
+    <Compile Include="Data\DatabaseContext.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\ActivityLog\ActivityLogLogic.cs" />
+    <Compile Include="Logic\Auth\AuthLogic.cs" />
+    <Compile Include="Logic\DTS\ArchivedDocumentsLogic.cs" />
+    <Compile Include="Logic\DTS\DocumentAttachmentLogic.cs" />
+    <Compile Include="Logic\DTS\DocumentLogsLogic.cs" />
+    <Compile Include="Logic\DTS\DocumentRoutesLogic.cs" />
+    <Compile Include="Logic\DTS\DTSDashboardLogic.cs" />
+    <Compile Include="Logic\DTS\FinalizedDocumentsLogic.cs" />
+    <Compile Include="Logic\DTS\OnHandDocumentsLogic.cs" />
+    <Compile Include="Logic\DTS\ReceivedDocumentsLogic.cs" />
+    <Compile Include="Logic\DTS\RequestBarcodeLogic.cs" />
+    <Compile Include="Logic\Home\ChartHelper.cs" />
+    <Compile Include="Logic\Home\DashboardLogic.cs" />
+    <Compile Include="Logic\Home\SummaryHelper.cs" />
+    <Compile Include="Logic\ProjectRequest\MonitoredProjectLogic.cs" />
+    <Compile Include="Logic\ProjectRequest\ProjectRequestLogic.cs" />
+    <Compile Include="Logic\Settings\AccessGroupLogic.cs" />
+    <Compile Include="Logic\Settings\AccessGroupTypeLogic.cs" />
+    <Compile Include="Logic\Settings\AccessTypesLogic.cs" />
+    <Compile Include="Logic\Settings\AccessUserLogic.cs" />
+    <Compile Include="Logic\Settings\BarcodePrintingStatusLogic.cs" />
+    <Compile Include="Logic\Settings\BarcodeSettingLogic.cs" />
+    <Compile Include="Logic\Settings\CategoryLogic.cs" />
+    <Compile Include="Logic\Settings\ContractTypeLogic.cs" />
+    <Compile Include="Logic\Settings\DashBoardConfigLogic.cs" />
+    <Compile Include="Logic\Settings\DeliveryLogic.cs" />
+    <Compile Include="Logic\Settings\DepartmentLogic.cs" />
+    <Compile Include="Logic\Settings\DocumentCategoryLogic.cs" />
+    <Compile Include="Logic\Settings\DocumentSecurityLevelLogic.cs" />
+    <Compile Include="Logic\Settings\DocumentTypeLogic.cs" />
+    <Compile Include="Logic\Settings\ProcurementMethodLogic.cs" />
+    <Compile Include="Logic\Settings\ProcurementTypeLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectAreasBarangayLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectAreasCityLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectAreasDistrictLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectAreasLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectCategoryLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectClassificationLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectGranteeLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectProponentLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectStatusLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectSubCategoryLogic.cs" />
+    <Compile Include="Logic\Settings\ProjectSubStatusLogic.cs" />
+    <Compile Include="Logic\Settings\RecordCategoryLogic.cs" />
+    <Compile Include="Logic\Settings\RecordClassification.cs" />
+    <Compile Include="Logic\Settings\SenderRecipientLogic.cs" />
+    <Compile Include="Logic\Settings\SourceFundsLogic.cs" />
+    <Compile Include="Logic\Settings\SupplierLogic.cs" />
+    <Compile Include="Logic\Settings\WorkflowLogic.cs" />
+    <Compile Include="Logic\Shared\ReportsLogic.cs" />
+    <Compile Include="Logic\Shared\SharedLogic.cs" />
+    <Compile Include="Logic\Shared\UserAnnouncementLogic.cs" />
+    <Compile Include="Logic\Shared\UserNotificationLogic.cs" />
+    <Compile Include="Logic\Suppliers\LostOpportunitiesLogic.cs" />
+    <Compile Include="Logic\Suppliers\OpenForBiddingLogic.cs" />
+    <Compile Include="Logic\Suppliers\ProjectAttachmentLogic.cs" />
+    <Compile Include="Logic\Suppliers\WithSubmittedBidsLogic.cs" />
+    <Compile Include="Migrations\201901270410166_Consolidated_Scripts.cs" />
+    <Compile Include="Migrations\201901270410166_Consolidated_Scripts.Designer.cs">
+      <DependentUpon>201901270410166_Consolidated_Scripts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902050344103_ProjectRequestItemsCreate.cs" />
+    <Compile Include="Migrations\201902050344103_ProjectRequestItemsCreate.Designer.cs">
+      <DependentUpon>201902050344103_ProjectRequestItemsCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902050744219_20190205_1.cs" />
+    <Compile Include="Migrations\201902050744219_20190205_1.Designer.cs">
+      <DependentUpon>201902050744219_20190205_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903050657469_AccessUsers_Nickname.cs" />
+    <Compile Include="Migrations\201903050657469_AccessUsers_Nickname.Designer.cs">
+      <DependentUpon>201903050657469_AccessUsers_Nickname.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903051054214_ProjectRequest_PR.cs" />
+    <Compile Include="Migrations\201903051054214_ProjectRequest_PR.Designer.cs">
+      <DependentUpon>201903051054214_ProjectRequest_PR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903100859116_ProjectRequest_SubmittedDate.cs" />
+    <Compile Include="Migrations\201903100859116_ProjectRequest_SubmittedDate.Designer.cs">
+      <DependentUpon>201903100859116_ProjectRequest_SubmittedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903111250420_AccessUser_ActivationFlag.cs" />
+    <Compile Include="Migrations\201903111250420_AccessUser_ActivationFlag.Designer.cs">
+      <DependentUpon>201903111250420_AccessUser_ActivationFlag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903160043277_MonitoredProjects.cs" />
+    <Compile Include="Migrations\201903160043277_MonitoredProjects.Designer.cs">
+      <DependentUpon>201903160043277_MonitoredProjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903161501048_senderrecipient.cs" />
+    <Compile Include="Migrations\201903161501048_senderrecipient.Designer.cs">
+      <DependentUpon>201903161501048_senderrecipient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903170347141_rename fields.cs" />
+    <Compile Include="Migrations\201903170347141_rename fields.Designer.cs">
+      <DependentUpon>201903170347141_rename fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903171407040_parse fullname of accessusers table.cs" />
+    <Compile Include="Migrations\201903171407040_parse fullname of accessusers table.Designer.cs">
+      <DependentUpon>201903171407040_parse fullname of accessusers table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903240529281_supplier_adduserid.cs" />
+    <Compile Include="Migrations\201903240529281_supplier_adduserid.Designer.cs">
+      <DependentUpon>201903240529281_supplier_adduserid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903292345390_ProcurementMethod_ProducrementMode.cs" />
+    <Compile Include="Migrations\201903292345390_ProcurementMethod_ProducrementMode.Designer.cs">
+      <DependentUpon>201903292345390_ProcurementMethod_ProducrementMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903301559501_ProjectAreas.cs" />
+    <Compile Include="Migrations\201903301559501_ProjectAreas.Designer.cs">
+      <DependentUpon>201903301559501_ProjectAreas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903310154273_ProjectRequest_RFQ.cs" />
+    <Compile Include="Migrations\201903310154273_ProjectRequest_RFQ.Designer.cs">
+      <DependentUpon>201903310154273_ProjectRequest_RFQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903310507558_ProjectAreasCity.cs" />
+    <Compile Include="Migrations\201903310507558_ProjectAreasCity.Designer.cs">
+      <DependentUpon>201903310507558_ProjectAreasCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903311519004_ProjectAreasDistrict.cs" />
+    <Compile Include="Migrations\201903311519004_ProjectAreasDistrict.Designer.cs">
+      <DependentUpon>201903311519004_ProjectAreasDistrict.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903311530121_ProjectAreasBarangay.cs" />
+    <Compile Include="Migrations\201903311530121_ProjectAreasBarangay.Designer.cs">
+      <DependentUpon>201903311530121_ProjectAreasBarangay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904021409258_ProjectRequestAdvertisement.cs" />
+    <Compile Include="Migrations\201904021409258_ProjectRequestAdvertisement.Designer.cs">
+      <DependentUpon>201904021409258_ProjectRequestAdvertisement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904031142439_DocumentRoutes_sequence.cs" />
+    <Compile Include="Migrations\201904031142439_DocumentRoutes_sequence.Designer.cs">
+      <DependentUpon>201904031142439_DocumentRoutes_sequence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904060759396_UpdateProjectAreas.cs" />
+    <Compile Include="Migrations\201904060759396_UpdateProjectAreas.Designer.cs">
+      <DependentUpon>201904060759396_UpdateProjectAreas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904101509521_UpdateProjectAreaTableStructures.cs" />
+    <Compile Include="Migrations\201904101509521_UpdateProjectAreaTableStructures.Designer.cs">
+      <DependentUpon>201904101509521_UpdateProjectAreaTableStructures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904150153529_access_users_profile_link.cs" />
+    <Compile Include="Migrations\201904150153529_access_users_profile_link.Designer.cs">
+      <DependentUpon>201904150153529_access_users_profile_link.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904200336275_ProjectRequest_StartDate_CompletedDate.cs" />
+    <Compile Include="Migrations\201904200336275_ProjectRequest_StartDate_CompletedDate.Designer.cs">
+      <DependentUpon>201904200336275_ProjectRequest_StartDate_CompletedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904270646103_add_current_receiver.cs" />
+    <Compile Include="Migrations\201904270646103_add_current_receiver.Designer.cs">
+      <DependentUpon>201904270646103_add_current_receiver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904271014287_record_section.cs" />
+    <Compile Include="Migrations\201904271014287_record_section.Designer.cs">
+      <DependentUpon>201904271014287_record_section.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904281051023_Update_ProjectRequestBatch.cs" />
+    <Compile Include="Migrations\201904281051023_Update_ProjectRequestBatch.Designer.cs">
+      <DependentUpon>201904281051023_Update_ProjectRequestBatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904281350196_Update_ProjectRequestBatch2.cs" />
+    <Compile Include="Migrations\201904281350196_Update_ProjectRequestBatch2.Designer.cs">
+      <DependentUpon>201904281350196_Update_ProjectRequestBatch2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905012325513_activitylog.cs" />
+    <Compile Include="Migrations\201905012325513_activitylog.Designer.cs">
+      <DependentUpon>201905012325513_activitylog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ActivityLog\ActivityLog.cs" />
+    <Compile Include="Models\DocumentsPayload.cs" />
+    <Compile Include="Models\Base\BaseModel.cs" />
+    <Compile Include="Models\DTS\ArchivedDocuments.cs" />
+    <Compile Include="Models\DTS\DocumentAttachment.cs" />
+    <Compile Include="Models\DTS\DocumentLogs.cs" />
+    <Compile Include="Models\DTS\DocumentRoutes.cs" />
+    <Compile Include="Models\DTS\FinalizedDocuments.cs" />
+    <Compile Include="Models\DTS\OnHandDocuments.cs" />
+    <Compile Include="Models\DTS\PrintedBarcodes.cs" />
+    <Compile Include="Models\DTS\ReceivedDocuments.cs" />
+    <Compile Include="Models\DTS\RequestBarcode.cs" />
+    <Compile Include="Models\Home\SummaryInfo.cs" />
+    <Compile Include="Models\Home\SummaryItem.cs" />
+    <Compile Include="Models\Home\SummarySection.cs" />
+    <Compile Include="Models\ProjectRequest\MonitoredProject.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectBid.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectBidChecklist.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequest.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestAdvertisement.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestAttachment.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestBatch.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestBatchHistory.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestDocument.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestHistory.cs" />
+    <Compile Include="Models\ProjectRequest\ProjectRequestItem.cs" />
+    <Compile Include="Models\Settings\AccessGroup.cs" />
+    <Compile Include="Models\Settings\AccessGroupType.cs" />
+    <Compile Include="Models\Settings\AccessType.cs" />
+    <Compile Include="Models\Settings\AccessUser.cs" />
+    <Compile Include="Models\Settings\BarcodePrintingStatus.cs" />
+    <Compile Include="Models\Settings\BarcodeSetting.cs" />
+    <Compile Include="Models\Settings\Category.cs" />
+    <Compile Include="Models\Settings\ContractType.cs" />
+    <Compile Include="Models\Settings\DashboardConfig.cs" />
+    <Compile Include="Models\Settings\Delivery.cs" />
+    <Compile Include="Models\Settings\Department.cs" />
+    <Compile Include="Models\Settings\DocumentCategory.cs" />
+    <Compile Include="Models\Settings\DocumentSecurityLevel.cs" />
+    <Compile Include="Models\Settings\DocumentType.cs" />
+    <Compile Include="Models\Settings\ProcurementMethod.cs" />
+    <Compile Include="Models\Settings\ProcurementType.cs" />
+    <Compile Include="Models\Settings\ProjectAreas.cs" />
+    <Compile Include="Models\Settings\ProjectAreasBarangay.cs" />
+    <Compile Include="Models\Settings\ProjectAreasCity.cs" />
+    <Compile Include="Models\Settings\ProjectAreasDistrict.cs" />
+    <Compile Include="Models\Settings\ProjectCategory.cs" />
+    <Compile Include="Models\Settings\ProjectClassification.cs" />
+    <Compile Include="Models\Settings\ProjectGrantee.cs" />
+    <Compile Include="Models\Settings\ProjectProponent.cs" />
+    <Compile Include="Models\Settings\ProjectStatus.cs" />
+    <Compile Include="Models\Settings\ProjectSubCategory.cs" />
+    <Compile Include="Models\Settings\ProjectSubStatus.cs" />
+    <Compile Include="Models\Settings\RecordCategory.cs" />
+    <Compile Include="Models\Settings\RecordClassification.cs" />
+    <Compile Include="Models\Settings\SenderRecipient.cs" />
+    <Compile Include="Models\Settings\SenderRecipientUser.cs" />
+    <Compile Include="Models\Settings\SourceFunds.cs" />
+    <Compile Include="Models\Settings\Supplier.cs" />
+    <Compile Include="Models\Settings\Workflow.cs" />
+    <Compile Include="Models\Shared\UserAnnouncement.cs" />
+    <Compile Include="Models\Shared\UserNotification.cs" />
+    <Compile Include="Models\Suppliers\ProjectDocument.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ConfigManager.cs" />
+    <Compile Include="Utilities\Extension.cs" />
+    <Compile Include="Utilities\PredicateBuilder.cs" />
+    <Compile Include="Utilities\XMLHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\DashboardSummary.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\itmsdev-api - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\itmsdev-api - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\itms_Api.pubxml" />
+    <None Include="Properties\PublishProfiles\opBidsService.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901270410166_Consolidated_Scripts.resx">
+      <DependentUpon>201901270410166_Consolidated_Scripts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050344103_ProjectRequestItemsCreate.resx">
+      <DependentUpon>201902050344103_ProjectRequestItemsCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902050744219_20190205_1.resx">
+      <DependentUpon>201902050744219_20190205_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903050657469_AccessUsers_Nickname.resx">
+      <DependentUpon>201903050657469_AccessUsers_Nickname.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903051054214_ProjectRequest_PR.resx">
+      <DependentUpon>201903051054214_ProjectRequest_PR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903100859116_ProjectRequest_SubmittedDate.resx">
+      <DependentUpon>201903100859116_ProjectRequest_SubmittedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903111250420_AccessUser_ActivationFlag.resx">
+      <DependentUpon>201903111250420_AccessUser_ActivationFlag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903160043277_MonitoredProjects.resx">
+      <DependentUpon>201903160043277_MonitoredProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903161501048_senderrecipient.resx">
+      <DependentUpon>201903161501048_senderrecipient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903170347141_rename fields.resx">
+      <DependentUpon>201903170347141_rename fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903171407040_parse fullname of accessusers table.resx">
+      <DependentUpon>201903171407040_parse fullname of accessusers table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903240529281_supplier_adduserid.resx">
+      <DependentUpon>201903240529281_supplier_adduserid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903292345390_ProcurementMethod_ProducrementMode.resx">
+      <DependentUpon>201903292345390_ProcurementMethod_ProducrementMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903301559501_ProjectAreas.resx">
+      <DependentUpon>201903301559501_ProjectAreas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903310154273_ProjectRequest_RFQ.resx">
+      <DependentUpon>201903310154273_ProjectRequest_RFQ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903310507558_ProjectAreasCity.resx">
+      <DependentUpon>201903310507558_ProjectAreasCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903311519004_ProjectAreasDistrict.resx">
+      <DependentUpon>201903311519004_ProjectAreasDistrict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903311530121_ProjectAreasBarangay.resx">
+      <DependentUpon>201903311530121_ProjectAreasBarangay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904021409258_ProjectRequestAdvertisement.resx">
+      <DependentUpon>201904021409258_ProjectRequestAdvertisement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904031142439_DocumentRoutes_sequence.resx">
+      <DependentUpon>201904031142439_DocumentRoutes_sequence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904060759396_UpdateProjectAreas.resx">
+      <DependentUpon>201904060759396_UpdateProjectAreas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904101509521_UpdateProjectAreaTableStructures.resx">
+      <DependentUpon>201904101509521_UpdateProjectAreaTableStructures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904150153529_access_users_profile_link.resx">
+      <DependentUpon>201904150153529_access_users_profile_link.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904200336275_ProjectRequest_StartDate_CompletedDate.resx">
+      <DependentUpon>201904200336275_ProjectRequest_StartDate_CompletedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904270646103_add_current_receiver.resx">
+      <DependentUpon>201904270646103_add_current_receiver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904271014287_record_section.resx">
+      <DependentUpon>201904271014287_record_section.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904281051023_Update_ProjectRequestBatch.resx">
+      <DependentUpon>201904281051023_Update_ProjectRequestBatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904281350196_Update_ProjectRequestBatch2.resx">
+      <DependentUpon>201904281350196_Update_ProjectRequestBatch2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905012325513_activitylog.resx">
+      <DependentUpon>201905012325513_activitylog.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\OPBids.Common\OPBids.Common.csproj">
+      <Project>{39560cff-95a6-4f72-891f-ac31e7a61d62}</Project>
+      <Name>OPBids.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\OPBids.Entities\OPBids.Entities.csproj">
+      <Project>{9c3081b7-f695-4e9f-8227-0b1d32b76768}</Project>
+      <Name>OPBids.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OPBids.Report\OPBids.Report.csproj">
+      <Project>{2893fef8-b032-46c9-af07-20ee0a63b65f}</Project>
+      <Name>OPBids.Report</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:7071</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

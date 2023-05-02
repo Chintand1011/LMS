@@ -1,0 +1,151 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectRequestVM
+
+<style>
+    /*.rfq-content {
+        padding-left: 40px;
+    }*/
+
+        .rfq-content .rfq-content-detais label {
+            font-size: 18px;
+        }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="rfq-content">
+        <div id="rfq-content-detais">
+            <div class="row">
+                <div class="col-md-2 align-right"><label>@Html.DisplayNameFor(model => model.rfq_deadline) :&nbsp;</label></div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.rfq_deadline,
+                                     new
+                                     {
+                                         htmlAttributes =
+                                         new
+                                         {
+                                             @id = "rfq_deadline",
+                                             @class = "form-control",
+                                             @required = "true",
+                                             @caption = "Deadline",
+                                             @datetime = ""
+                                         }
+                                     })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 align-right"><label>@Html.DisplayNameFor(model => model.rfq_place) :&nbsp;</label></div>
+                <div class="col-md-8">
+                    @Html.TextAreaFor(model => model.rfq_place,
+                                     new {
+                                         @id = "rfq_place",
+                                         @class = "form-control",
+                                         @required = "true",
+                                         @maxlength = "1000",
+                                         @rows = "3",
+                                         @placeholder = "Place",
+                                         @caption = "Place"
+                                     })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 align-right"><label>@Html.DisplayNameFor(model => model.rfq_requestor) :&nbsp;</label></div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.rfq_requestor, new
+                    {
+                   htmlAttributes =
+                                  new {
+                                      @id = "rfq_requestor",
+                                      @class = "form-control",
+                                      @required = "true",
+                                      @maxlength = "50",
+                                      @placeholder = "Requested By",
+                                      @caption = "Requested By"
+                                  }
+               })
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.rfq_requestor_dept, new
+                    {
+                   htmlAttributes =
+                                  new {
+                                      @id = "rfq_requestor_dept",
+                                      @class = "form-control",
+                                      @required = "true",
+                                      @maxlength = "50",
+                                      @placeholder = "Department",
+                                      @caption = "Department"
+                                  }
+               })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 align-right"><label>@Html.DisplayNameFor(model => model.rfq_request_date) :&nbsp;</label></div>
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.rfq_request_date,
+                          new
+                          {
+                              htmlAttributes =
+                              new {
+                                  @id = "rfq_request_date",
+                                  @class = "form-control",
+                                  @required = "true",
+                                  @caption = "Requested Date",
+                                  @datetime = ""
+                              }
+                          })
+                </div>
+            </div>
+        </div>
+        <div id="print-rfq-section" style="margin-top: 200px" class="align-right">
+            <button type="button" class="btn btn-dialog" id="btnPrint"><i class="fa fa-print fa-dialog"></i> Print Request</button>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    var RFQ = {
+        Initialize: function () {
+            $("#rfq_deadline,#rfq_request_date").datepicker({ format: CONST.dateformat });
+        },
+        EnableFields: function () {
+            $("#rfq-content-detais .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#rfq-content-detais .form-control").attr("disabled", "disabled");
+        },
+        GetData: function () {
+            var data = {
+                'rfq_deadline': $("#rfq_deadline").data('datepicker').getFormattedDate(CONST.dateformat),
+                'rfq_place': $("#rfq_place").val(),
+                'rfq_requestor': $("#rfq_requestor").val(),
+                'rfq_requestor_dept': $("#rfq_requestor_dept").val(),
+                'rfq_request_date': $("#rfq_request_date").data('datepicker').getFormattedDate(CONST.dateformat)
+            };
+            return Utilities.CreateJSON(data);
+        },
+        HidePrint: function () {
+            $(".rfq-content #print-rfq-section").hide();
+        },
+        InitFields: function () {
+            var _filter = JSON.stringify({
+                'status': "BAC"
+            });   
+
+            ajaxHelper.Invoke("/ProjectRequest/GetInitialRFQData", _filter, "json", function (result) {
+                if (result.status.code === 0) {
+                    if ($("#rfq_requestor").val() == '') {
+                        $("#rfq_requestor").val(result.value[0].headed_by_name);
+                    }
+                    if ($("#rfq_requestor_dept").val() == '') {
+                        $("#rfq_requestor_dept").val(result.value[0].designation);
+                    }
+                }
+            });
+        }
+    };
+    $(function () {
+        RFQ.Initialize();
+    });
+</script>

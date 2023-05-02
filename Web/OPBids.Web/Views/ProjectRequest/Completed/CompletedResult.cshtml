@@ -1,0 +1,84 @@
+﻿
+@model OPBids.Entities.View.ProjectRequest.ProjectSearchResultVM
+@Scripts.Render("~/bundles/completedScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+</style>
+<table class="table table-striped dashboard-table module-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="5%" class="text-center">Ref #</th>
+            <th scope="col" width="18%">Category</th>
+            <th scope="col" width="12%" class="text-center">Date Submitted</th>
+            <th scope="col" width="12%" class="text-center">Date Started</th>
+            <th scope="col" width="12%" class="text-center">Date Completed</th>
+            <th scope="col" width="25%">Project</th>
+            <th scope="col" width="12%" class="text-right">Amount</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr id="row-@item.id" scope="row" itemscope itemid="@item.id"
+                data-title="@item.title"
+                data-description="@item.description"
+                data-required-date="@item.required_date"
+                data-grantee="@item.grantee"
+                data-category="@item.category"
+                data-category-desc="@item.category_desc">
+
+                <td class="text-center">
+                    @if (item.isMonitored)
+                    {
+                        <a href="#" class="fa fa-star checked" data-isMonitored="@item.isMonitored" data-project-id="@item.id" title="Unmark as monitored"></a>
+                    }
+                    else
+                    {
+                        <a href="#" class="fa fa-star" data-isMonitored="@item.isMonitored" data-project-id="@item.id" title="Mark as monitored"></a>
+                    }
+                    @item.index
+                </td>
+                <td data-th="Ref #" class="text-center">
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td data-th="Category" category_desc>
+                    @Html.DisplayFor(modelItem => item.category_desc)
+                </td>
+                <td data-th="Date Submitted" class="text-center" created_date>
+                    @Html.DisplayFor(modelItem => item.created_date)
+                </td>
+                <td data-th="Date Submitted" class="text-center" start_date>
+                    @Html.DisplayFor(modelItem => item.start_date)
+                </td>
+                <td data-th="Date Submitted" class="text-center" completed_date>
+                    @Html.DisplayFor(modelItem => item.completed_date)
+                </td>
+                <td data-th="Project" class="text-left" proj_title>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td data-th="Amount" class="text-right money" budget>
+                    @Html.DisplayFor(modelItem => item.approved_budget)
+                </td>
+                <td data-th="">
+                    @{Html.RenderPartial("~/Views/ProjectRequest/Completed/CompletedTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Project Information" } });}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+<script type="text/javascript">
+    COMPLETED.SetPagination(@Model.page_index, @Model.count);
+      @{if (Model.total.HasValue)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.GetValueOrDefault().ToString("N2") ");
+        }}
+</script>
+<div id="dataMainModal"></div>

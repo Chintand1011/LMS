@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+<script src="~/Scripts/Dashboard/DocumentReceive.js"></script>
+<script src="~/Scripts/Shared/Chart.js"></script>
+<script src="~/Scripts/Shared/chartjs-plugin-datalabels.js"></script>
+<script src="~/Scripts/Shared/chartjs-plugin-labels.min.js"></script>
+<div class="p-view-header">
+    <h2 id="headerTitle">Dashboard</h2>
+</div>
+
+@*summary header section*@
+@Html.Action("SummaryHeader", "")
+<div id="barcode-section" style="display: none">
+    @{Html.RenderPartial("~/Views/Shared/_barCodeScanner.cshtml");}
+</div>
+
+@if (ViewBag.Role != null)
+{
+    switch ((string)ViewBag.Role)
+    {
+        case "2": Html.RenderPartial("TableAGM/TableContainer", null); break;
+        case "5": Html.RenderPartial("TableUser/TableContainer", null); break;
+        case "6": Html.RenderPartial("TableBudget/TableContainer", null); break;
+        case "4": Html.RenderPartial("TableBACSEC/TableContainer", null); break;
+        case "7": Html.RenderPartial("TableHOPE/TableContainer", null); break;
+        case "11": Html.RenderPartial("TableSupplier/TableContainer", null); break;
+        case "3": Html.RenderPartial("TableBAC/TableContainer", null); break;
+        case "8": Html.RenderPartial("TableTWG/TableContainer", null); break;
+    }
+}
+
+@Html.Action("DashboardCharts", "")
+<!--TEMP-->
+<div data-backdrop="static" class="modal fade" id="projectRequestViewModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1000px;">
+        <div class="modal-content">
+            <div style="display:table; width:100%">
+                <div style="display:table-row">
+                    <div class="modal-header projref" style="display:table-cell; padding:0; width:50px">
+                        <div id="processId" class="projrefno"></div>
+                    </div>
+                    <div class="modal-header" style="display:table-cell">
+                        <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                        <h4 class="modal-title" style="font-weight:bold;"><span id="projectTitle"></span></h4>
+                    </div>
+                </div>
+            </div>
+            <table class="modal-body" style="width:100%;">
+                <tr>
+                    <td style="width:10%;max-width:120px; vertical-align:top;border-right: 1px solid #d8d8d8;">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">General</button></div>
+                        <div class="sectionTab"><button type="button" id="itemizedTab" formid="formItems" class="tabCaption">Itemized Request</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                    </td>
+                    <td style="width:90%;padding-top:10px;">
+                        <form id="formGeneral" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;">
+                            @Html.Partial("~/Views/ProjectRequest/_DisplayTemplates/ProjectRequestView.cshtml", new OPBids.Entities.View.ProjectRequest.ProjectRequestVM())
+                        </form>
+                        <form id="formItems" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;">
+                            @Html.Partial("~/Views/ProjectRequest/_DisplayTemplates/ProjectRequestItems.cshtml")
+                        </form>
+                        <form id="formAttachments" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;">
+                            <div style="display:inline-block;float:left;height:146px;width:140px;margin: 10px;text-align:center;">
+                                <button type="button" id="btnBrowse" class="btnBrowse" style="margin-top:30px;">+</button>
+                                <input type="file" id="fleBrowse" style="display:none;" />
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:120px;"></span>
+                <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,568 @@
+﻿<style>
+    #formLegal .row, #formTechnical .row {
+        margin-bottom: 10px;
+    }
+    #formLegal textarea, #formTechnical textarea {
+        width: 100%;
+    }
+</style>
+<div data-backdrop="static" class="modal fade"id="dataBidCheckListModal" tabindex="-1" role="dialog" aria-labelledby="dataBidCheckListModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span>Checklist of Bid Documents for <span id="checklist_bidder_name"></span></h4>
+            </div>
+            <table class="modal-body" style="width:100%;">
+                <tr>
+                    <td style="width:10%;max-width:120px; vertical-align:top;border-right: 1px solid #d8d8d8;">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">Project Info</button></div>
+                        <div class="sectionTab"><button type="button" id="legalTab" formid="formLegal" class="tabCaption">Legal<br />Documents</button></div>
+                        <div class="sectionTab"><button type="button" id="technicalTab" formid="formTechnical" class="tabCaption">Technical<br />Documents</button></div>
+                    </td>
+                    <td style="width:90%;padding-top:10px;">
+                        <input type="hidden" id="bidder_project_id" />
+                        <input type="hidden" id="bidder_bid_id" />
+                        <input type="hidden" id="bidder_stage" />
+                        <form id="formGeneral" style="min-height:450px;padding:10px;vertical-align:top;">
+                            <div class="row">
+                                <div class="col-md-2"><label>Name of Project : </label></div>
+                                <div class="col-md-9"><span id="checklist_bidder_project"></span>&nbsp;for&nbsp;the&nbsp;<span id="checklist_bidder_grantee"></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label>Opening of Bid : </label></div>
+                                <div class="col-md-9"><span id="checklist_bidder_open_date"></span> (<span id="checklist_bidder_open_time"></span>)</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2" style="vertical-align: top"><label>Venue : </label></div>
+                                <div class="col-md-9"><span id="checklist_bidder_venue"></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label>Bidders Bond : </label></div>
+                                <div class="col-md-1"><span id="checklist_bidder_bond"></span></div>
+                                <div class="col-md-2 text-left"><label>Bid Amount : </label></div>
+                                <div class="col-md-6 text-left"><span id="checklist_bidder_amount" class="green"></span>&nbsp;(<span id="checklist_bidder_variance"></span>&nbsp;Variance from ABC of&nbsp;<span id="approved_budget" class="green"></span>)</div>
+                            </div>
+                            <div class="row for-evaluation" style="margin-top: 100px;">
+                                <div class="col-md-4"><label>Did Bidder Procured Bid Documents? </label></div>
+                                <div class="col-md-6">
+                                    <select id="checklist_bidder_procured" class="form-control" style="width: 100px">
+                                        <option value="Y">YES</option>
+                                        <option value="N">NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row for-evaluation">
+                                <div class="col-md-4"><label>Result of Evaluation of Proposal : </label></div>
+                                <div class="col-md-6"><span id="checklist_bidder_eval_result"></span></div>
+                            </div>
+                            <div class="row for-evaluation">
+                                <div class="col-md-4"><label>Result of General Evaluation : </label></div>
+                                <div class="col-md-6"><span id="checklist_bidder_gen_eval_result"></span></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><label>Remarks : </label></div>
+                                <div class="col-md-10">
+                                    <textarea id="checklist_bidder_remarks" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form id="formLegal" style="min-height:450px;padding:10px;vertical-align:top;">
+                            <div class="row">
+                                <div class="col-md-8"><label>Legal Documents</label></div>
+                                <div class="col-md-2 for-evaluation"><label>Findings</label></div>
+                                <div class="col-md-2"><label class="legal-eligibility">Eligibility</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    A. PhilGEPS Certificate of Registration and Membership
+                                </div>
+                                <div class="col-md-2 for-evaluation">                                    
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    a. SEC Registration for companies or DTI registration for single proprietorship
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A-a" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    b. Valid and current Mayor's permit issued by the city or municipality where the principal<br />place of business of the prospective bidder is located
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="LD-A-b" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    c. Tax Clearance
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A-c" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    d. Audited Financial Statement
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A-d" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    e. BIR Registration Certificate
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A-e" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    f. Proof of Electronic Filing and Payments (EFPS)
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A-f" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    g. Tax Returns filed through the EFPS
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <select id="LD-A-g" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    B. Statement of all on-going government and private contracts, including contract<br />
+                                    awarded but not yet started, if any, whether similar or not similar in nature and complexity to the contract to be bid
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="LD-B" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    C. Statement of the bidder's Single Largest Completed Contract similar to the contractor<br />
+                                    to be bid, in accordance with ITB Clause 5.4, within the relevant period as provided<br />
+                                    in the BDS
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="LD-C" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    D. The prospective bidder's computation for its Net Financial Contracting Capacity (NFCC)<br />
+                                    (Form No. 3) or a commitment from a Universal or Commercial Bank to extend a credit<br />
+                                    line (10%) in  favor of the prospective bidder if awarded the contract to bid (CLC)<br />
+                                    (Form No. 4)
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="LD-D" class="legal-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form id="formTechnical" style="min-height:450px;padding:10px;vertical-align:top;">
+                            <div class="row">
+                                <div class="col-md-8"><label>Technical Documents</label></div>
+                                <div class="col-md-2 col-md-push-1"><label>Eligibility</label></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    A. Bid Security (Security bind equivalent to 5% of the ABC, callable upon demand<br />
+                                    issued by surety or insurance company duly certified by the insurance Commission<br />
+                                    as authorized to issue such as security or Bid Security or Bid Security Declaration
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-A" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    B. Technical Specifications
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-B" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    i. Production/Delivery Schedule
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-B-i" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    ii. Product Specifications
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-B-ii" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    iii. After-sales service/parts (if applicable)
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-B-iii" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    C. Imnibus Sworn Statement executed by the bidder, or its duly authorized representative
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-C" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    c1. The signatory is the duly aauthorized and designated representative of the prospective<br />
+                                    bidder indicating the office address
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-C-1" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    c2. The signatory is the duly authorized representative of the prospective bidder, and <br />
+                                    granted full power and authority to do, execute and perform any and all acts necessary<br />
+                                    to participate, submit the bid, and to sign and execute the ensuing contract accompanied<br />
+                                    by the duly notarized Special Power of Attorney, Board/Partnership Resolution, or<br />
+                                    Secretary's Certificate, whichever is applicable
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-C-2" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    c3. It is not "blacklisted" or barrd from bidding by the GOP or any of its agencies, offices,<br />
+                                    corporation or LGUs, including foreign government/foreign or international financing<br />
+                                    institution whose blacklisting rules have been recognized by th GPBB
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-C-3" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    c4. Each of the documents submitted satisfaction of the bidding requirements submitted<br />
+                                    in satisfaction of the bidding requirements is an authentic copy of the original, complete<br />
+                                    and all statements and information provided therein are true and correct
+                                </div>
+                                <div class="col-md-2 for-evaluation">
+                                    <textarea></textarea>
+                                </div>
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <select id="TD-C-4" class="technical-eligibility form-control">
+                                        <option value=""></option>
+                                        <option value="1">Passed</option>
+                                        <option value="0">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:120px;"></span>
+                <button type="button" class="btn btn-lg btn-danger" id="btnBidCheckCancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-lg btn-success" id="btnBidCheckSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var BIDCHECKLIST = {
+        Initialize: function (stage) {
+            $("#dataBidCheckListModal #bidder_stage").val(stage);
+
+            if (stage === CONST.twg_stage.ranking) {
+                $("#dataBidCheckListModal .for-evaluation").hide();
+                $("#dataBidCheckListModal .legal-eligibility, #dataBidCheckListModal .technical-eligibility").each(function () {
+                    $(this).parent().addClass("col-md-push-1");
+                });
+            } else if (stage === CONST.twg_stage.evalualtion) {
+                $("#dataBidCheckListModal .for-evaluation").show();
+                $("#dataBidCheckListModal .legal-eligibility, #dataBidCheckListModal .technical-eligibility").each(function () {
+                    $(this).parent().removeClass("col-md-push-1");
+                });
+            }
+        },
+        EnableFields: function () {
+            $("#dataBidCheckListModal .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#dataBidCheckListModal .form-control").attr("disabled", "disabled");
+        },
+        SetData: function (row_item, checklist, proj_id, proj_title, proj_grantee, bid_id, approved_budget) {
+            /*-- Set General -- */
+            $("#dataBidCheckListModal #bidder_project_id").val(proj_id);
+            $("#dataBidCheckListModal #bidder_bid_id").val(bid_id);            
+            $("#dataBidCheckListModal #checklist_bidder_project").html(proj_title);
+            $("#dataBidCheckListModal #checklist_bidder_grantee").html(proj_grantee);            
+            $("#dataBidCheckListModal #checklist_bidder_open_date").html(row_item.data("bid-open-date"));
+            $("#dataBidCheckListModal #checklist_bidder_open_time").html(row_item.data("bid-open-time"));
+            $("#dataBidCheckListModal #checklist_bidder_venue").html(row_item.data("bid-open-place"));
+            $("#dataBidCheckListModal #checklist_bidder_bond").html(row_item.data("bid-bond") + "%");
+            $("#dataBidCheckListModal #checklist_bidder_amount").html(CONST.currencySymbol + " " + row_item.data("bid-amount"));
+            $("#dataBidCheckListModal #approved_budget").html(CONST.currencySymbol + " " + approved_budget);
+
+            $("#dataBidCheckListModal #checklist_bidder_remarks").html(row_item.data("bid-notes"));            
+            $("#dataBidCheckListModal #checklist_bidder_procured").val(row_item.data("bid-procured") === "True" ? "Y" : "N");
+            if (row_item.data("bid-eval-result") != "") {
+                $("#dataBidCheckListModal #checklist_bidder_eval_result").html(
+                    row_item.data("bid-eval-result") === CONST.twg_eval_proposal.eligible
+                    ? CONST.twg_eval_proposal.eligible_text
+                    : CONST.twg_eval_proposal.not_eligible_text);
+            };
+            if (row_item.data("bid-gen-eval") != "") {
+                $("#dataBidCheckListModal #checklist_bidder_gen_eval_result").html(
+                    row_item.data("bid-gen-eval") === CONST.twg_gen_eval.eligible
+                    ? CONST.twg_gen_eval.eligible_text
+                    : CONST.twg_gen_eval.not_eligible_text);
+            };            
+            var _variance = Utilities.CalculateVariance(parseFloat(row_item.data("bid-amount")), parseFloat(approved_budget));
+            if (_variance > 0) {
+                $("#dataBidCheckListModal #checklist_bidder_variance").html(_variance + "%").addClass("red");
+            } else {
+                $("#dataBidCheckListModal #checklist_bidder_variance").html(_variance + "%").addClass("green");
+            }            
+
+            /*-- Clear Checklist -- */
+            $("#dataBidCheckListModal .legal-eligibility, #dataBidCheckListModal .technical-eligibility").each(function (i, ddl) {
+                if ($(ddl)[0].tagName === "SELECT") {
+                    $(ddl).val("");
+                    $(ddl).parent().parent().children().find("textarea").val("");
+                }
+            });
+            /*-- Set Checklist -- */
+            if (checklist.value !== null && checklist.value.length > 0) {
+                $(checklist.value).each(function (i, item) {
+                    $("#dataBidCheckListModal #" + item.checklist_id).val(item.eligibility === true ? "1" : "0");
+                    $("#dataBidCheckListModal #" + item.checklist_id).parent().parent().children().find("textarea").val(item.notes);
+                });
+            }
+            
+        },
+        GetSummaryData: function () {
+            var _bids = [];
+            var _eligible = true;
+            var _status, _eval_prop, _gen_eval;
+            $("#formLegal .legal-eligibility, #formTechnical .technical-eligibility").each(function (i, ddl) {
+                if ($(ddl).val() !== "1") {
+                    _eligible = false;
+                }
+            });
+            if (_eligible) {
+                _status = CONST.twg_status.passed;
+                _eval_prop = CONST.twg_eval_proposal.eligible;
+                _gen_eval = CONST.twg_gen_eval.eligible;
+                $("#dataBidCheckListModal #checklist_bidder_eval_result").html(CONST.twg_eval_proposal.eligible_text).addClass("green");
+                $("#dataBidCheckListModal #checklist_bidder_gen_eval_result").html(CONST.twg_gen_eval.eligible_text).addClass("green");
+            } else {
+                _status = CONST.twg_status.disqualified;
+                _eval_prop = CONST.twg_eval_proposal.not_eligible;
+                _gen_eval = CONST.twg_gen_eval.not_eligible;
+                $("#dataBidCheckListModal #checklist_bidder_eval_result").html(CONST.twg_eval_proposal.not_eligible_text).addClass("red");
+                $("#dataBidCheckListModal #checklist_bidder_gen_eval_result").html(CONST.twg_gen_eval.not_eligible_text).addClass("red");
+            }
+            _bids.push({
+                "id": $("#dataBidCheckListModal #bidder_bid_id").val(),
+                "project_request_id": $("#dataBidCheckListModal #bidder_project_id").val(),                
+                "procured_docs": $("#dataBidCheckListModal #checklist_bidder_procured").val() === "Y" ? true : false,
+                "bid_status": _status,
+                "eval_result": _eval_prop,
+                "gen_eval": _gen_eval,
+                "notes": $("#dataBidCheckListModal #checklist_bidder_remarks").val()
+            });
+            return _bids;
+        },
+        GetChecklistData: function () {
+            var _checklist = [];
+            $("#dataBidCheckListModal .legal-eligibility").each(function (i, ddl) {
+                var _notes = "";
+                if ($("#dataBidCheckListModal #bidder_stage").val() === CONST.twg_stage.evalualtion) { _notes = $(ddl).parent().parent().children().find("textarea").val(); }
+                addToList(ddl, _notes, CONST.bid_checklist_type.legal);
+            });
+            $("#dataBidCheckListModal .technical-eligibility").each(function (i, ddl) {
+                var _notes = "";
+                if ($("#dataBidCheckListModal #bidder_stage").val() === CONST.twg_stage.evalualtion) { _notes = $(ddl).parent().parent().children().find("textarea").val(); }
+                addToList(ddl, _notes, CONST.bid_checklist_type.technical);
+            });
+            function addToList(ctrl, notes, type) {
+                if ($(ctrl)[0].tagName === "SELECT") {
+                    if ($(ctrl).val() !== "" || notes !== "") {
+                        _checklist.push({
+                            "project_request_id": $("#dataBidCheckListModal #bidder_project_id").val(),
+                            "bid_id": $("#dataBidCheckListModal #bidder_bid_id").val(),
+                            "stage": $("#dataBidCheckListModal #bidder_stage").val(),
+                            "type": type,
+                            "checklist_id": $(ctrl).attr("id"),
+                            "eligibility": $(ctrl).val() === "1" ? true : false,
+                            "notes": notes
+                        });
+                    }
+                }
+            }
+            return _checklist;
+        }
+    }
+    $(function () {
+        BIDCHECKLIST.Initialize();
+    });
+</script>

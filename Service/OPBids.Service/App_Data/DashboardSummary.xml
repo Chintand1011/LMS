@@ -1,0 +1,159 @@
+﻿<SummaryInfoList>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>100</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="Completed" id="DSI-COMPLETED" color="red" menuId=""></items>
+    <items label="Ongoing" id="DSI-ONGOING" color="green" menuId="P-ONGOING"></items>
+    <items label="Delayed" id="DSI-DELAYED" color="blue" menuId="P-DELAYED"></items>
+    <items label="Drafts" id="DSI-DRAFTS" color="orange" menuId="P-DRAFT"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>101</type>
+    <iconCls>icon-approved</iconCls>
+    <items label="Approved" id="DSI-APPROVED" color="green" menuId="P-APPROVED"></items>
+    <items label="For Approval" id="DSI-FORAPP" color="blue" menuId="P-FAPPROVAL"></items>
+    <items label="Rejected" id="DSI-REJ" color="red" menuId="P-REJECTED"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>102</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="Recommended" id="DSI-RECOM" color="green"></items>
+    <items label="Ongoing" id="DSI-ONGOING" color="blue" menuId="P-ONGOING"></items>
+    <items label="Delayed" id="DSI-DELAYED" color="red" menuId="P-DELAYED"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>103</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="Completed" id="DSI-COMPLETED" color="red" menuId="P-COMPLETED"></items>
+    <items label="Ongoing" id="DSI-ONGOING" color="green" menuId="P-ONGOING"></items>
+    <items label="Delayed" id="DSI-DELAYED" color="blue" menuId="P-DELAYED"></items>
+    <items label="Incoming" id="DSI-INCOMING" color="orange" menuId="P-INPROJ"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>104</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="Completed" id="DSI-COMPLETED" color="green" menuId="P-COMPLETED"></items>
+    <items label="Ongoing" id="DSI-ONGOING" color="blue" menuId="P-ONGOING"></items>
+    <items label="Delayed" id="DSI-DELAYED" color="red" menuId="P-DELAYED"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>105</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="Completed" id="DSI-COMPLETED" color="green" menuId="P-COMPLETED"></items>
+    <items label="Ongoing" id="DSI-ONGOING" color="blue" menuId="P-ONGOING"></items>
+    <items label="Delayed" id="DSI-DELAYED" color="red" menuId="P-DELAYED"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Summary</title>
+    <type>106</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="Completed" id="DSI-COMPLETED" color="green" menuId="P-COMPLETED"></items>
+    <items label="Ongoing" id="DSI-ONGOING" color="blue" menuId="P-ONGOING"></items>
+    <items label="Rejected" id="DSI-REJ" color="red" menuId="P-REJECTED"></items>
+  </SummaryInfo>
+
+  <SummaryInfo>
+    <title>Under BAC Procurement</title>
+    <type>1</type>
+    <iconCls>icon-procurement</iconCls>
+    <items label="Under TWG" id="DSI-UTWG" color="red" menuId="P-ONGOING"></items>
+    <items label="Pre-Bid" id="DSI-PREBID" color="green" menuId="P-ONGOING"></items>
+    <items label="Budget Approval" id="DSI-BUDAPP" color="blue" menuId="P-ONGOING"></items>
+    <items label="Newly Requested" id="DSI-NEWREQ" color="orange" menuId="P-ONGOING"></items>
+  </SummaryInfo>
+
+  <SummaryInfo>
+    <title>Under Implementation(Execution)</title>
+    <type>2</type>
+    <iconCls>icon-ongoing</iconCls>
+    <items label="Near Completion (&gt;80%)" id="DSI-ABOVE80" color="red" menuId="P-ONGOING"></items>
+    <items label="Install in Progress (51%-80%)" id="DSI-50-80" color="green" menuId="P-ONGOING"></items>
+    <items label="Install in Progress (10%-50%)" id="DSI-LESS50" color="blue" menuId="P-ONGOING"></items>
+    <items label="Initial Execution (&lt;10%)" id="DSI-UILESS10" color="orange" menuId="P-ONGOING"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>For Approval</title>
+    <type>3</type>
+    <iconCls>icon-approval</iconCls>
+    <items label="Past 10 Days" id="DSI-PAST10" color="red" menuId="P-FAPPROVAL"></items>
+    <items label="10 Days Below" id="DSI-10BELOW" color="green" menuId="P-FAPPROVAL"></items>
+    <items label="Newly Submitted" id="DSI-NEWLYSUB" color="blue" menuId="P-FAPPROVAL"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Approved</title>
+    <type>4</type>
+    <iconCls>icon-approved</iconCls>
+    <items label="NULL" id="DSI-NULL" color="red"></items>
+    <items label="NULL" id="DSI-NULL" color="green"></items>
+    <items label="NULL" id="DSI-NULL" color="blue"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Top 3 Monitored</title>
+    <type>5</type>
+    <iconCls>icon-star</iconCls>
+    <items label="" id="DSI-TOP1" color="red" menuId="P-MONPROJ"></items>
+    <items label="" id="DSI-TOP2" color="green" menuId="P-MONPROJ"></items>
+    <items label="" id="DSI-TOP3" color="blue" menuId="P-MONPROJ"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>For Ranking &amp; Evaluation</title>
+    <type>6</type>
+    <iconCls>icon-ranking</iconCls>
+    <items label="Past 21 days" id="DSI-21DAYS" color="red" menuId="P-FORRANKING"></items>
+    <items label="13-21 days" id="DSI-13-21" color="green" menuId="P-FORRANKING"></items>
+    <items label="Less than 13 days" id="DSI-LESS13" color="blue" menuId="P-FORRANKING"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>For Post Qualifications</title>
+    <type>7</type>
+    <iconCls>icon-postqa</iconCls>
+    <items label="Past 17 days" id="DSI-PAST17" color="red" menuId="P-POSTQA"></items>
+    <items label="10-17 days" id="DSI-10-17" color="green" menuId="P-POSTQA"></items>
+    <items label="Less than 10 days" id="DSI-LESS10" color="blue" menuId="P-POSTQA"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Awarded</title>
+    <type>8</type>
+    <iconCls>icon-awarded</iconCls>
+    <items label="NULL" id="DSI-NULL" color="red"></items>
+    <items label="NULL" id="DSI-NULL" color="green"></items>
+    <items label="NULL" id="DSI-NULL" color="blue"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>For Approval</title>
+    <type>9</type>
+    <iconCls>icon-approval</iconCls>
+    <items label="Past 30 days" id="DSI-PAST30" color="red" menuId="P-FAPPROVAL"></items>
+    <items label="15-30 days" id="DSI-15-30" color="green" menuId="P-FAPPROVAL"></items>
+    <items label="Below 15 days" id="DSI-LESS15" color="blue" menuId="P-FAPPROVAL"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>On Going</title>
+    <type>10</type>
+    <iconCls>icon-procurement</iconCls>
+    <items label="Under Implementation" id="DSI-UNIMP" color="red"></items>
+    <items label="BAC Resolution" id="DSI-BACRESO" color="green"></items>
+    <items label="Award by TWG" id="DSI-AWTWG" color="blue"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>On Going</title>
+    <type>11</type>
+    <iconCls>icon-ongoing</iconCls>
+    <items label="Above 80%" id="DSI-ABOVE80" color="red" menuId="P-ONGOINGS"></items>
+    <items label="50% - 80%" id="DSI-50-80" color="green" menuId="P-ONGOINGS"></items>
+    <items label="Less than 50%" id="DSI-LESS50" color="blue" menuId="P-ONGOINGS"></items>
+  </SummaryInfo>
+  <SummaryInfo>
+    <title>Lost Opportunities</title>
+    <type>12</type>
+    <iconCls>icon-lostopp</iconCls>
+    <items label="Missed" id="DSI-MISSED" color="red" menuId="P-LOSTOPP"></items>
+    <items label="Unawarded" id="DSI-UNAWARD" color="orange" menuId="P-WITHSUBMITTEDBIDS"></items>
+  </SummaryInfo>
+</SummaryInfoList>

@@ -1,0 +1,23 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectRequestVM
+
+<td class="text-center">
+    <input type="checkbox" class="check-selected" id="@Model.id" /><span style="padding-left: 10px; vertical-align: super;">@Model.index</span>
+</td>
+<td data-th="Date Created" class="text-center" created_date>
+    @Html.DisplayFor(modelItem => Model.created_date)
+</td>
+<td data-th="Date Required (Remaining Days)" class="text-center" required_date>
+    @Html.DisplayFor(modelItem => Model.required_date) (@Html.DisplayFor(modelItem => Model.days_to_required_date))
+</td>
+<td data-th="Requested By" class="text-left" created_by>
+    @Html.DisplayFor(modelItem => Model.created_by_name)
+</td>
+<td data-th="Project Grantee" class="text-left" grantee >
+    @Html.DisplayFor(modelItem => Model.grantee_name)
+</td>
+<td data-th="Project" class="text-left" proj_title>
+    @Html.DisplayFor(modelItem => Model.title)
+</td>
+<td data-th="Estimated Budget" class="text-left">
+    <span>₱&nbsp;</span><span budget>@Html.DisplayFor(modelItem => Model.estimated_budget)</span> 
+</td>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<OPBids.Entities.View.Shared.ProgressVM>
+<div style="margin-left: 20px">
+    <ul class="progress-tracker anim-ripple progress-tracker--text progress-tracker--text-top">
+        @foreach (var item in Model.Select((value, index) => new { index, value }))
+        {
+        <li class="progress-step @item.value.status" style="@item.value.customStyle">
+            <span class="progress-text">@item.value.header</span>
+            <span class="progress-marker"></span>
+            <span class="progress-text">@item.value.detail</span>
+        </li>
+        }
+    </ul>
+</div>

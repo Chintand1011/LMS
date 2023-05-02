@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>@ViewBag.Title - OPBids</title>
+
+    @Scripts.Render("~/bundles/jquery")
+
+    @Styles.Render("~/Content/css")
+</head>
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+        <header class="main-header"></header>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="body-content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <hr />
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/Site/jquery-ui.min.js"></script>
+    <script src="~/Scripts/Site/bootstrap.min.js"></script>
+
+    @Scripts.Render("~/bundles/appscripts")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

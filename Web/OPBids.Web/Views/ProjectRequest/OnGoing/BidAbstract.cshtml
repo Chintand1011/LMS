@@ -1,0 +1,114 @@
+﻿<style>
+    #dataBidAbstractModal #table_bid_abstract_summary {
+        margin: 20px;
+        font-size: 16px;
+    }
+
+    #dataBidAbstractModal #div_bidder_list {
+        font-size: 11px;
+        margin-bottom: 50px;
+    }
+
+    #dataBidAbstractModal .modal-container {
+        padding-top: 0px;
+    }
+</style>
+<div data-backdrop="static" class="modal fade project-request" id="dataBidAbstractModal" tabindex="-1" role="dialog" aria-labelledby="dataBidAbstractModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container">
+                        <div class="circle-div"><span id="bid_proj_id"></span></div>
+                    </div>
+                    <div class="col-md-7 modal-title-container">
+                        <span class="modal-title">
+                            <span>Abstract of Bids</span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <div class="modal-container">
+                <h3 class="downloadAndPrintButton"><a class="fa fa-download fa-dialog"></a>&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+                <div style="border-bottom: 1px solid #ccc; margin-bottom: 20px">
+                    <table id="table_bid_abstract_summary">
+                        <tr>
+                            <td width="100px" class="text-right" style="vertical-align: top"><label>What :</label></td>
+                            <td>&nbsp;</td>
+                            <td width="850px">
+                                <span id="proj_procmethod"></span>
+                                &nbsp;of the&nbsp;
+                                <span id="proj_title"></span>
+                                &nbsp;for the&nbsp;
+                                <span id="proj_grantee"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" style="vertical-align: top"><label>Where :</label></td>
+                            <td>&nbsp;</td>
+                            <td><span id="opening_place"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><label>When :</label></td>
+                            <td>&nbsp;</td>
+                            <td><span id="opening_date"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><label>ABC :</label></td>
+                            <td>&nbsp;</td>
+                            <td><span class="green">₱</span><span id="approved_budget"></span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="div_bidder_list">
+            </div>
+            <div id="div_prepared" class="modal-container" style="border-bottom: 1px solid #ccc">
+                <table>
+                    <tr style="line-height: 40px">
+                        <td width="100px"><label>Prepared By&nbsp;:</label></td>
+                        <td width="250px"><input type="text" id="bidlist_prepared_by" class="form-control" style="width: 250px" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Prepare Date&nbsp;:</label></td>
+                        <td><input type="text" id="bidlist_prepared_date" class="form-control" style="width: 250px" datetime /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;">
+                    <span style="margin-right: 15px">Legend :</span>&nbsp;
+                    <label class="blue">FC</label>&nbsp;-&nbsp;<span style="margin-right: 40px">For Checking</span>
+                    <label class="green">P</label>&nbsp;-&nbsp;<span style="margin-right: 40px">Passed</span>
+                    <label class="red">DQ</label>&nbsp;-&nbsp;<span>Disqualified</span>
+                </div>
+                <div style="float:right;">
+                    <button type="button" class="btn btn-gray" value="Print Notice" style="width:140px; font-weight: 700; color: white"><i class="fa fa-print fa-dialog"></i>&nbsp;&nbsp;Print Abstract</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var BIDABSTRACT = {
+        Initialize: function () {
+        },
+        EnableFields: function () {
+        },
+        DisableFields: function () {
+        },
+        SetData: function (row_data, id) {
+            console.log(row_data);
+            $("#dataBidAbstractModal #bid_proj_id").html(id);
+            $("#dataBidAbstractModal #proj_procmethod").html(row_data.data("proc-method"));
+            $("#dataBidAbstractModal #proj_title").html(row_data.data("title"));
+            $("#dataBidAbstractModal #proj_grantee").html(row_data.data("grantee"));
+            $("#dataBidAbstractModal #opening_place").html(row_data.data("bid-open-place"));
+            $("#dataBidAbstractModal #opening_date").html(row_data.data("bid-open-date"));
+            $("#dataBidAbstractModal #approved_budget").html(row_data.data("approved-budget"));
+        }
+    };
+    BIDABSTRACT.Initialize();
+</script>

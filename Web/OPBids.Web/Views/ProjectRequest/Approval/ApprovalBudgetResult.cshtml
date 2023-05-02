@@ -1,0 +1,138 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectSearchResultVM
+@Scripts.Render("~/bundles/approvalBudgetScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+    #dataEntryModal .modal-body-tab .sectionTab .tabCaption {
+        width: 160px;
+    }
+
+    #dataEntryModal .modal-body .modal-body-tab {
+        width: 17%;
+    }
+</style>
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="5%" class="text-center">Ref #</th>
+            <th scope="col" width="18%">Category</th>
+            <th scope="col" width="7%">Aging<br />in Days</th>
+            <th scope="col" width="25%">Project</th>
+            <th scope="col">Amount</th>
+            <th scope="col" width="25%" colspan="2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr id="row-@item.id" scope="row" itemscope itemid="@item.id"
+                data-description="@item.description"
+                data-grantee="@item.grantee_name"
+                data-category="@item.category_desc"
+                data-required-date="@item.required_date"
+                data-classification="@item.classification"
+                data-estimated-budget="@item.estimated_budget"
+                data-project-substatus="@item.project_substatus_desc"
+                data-approved-budget="@item.approved_budget">
+
+                <td class="text-center">
+                    @item.index
+                </td>
+                <td data-th="Ref #" class="text-center">
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td data-th="Category" category_desc>
+                    @Html.DisplayFor(modelItem => item.category_desc)
+                </td>
+                <td data-th="Aging in Days" class="text-left" sla>
+                    @Html.DisplayFor(modelItem => item.sla)
+                </td>
+                <td data-th="Project" class="text-left" proj_title>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td data-th="Amount" class="text-left money" budget>
+                    @Html.DisplayFor(modelItem => item.approved_budget)
+                </td>
+                <td data-th="Status" class="text-left" substatus>
+                    @Html.DisplayFor(modelItem => item.project_substatus_desc)
+                </td>
+                <td data-th="">
+                    <input type="hidden" name="hf_project_substatus" id="hf_project_substatus" value="@item.project_substatus" />
+                    @if (item.project_substatus == "PSS-3.1")
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Approval/ApprovalBudgetTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Project Information" } }); }
+                    }
+                    else
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Approval/ApprovalBudgetTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Project Information" }, { "show-approve-text", "Approve Project Request" }, { "show-reject-text", "Reject Project Request" } }); }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+<script type="text/javascript">
+    APPROVAL.SetPagination(@Model.page_index, @Model.count);
+      @{if (Model.total.HasValue)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.GetValueOrDefault().ToString("N2") ");
+        }}
+</script>
+<div data-backdrop="static" class="modal fade project-request" id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container">
+                        <div class="circle-div"><span id="proj_id"></span></div>
+                    </div>
+                    <div class="col-md-7 modal-title-container">
+                        <span class="modal-title">
+                            <span id="project_title"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </span>
+                    </div>
+                    <div class="col-md-3 text-right" style="color: #fff; margin: 25px 0px 0px 0px; padding-right: 0px;">
+                        <span style="vertical-align:middle"><label>Status :&nbsp;</label><span id="proj_substatus" class="modal-status" style="padding-right: 15px"></span></span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <table class="modal-body" style="width:100%;">
+                <tr>
+                    <td class="modal-body-tab">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">Project Info</button></div>
+                        <div class="sectionTab"><button type="button" id="itemizedTab" formid="formItems" class="tabCaption">Itemized Request</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                    </td>
+                    <td style="width:90%;padding-top:10px;">
+                        <form id="formGeneral" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_EditorTemplates/ProjectRequestEarmark", new OPBids.Entities.View.ProjectRequest.ProjectRequestVM())
+                        </form>
+                        <form id="formItems" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_EditorTemplates/ProjectRequestItems")
+                        </form>
+                        <form id="formAttachments" style="min-height:450px;padding:10px;vertical-align:top;">
+                            <div style="display:inline-block;float:left;height:146px;width:140px;margin: 10px;text-align:center;">
+                                <button type="button" id="btnBrowse" class="btnBrowse" style="margin-top:30px;">+</button>
+                                <input type="file" id="fleBrowse" style="display:none;" />
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:120px;"></span>
+                <button type="button" class="ui-button ui-corner-all ui-widget negativeDialogButton" id="btnCancel" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>Cancel</button>
+                <button type="button" class="ui-button ui-corner-all ui-widget positiveDialogButton" id="btnSave"><span style="position:relative;left:-5px;"></span>Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/ProjectRequest/_EditorTemplates/DocumentNotes.cshtml")

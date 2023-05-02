@@ -1,0 +1,47 @@
+﻿<style>
+    .item-setting {
+        font-size: 10px;
+    }
+
+        .item-setting .setting-icon {
+            width: 34px;
+        }
+
+        .item-setting .btn {
+            padding: 0px;
+        }
+
+        .item-setting .setting-cmd {
+            min-width: 200px;
+            padding: 10px;
+            left: -100px;
+        }
+
+            .item-setting .setting-cmd ul {
+                list-style-type: none;
+                margin: 0px;
+                padding: 15px 0 0 0;
+            }
+
+            .item-setting .setting-cmd li {
+                padding-bottom: 5px;
+            }
+</style>
+
+<div class="item-setting">
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="setting-icon" src="~/Content/images/icon-gear.png" />
+        </a>
+
+        <div class="dropdown-menu setting-cmd" aria-labelledby="dropdownMenuLink">
+            <b>@this.ViewData["item_name"]</b><br />
+            <span>Created By</span>
+            <ul>
+                <li><a class="dropdown-item item-setting-edit" href="#" data-itemid="@this.ViewData["item_id"]">Edit Project Draft</a></li>
+                <li><a class="dropdown-item item-setting-cancel" href="#" data-itemid="@this.ViewData["item_id"]">Cancel Draft</a></li>
+                <li><a class="dropdown-item item-setting-submit" href="#" data-itemid="@this.ViewData["item_id"]">Submit Draft</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

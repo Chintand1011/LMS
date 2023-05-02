@@ -1,0 +1,191 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectBatchSearchResultVM
+@Scripts.Render("~/bundles/planScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+</style>
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="5%" class="text-center">Batch #</th>
+            <th scope="col" width="10%" class="text-center">Date Created</th>
+            <th scope="col" width="10%" class="text-center"># of Projects</th>
+            <th scope="col" width="10%" class="text-right">Total Amount</th>
+            <th scope="col" width="10%" class="text-center">Applicable<br />Year</th>
+            <th scope="col" width="20%">Procurement Method</th>
+            <th scope="col" width="30%" colspan="2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr id="row-@item.id" scope="row" itemscope itemid="@item.id"
+                data-project_substatus="@item.project_substatus"
+                data-project-substatus-desc="@item.project_substatus_desc"
+                data-applicable-year="@item.applicable_year"
+                data-procurement-method="@item.procurement_method"
+                data-procurement-method-desc="@item.procurement_method_desc"
+                data-total-projects="@item.total_projects"
+                data-total-amount="@item.total_amount"
+                data-created-date="@item.created_date"
+                data-created-by="@item.created_by_name"
+                data-pre-bid-date="@item.pre_bid_date"
+                data-pre-bid-time="@item.pre_bid_time"
+                data-pre-bid-place="@item.pre_bid_place"
+                data-deadline-date="@item.bid_deadline_date"
+                data-deadline-time="@item.bid_deadline_time"
+                data-deadline-place="@item.bid_deadline_place"
+                data-opening-date="@item.bid_opening_date"
+                data-opening-time="@item.bid_opening_time"
+                data-opening-place="@item.bid_opening_place"
+                >
+                
+
+                <td class="text-center">
+                    @(item.index + 1)
+                </td>
+                <td data-th="Ref #" class="text-center">
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td data-th="Date Created" class="text-center" created_date>
+                    @Html.DisplayFor(modelItem => item.created_date)
+                </td>
+                <td data-th="# of Projects" class="text-center" total_projects>
+                    @Html.DisplayFor(modelItem => item.total_projects)
+                </td>
+                <td data-th="Total Amount" class="text-right money green" total_amount>
+                    @Html.DisplayFor(modelItem => item.total_amount)
+                </td>
+                <td data-th="Applicable Year" class="text-center" applicable_year>
+                    @Html.DisplayFor(modelItem => item.applicable_year)
+                </td>
+                <td data-th="Procurement Method" class="text-left" proc_method>
+                    @Html.DisplayFor(modelItem => item.procurement_method_desc)
+                </td>
+                <td data-th="Procurement Method" class="text-left" status>
+                    @Html.DisplayFor(modelItem => item.project_substatus_desc)
+                </td>
+                <td data-th="">
+                    <input type="hidden" name="hf_project_substatus" id="hf_project_substatus" value="@item.project_substatus" />
+
+                    @if (item.project_substatus == "PSS-4.2")
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Plan/PlanTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Batch Information" }, { "show-edit-text", "Edit Batch Information" }, { "show-submit-hope-approval-text", "Submit to HoPE for Approval" }, { "show-cancel-text", "Cancel Batch" } }); }
+                    }
+                    else if (item.project_substatus == "PSS-6.1")
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Plan/PlanTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Batch Information" }, { "show-invite-text", "Prepare Invitation to Bid" }, { "show-submit-advertising-text", "Submit to Advertising" } }); }
+                    }
+                    else if (item.project_substatus == "PSS-7.1")
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Plan/PlanTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Batch Information" }, { "show-view-invite-text", "View Invitation to Bid" }, { "show-advertise-text", "Advertisement Posting" }, { "show-close-shortlist-text", "Close for Shortlisting" } }); }
+                    }
+                    else
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Plan/PlanTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Batch Information" } }); }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+<script type="text/javascript">
+    PLAN.SetPagination(@Model.page_index, @Model.count);
+     @{if (Model.total.HasValue)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.GetValueOrDefault().ToString("N2") ");
+        }}
+</script>
+<div data-backdrop="static" class="modal fade" id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="dataEntryModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> Batch</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("~/Views/ProjectRequest/_EditorTemplates/BatchSelection.cshtml")
+            </div>            
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span id="footerNote" style="float:left; font-size: 12px">Saved Batch needs to be submitted to HoPE for Approval of Procurement Method.</span>
+                    </div>
+                    <div class="col-md-3 text-left" style="padding-left: 60px;">
+                        <span>No of Projects : </span><label id="batch_total_count"></label><br />
+                        <span>Amount : </span><label id="batch_total_amount" style="color: #73b011"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-danger btn-dialog" id="btnCancel" data-dismiss="modal"><i class="fa fa-close fa-dialog"></i> Cancel</button>
+                        <button type="button" class="btn btn-success btn-dialog" id="btnSave"><i class="fa fa-check fa-dialog"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-backdrop="static" class="modal fade project-request" id="dataBatchInfoModal" tabindex="-1" role="dialog" aria-labelledby="dataBatchInfoModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container"><div class="circle-div"><span id="modal_batch_id" style="font-size: 30px"></span></div></div>
+                    <div class="col-md-7 modal-title-container">
+                        <h4 class="modal-title" style="font-weight:bold;">
+                            <span id="modal_proc_method"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </h4>
+                    </div>
+                    <div class="col-md-3 modal-status-container">
+                        <span class="modal-status">
+                            <b>Status: </b><span id="modal_proc_status"></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("~/Views/ProjectRequest/_DisplayTemplates/ProjectRequestBatch.cshtml")
+            </div>            
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div data-backdrop="static" class="modal fade  project-request" id="dataEntryBiddingModal" tabindex="-1" role="dialog" aria-labelledby="dataEntryBiddingModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container">
+                        <div class="circle-div"><span id="modal_bid_batch_id"></span></div>
+                    </div>
+                    <div class="col-md-7 modal-title-container">
+                        <span class="modal-title">
+                            <span id="modal_bid_proc_method"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <div class="modal-container">
+                <h3 class="downloadAndPrintButton"><a class="fa fa-download fa-dialog"></a>&nbsp;&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+                @Html.Partial("~/Views/ProjectRequest/Plan/BatchBidInvitation.cshtml", new OPBids.Entities.View.ProjectRequest.ProjectRequestBatchVM())
+            </div>            
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;font-size: 12px;">Set schedule of Events for the Invitation to Bid</span>
+                <button type="button" class="btn btn-danger btn-dialog" id="btnBidClose" data-dismiss="modal"><i class="fa fa-close fa-dialog"></i> Cancel</button>
+                <button type="button" class="btn btn-success btn-dialog" id="btnBidSave"><i class="fa fa-check fa-dialog"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/ProjectRequest/_EditorTemplates/Advertisement.cshtml", new OPBids.Entities.View.ProjectRequest.ProjectRequestBatchVM())
+@Html.Partial("~/Views/ProjectRequest/_EditorTemplates/DocumentNotes.cshtml")

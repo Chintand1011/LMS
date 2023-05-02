@@ -1,0 +1,25 @@
+﻿@model  IEnumerable<OPBids.Entities.View.DTS.DocumentsVM>
+@Scripts.Render("~/bundles/settingScript")
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" number>@Html.DisplayNameFor(m => m.id)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.category_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.document_type_name)</th>
+                <th scope="col">Doc Code</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.sender_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.receipient_name)</th>
+                <th scope="col" date>Sent Date</th>
+                <th scope="col" date>@Html.DisplayNameFor(m => m.etd_to_recipient)</th>
+                <th scope="col" number style="white-space:nowrap;">Aging (CD)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div style="text-align:right">
+        <ul id="pager"></ul>
+    </div>
+</div>

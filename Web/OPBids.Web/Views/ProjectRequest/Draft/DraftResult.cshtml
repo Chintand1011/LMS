@@ -1,0 +1,103 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectSearchResultVM
+@Scripts.Render("~/bundles/draftScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+    #dataEntryModal .modal-body-tab .sectionTab .tabCaption {
+        width: 160px;
+    }
+
+    #dataEntryModal .modal-body .modal-body-tab {
+        width: 17%;
+    }
+</style>
+
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="10%" class="text-center">Date<br />Created</th>
+            <th scope="col" width="10%" class="text-center">Date Required<br />(Remaining Days)</th>
+            <th scope="col" width="15%">Requested By</th>
+            <th scope="col" width="15%">Project Grantee</th>
+            <th scope="col" width="25%">Project</th>
+            <th scope="col" width="15%" colspan="2">Estimated Budget</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr scope="row" itemscope itemid="@item.id" id="row-@item.id" data-description="@item.description" data-category="@item.category" data-grantee="@item.grantee" data-pr-number="@item.pr_number" data-requiredate="@item.required_date">
+
+                @Html.Partial("_DisplayTemplates/ProjectRequest", item)
+
+                <td data-th="">
+                    @{Html.RenderPartial("~/Views/ProjectRequest/Draft/DraftTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-edit-text", "Edit Project Draft" }, { "show-cancel-text", "Cancel Draft" }, { "show-newdraft-text", "Save as New Draft" }, { "show-submit-text", "Submit Draft" } });}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+
+<script type="text/javascript">
+    DRAFT.SetPagination(@Model.page_index, @Model.count);
+    @{if (Model.total.HasValue)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.GetValueOrDefault().ToString("N2") ");
+        }}
+</script>
+
+<div data-backdrop="static" class="modal fade project-request"id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-7 modal-title-container" style="margin-left: 30px;">
+                        <span class="modal-title">
+                            <span id="processId"></span><span> Project Request</span>
+                        </span>
+                    </div>
+                    <div class="col-md-4 text-right" style="color: #fff; margin: 25px 0px 0px 0px; padding-right: 0px;">
+                        <span style="vertical-align:middle">
+                            <span id="projectIdContainer" style="vertical-align:middle"><label>Draft #:&nbsp;</label><span id="projectId" class="modal-status" style="padding-right: 15px"></span></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <table class="modal-body">
+                <tr>
+                    <td class="col-md-2 modal-body-tab">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">Project Info</button></div>
+                        <div class="sectionTab"><button type="button" id="itemizedTab" formid="formItems" class="tabCaption">Itemized Request</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                    </td>
+                    <td class="col-md-10 modal-body-content">
+                        <form id="formGeneral" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_EditorTemplates/ProjectRequest", new OPBids.Entities.View.ProjectRequest.ProjectRequestVM())
+                        </form>
+                        <form id="formItems" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_EditorTemplates/ProjectRequestItems")
+                        </form>
+                        <form id="formAttachments" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_FileUploadLoadingObjects")
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            @Html.ActionLink("view pdf", "getpdf", "shared", new { id = "37" }, new { @class = "pdflink", target = "_blank", @style = "display:none" })
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:17%;">Projects will be saved as draft and will not yet be submitted to BAC.</span>
+                <button type="button" class="ui-button ui-corner-all ui-widget negativeDialogButton" id="btnCancel" data-dismiss="modal"><i class="fa fa-close fa-dialog"></i> Cancel</button>
+                <button type="button" class="ui-button ui-corner-all ui-widget positiveDialogButton" id="btnSave"><i class="fa fa-check fa-dialog"></i> Save</button>
+                <button type="button" class="btn btn-success btn-dialog" id="btnSubmit"><i class="fa fa-paper-plane-o fa-dialog"></i> Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+

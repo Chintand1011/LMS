@@ -1,0 +1,48 @@
+﻿<style>
+    #table_batch_summary .modal-section-label {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    #table_batch_summary .modal-section-value {
+        font-size: 20px;
+    }
+</style>
+<div>
+    <div id="table_batch_summary">
+        <div class="row">
+            <div class="col-md-4 align-right">
+                <label class="modal-section-label">Number of Projects :&nbsp;</label>
+            </div>
+            <div class="col-md-7 modal-section-value">
+                <span id="batch_total_projects"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 align-right">
+                <label class="modal-section-label">Date Created :&nbsp;</label>
+            </div>
+            <div class="col-md-7 modal-section-value">
+                <span id="batch_created_date"></span>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/ProjectRequest/_EditorTemplates/InvitationToBid.cshtml")    
+</div>
+<script type="text/javascript">
+    var BIDINVITATION = {
+        Initialize: function () {
+            $("#batch_pre_bid_date,#batch_deadline_date,#batch_open_bid_date").datepicker({ format: 'dd-M-yyyy' });
+            INVITATIONTOBID.HidePrint();
+        },
+        EnableFields: function () {
+            $("#table_batch_summary .form-control").removeAttr("disabled");
+            $("#table_batch_bid .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#table_batch_summary .form-control").attr("disabled", "disabled");
+            $("#table_batch_bid .form-control").attr("disabled", "disabled");
+        }
+    };
+    BIDINVITATION.Initialize();
+</script>

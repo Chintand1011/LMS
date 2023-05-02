@@ -1,0 +1,112 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectSearchResultVM
+@Scripts.Render("~/bundles/approvedScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+</style>
+
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="5%" class="text-center">Ref #</th>
+            <th scope="col" width="20%">Category</th>
+            <th scope="col" width="10%" class="text-center">Aging in Days</th>
+            <th scope="col" width="30%">Project</th>
+            <th scope="col" width="10%">Amount</th>
+            <th scope="col" width="15%" colspan="2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr id="row-@item.id" scope="row" itemscope itemid="@item.id"
+                data-description="@item.description"
+                data-grantee="@item.grantee"
+                data-category="@item.category_desc"
+                data-required-date="@item.required_date"
+                data-classification="@item.classification"
+                data-estimated-budget="@item.estimated_budget"
+                data-approved-budget="@item.approved_budget"
+                data-pr-number="@item.pr_number">
+
+                <td class="text-center">
+                    @item.index
+                </td>
+                <td data-th="Ref #" class="text-center">
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td data-th="Category" category_desc>
+                    @Html.DisplayFor(modelItem => item.category_desc)
+                </td>
+                <td data-th="Aging in Days" class="text-center" sla>
+                    @Html.DisplayFor(modelItem => item.sla)
+                </td>
+                <td data-th="Project" class="text-left" proj_title>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td data-th="Amount" class="text-left money" budget>
+                    @Html.DisplayFor(modelItem => item.approved_budget)
+                </td>
+                <td data-th="Status" class="text-left" substatus>
+                    @Html.DisplayFor(modelItem => item.project_substatus_desc)
+                </td>
+                <td data-th="">
+                    @{Html.RenderPartial("~/Views/ProjectRequest/Approved/ApprovedTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Project Information" } });}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+
+<script type="text/javascript">
+    APPROVED.SetPagination(@Model.page_index, @Model.count);
+      @{if (Model.total.HasValue)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.GetValueOrDefault().ToString("N2") ");
+        }}
+</script>
+
+<div data-backdrop="static" class="modal fade" id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1100px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> Project Request</h4>
+            </div>
+            <table class="modal-body">
+                <tr>
+                    <td class="modal-body-tab">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">Project Info</button></div>
+                        <div class="sectionTab"><button type="button" id="itemizedTab" formid="formItems" class="tabCaption">Itemized Request</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                    </td>
+                    <td class="modal-body-content">
+                        <form id="formGeneral" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_EditorTemplates/ProjectRequest", new OPBids.Entities.View.ProjectRequest.ProjectRequestVM())
+                        </form>
+                        <form id="formItems" style="min-height:450px;padding:10px;vertical-align:top;">
+                            @Html.Partial("_EditorTemplates/ProjectRequestItems")
+                        </form>
+                        <form id="formAttachments" style="min-height:450px;padding:10px;vertical-align:top;">
+                            <div style="display:inline-block;float:left;height:146px;width:140px;margin: 10px;text-align:center;">
+                                <button type="button" id="btnBrowse" class="btnBrowse" style="margin-top:30px;">+</button>
+                                <input type="file" id="fleBrowse" style="display:none;" />
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:120px;"></span>
+                <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

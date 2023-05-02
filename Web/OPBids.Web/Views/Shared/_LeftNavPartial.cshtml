@@ -1,0 +1,111 @@
+﻿<div class="wrapper" id="logoContainer" style="margin-right:10px;border-bottom:1px solid #ccc;">
+    <header class="main-header">
+        <!-- Logo -->
+        <div class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <div class="logo-mini" style="height:50px; width:50px"></div>
+            <!-- logo for regular state and mobile devices -->
+            <div class="logo-lg" style="height:100px"></div>
+
+            <div class="header-chart" style="margin-top:-30px">
+                <div style="height:50px; width:100%;">
+                    <canvas id="chart_stat" width="700" height="400" style="height:100%"></canvas>
+                </div>
+                <div class="header-chart-total" style="color:#CB2D2D; height:20px; line-height:25px; font-weight:bold; font-size:0.7em"></div>
+                <div class="header-chart-desc" style="color:#696969; height:20px; line-height:initial;font-weight:bold; font-size:0.7em"></div>
+            </div>
+
+        </div>
+    </header>
+</div>
+<div  id="leftMenu" style="padding-right:10px;overflow-x:hidden;">
+    <ul class="sidebar-menu" data-widget="tree">
+        @if (OPBids.Web.Helper.UserInfoStore.Menus(Request.GetOwinContext()) != null)
+        {
+            var menuItems = OPBids.Web.Helper.UserInfoStore.Menus(Request.GetOwinContext());
+
+        if (menuItems != null)
+        {
+            foreach (var item in menuItems)
+            {
+                if (item.SubMenus != null && item.SubMenus.Count() > 0)
+                {
+                    if (item.Code == OPBids.Common.Constant.Menu.PFMSSettings || item.Code == OPBids.Common.Constant.Menu.DTSSettings || item.Code == OPBids.Common.Constant.Menu.DTSReports)
+                    {
+                        <li class="treeview" id="@item.Code">
+                            <a href="#" class="@item.CssClass">
+                                @*<i class="fa fa-link"></i>*@
+                                <span>@item.Name</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-right pull-left right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+
+                                    @foreach (var subMenu in item.SubMenus)
+                                {
+                                        <li>
+                                            <a href="/@subMenu.ControllerAction" addedit="@(subMenu.AddOrEdit == true ? 1 : 0)" delete="@(subMenu.Delete == true ? 1 : 0)" record-section="@(subMenu.RecordSection == true ? 1 : 0)" menu-id="@item.Code" sub-menu-id="@subMenu.Code" class="@subMenu.CssClass">
+                                                <span>@(subMenu.Code == "D-ARCHIVED" ? (subMenu.RecordSection == true ? "Archived" : "@Records Division") : subMenu.Name)</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+
+                        }
+                        else
+                        {
+                            foreach (var subMenu in item.SubMenus)
+                            {
+                                <li>
+                                    <a href="/@subMenu.ControllerAction" addedit="@(subMenu.AddOrEdit == true ? 1 : 0)" delete="@(subMenu.Delete == true ? 1 : 0)" record-section="@(subMenu.RecordSection == true ? 1 : 0)" menu-id="@(item.Code??subMenu.Code)" sub-menu-id="@subMenu.Code" class="@subMenu.CssClass">
+                                        <span>@(subMenu.Code == "D-ARCHIVED" ? (subMenu.RecordSection == true ? "Archived" : "@Records Division") : subMenu.Name)</span>
+                                    </a>
+                                </li>
+                            }
+
+                        }
+
+
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="/@item.ControllerAction" menu-id="@item.Code" class="@item.CssClass">
+                                <span>@item.Name</span>
+                            </a>
+                        </li>
+
+                    }
+                }
+            }
+        }
+    </ul>
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/navigationscripts")
+<script type="text/javascript">
+    FileUploader.UploadUrl = "@OPBids.Common.Constant.AppSettings.UploadFileUrl"
+</script>
+<script src="~/Scripts/Shared/Chart.js"></script>
+<script>
+    $(".sidebar-menu > li").hover(
+        function (e) {
+            if ($(this).hasClass("treeview") == false) {
+                $(this).append("<div class='arrow-right'></div>");
+            }
+        },
+        function (e) {
+            $(this).find(".arrow-right").remove();
+        }
+    );
+    $(".treeview-menu > li > a").hover(
+        function (e) {
+            $(this).append("<div class='arrow-right'></div>");
+        },
+        function (e) {
+            $(this).find(".arrow-right").remove();
+        }
+    );
+</script>

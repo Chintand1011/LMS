@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.ProjectStatusVM>
+@Scripts.Render("~/bundles/projectstatScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.proj_statcode)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.proj_statdescription)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+		<tbody>
+			@{int i = 0;}
+			@foreach (var item in Model)
+			{
+				<tr id="row-@item.id">
+					<td>
+						<input type="checkbox" class="check-selected" itemid="@item.id" />
+						<span>@(++i)</span>
+					</td>
+					<td code>
+						@Html.DisplayFor(modelItem => item.proj_statcode)
+					</td>
+					<td description>
+						@Html.DisplayFor(modelItem => item.proj_statdescription)
+					</td>	
+					<td status statusid="@Html.DisplayFor(modelItem => item.status)"></td>
+					<td>
+						@{Html.RenderPartial("~/Views/Setting/ProjectStatus/ProjectStatusTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.proj_statcode }, { "item_status", item.status } });}
+					</td>
+				</tr>
+			}
+		</tbody>
+    </table>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_code" class="control-label">@Html.DisplayNameFor(m => m.proj_statcode)</label>:</div>
+                        <div class="col-md-9"><input placeholder="Enter status code here..." type="text" id="u_code" class="form-control" maxlength="75" required caption="@Html.DisplayNameFor(m => m.proj_statcode)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_description" class="control-label">@Html.DisplayNameFor(m => m.proj_statdescription)</label>:</div>
+                        <div class="col-md-9"><textarea placeholder="Enter description here..." id="u_description" class="form-control" maxlength="150" rows="3" required caption="@Html.DisplayNameFor(m => m.proj_statdescription)"></textarea></div><br />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Cancel</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>

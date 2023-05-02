@@ -1,0 +1,59 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.SettingVM>
+@Scripts.Render("~/bundles/settingScript")
+<script type="text/javascript">
+    $(function () {
+        Site.UserId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.UserId)";
+        Site.UserName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.FullName)";
+        Site.DepartmentId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.DeptId)";
+        Site.DepartmentCode = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.DeptCode)";
+        Site.DepartmentName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.Department)";
+        Site.PageItemCount = @OPBids.Common.Constant.AppSettings.PageItemCount;
+    });
+</script>
+<div id="setting-Header-section"></div>
+<div>
+    @{Html.RenderPartial("_toolBar", null, null);}
+</div>
+<div id="setting-Result-section"></div>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+<input type="hidden" id="u_id" />
+<script type="text/javascript">
+    $(function () {
+        InitSetting();
+
+        $(".side-menu-link-setting").click(function (e) {            
+            var _subMenuId = $(this).attr("sub-menu-id");
+
+            var _filter = JSON.stringify({ 'sub_menu_id': _subMenuId });
+            PopuplatePartialView(_filter);
+        });
+    });
+
+    function InitSetting() {
+        var _subMenuID = localStorage.getItem("sub-menu-id");
+        if (_subMenuID !== undefined && _subMenuID !== null) {
+            var _filter = JSON.stringify({ 'sub_menu_id': _subMenuID, 'txn': CONST.transaction_type.search });
+            PopuplatePartialView(_filter);
+        }
+    }
+
+    function PopuplatePartialView(filter) {
+        var _result;
+
+        ajaxHelper.Invoke("/Setting/HeaderView", filter, "html", renderHeaderCallback(_result));
+        ajaxHelper.Invoke("/Setting/ResultView", filter, "html", renderResultCallback(_result));
+    }
+
+    var renderHeaderCallback = function (result) {
+        return function (result) {
+            $("#setting-Header-section").html(result);
+        };
+    }
+    var renderResultCallback = function (result) {
+        return function (result) {
+            $("#setting-Result-section").html(result);
+        };
+    }
+</script>

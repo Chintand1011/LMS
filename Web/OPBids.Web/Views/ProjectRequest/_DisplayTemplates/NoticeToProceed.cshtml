@@ -1,0 +1,130 @@
+﻿<style>
+    #dataNoticeProceedModal #table_summary {
+        margin: 20px;
+        font-size: 16px;
+    }
+</style>
+<div data-backdrop="static" class="modal fade"id="dataNoticeProceedModal" tabindex="-1" role="dialog" aria-labelledby="dataNoticeProceedModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <div class="row">
+                    <div class="col-md-1"><div class="circle-div"><span id="proj_id" style="font-size: 30px"></span></div></div>
+                    <div class="col-md-9" style="padding-top: 10px;">
+                        <h4 class="modal-title" style="font-weight:bold;">
+                            <span id="proj_title"></span>
+                            &nbsp;for the&nbsp;
+                            <span id="proj_grantee"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-container">
+                <div>
+                    <table id="table_summary">
+                        <tr>
+                            <td width="180px" class="text-left" style="vertical-align: top"><label>Project Description :</label></td>
+                            <td width="720px"><span id="proj_desc"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Approved Budget :</label></td>
+                            <td><span class="green">₱</span>&nbsp;<span id="approved_budget" class="green"></span>&nbsp;(<span id="procurement_method"></span>)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Requested By :</label></td>
+                            <td><span id="requested_by"></span>&nbsp;for&nbsp;<span id="grantee"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Category :</label></td>
+                            <td><span id="classification"></span>&nbsp;-&nbsp;<span id="category"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h3>Lowest Calculated Responsive Bidder</h3></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" style="vertical-align: top"><label>Bidder's Name :</label></td>
+                            <td><span id="bidder_name"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Address :</label></td>
+                            <td><span id="bidder_address"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Authorized Rep :</label></td>
+                            <td><span id="bidder_rep"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Total Bid Price :</label></td>
+                            <td><span class="green">₱</span>&nbsp;<span id="bid_price" class="green"></span>&nbsp;(<span id="bid_variance"></span>%&nbsp;Variance from ABC)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Bid Form :</label></td>
+                            <td><span id="bidder_form"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Bid Bond :</label></td>
+                            <td><span id="bidder_bond"></span>% of ABC</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Project Duration :</label></td>
+                            <td><span id="bidder_proj_duration"></span>&nbsp;cd</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h3>Notice to Proceed</h3></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Prepared By :</label></td>
+                            <td><input type="text" class="form-control" id="preparedBy" style="width: 250px" /></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Prepare Date :</label></td>
+                            <td><input type="text" class="form-control" id="preparedDate" style="width: 250px" datetime /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="button" class="form-control" id="printNotice" style="width: 150px; float: right" value="Print Notice" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var NOTICEPROCEED = {
+        Initialize: function () {
+        },
+        EnableFields: function () {
+        },
+        DisableFields: function () {
+        },
+        SetData: function (row_data, lcb) {
+            console.log(lcb);
+            $("#dataNoticeProceedModal #proj_id").html(row_data.attr("itemid"));
+            $("#dataNoticeProceedModal #proj_desc").html(row_data.data("description"));
+            $("#dataNoticeProceedModal #procurement_method").html(row_data.data("proc-method"));
+            $("#dataNoticeProceedModal #proj_title").html(row_data.data("title"));
+            $("#dataNoticeProceedModal #proj_grantee").html(row_data.data("grantee"));
+            $("#dataNoticeProceedModal #approved_budget").html(row_data.data("approved-budget"));
+            $("#dataNoticeProceedModal #requested_by").html(row_data.data("created-by"));
+            $("#dataNoticeProceedModal #grantee").html(row_data.data("grantee"));
+            $("#dataNoticeProceedModal #classification").html(row_data.data("classification-desc"));
+            $("#dataNoticeProceedModal #category").html(row_data.data("category-desc"));
+
+            $("#dataNoticeProceedModal #bid_price").html(lcb.bid_amount);
+            $("#dataNoticeProceedModal #bid_variance").html(lcb.variance);
+            $("#dataNoticeProceedModal #bidder_form").html(lcb.bid_form);
+            $("#dataNoticeProceedModal #bidder_bond").html(lcb.bid_bond);
+            $("#dataNoticeProceedModal #bidder_proj_duration").html(lcb.duration);
+        }
+    };
+</script>

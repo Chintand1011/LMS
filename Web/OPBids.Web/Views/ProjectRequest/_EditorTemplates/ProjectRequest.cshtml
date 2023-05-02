@@ -1,0 +1,173 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectRequestVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form>
+        <div id="projectRequestEditor">
+            <div class="row">
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-9">                    
+                    @Html.EditorFor(model => model.title, new
+                    {
+                        htmlAttributes =
+                                          new
+                                          {
+                                              @class = "form-control",
+                                              @required = "true",
+                                              @maxlength = "100",
+                                              @placeholder = "Enter Project Name here...",
+                                              @caption = "Project Title"
+                                          }
+                    })
+                </div>
+            </div>
+
+            <div class="row">
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-9">                    
+                    @Html.TextAreaFor(model => model.description,
+                                      new
+                                      {
+                                          @class = "form-control",
+                                          @required = "true",
+                                          @maxlength = "1000",
+                                          @rows = "4",
+                                          @placeholder = "Tell something about the project...",
+                                          @caption = "Project Description"
+                                      })
+                </div>
+            </div>
+
+            <div class="row">
+                @Html.ValidationMessageFor(model => model.grantee, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right editor">@Html.LabelFor(model => model.grantee, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-9">
+                    <select id="grantee" class="form-control" required caption="@Html.DisplayNameFor(m => m.grantee)"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                @Html.ValidationMessageFor(model => model.estimated_budget, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.estimated_budget, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-3">                    
+                    @Html.EditorFor(model => model.estimated_budget,
+                                      new
+                                      {
+                                          htmlAttributes =
+                                          new
+                                          {
+                                              @class = "form-control",
+                                              @required = "true",
+                                              @money = "true",
+                                              @caption = "Estimated Budget",
+                                              @placeholder = "0.00",
+                                              @style = "text-align:right; padding-right: 10px !important"
+                                          }
+                                      })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.required_date, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.required_date, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-3">                    
+                    <div class='date'>
+                        @Html.EditorFor(model => model.required_date,
+                                          new
+                                          {
+                                              htmlAttributes =
+                                              new
+                                              {
+                                                  @class = "form-control",
+                                                  @required = "true",
+                                                  @caption = "Date Required",
+                                                  @datetime = ""
+                                              }
+                                          })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-3">                    
+                    <select id="category" class="form-control" required caption="@Html.DisplayNameFor(m => m.category)"></select>
+                </div>
+
+                @Html.ValidationMessageFor(model => model.pr_number, "", new { @class = "text-danger" })
+                <div class="col-md-2 text-right">@Html.LabelFor(model => model.pr_number, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-4">                    
+                    @Html.EditorFor(model => model.pr_number,
+                                      new
+                                      {
+                                          htmlAttributes =
+                                          new
+                                          {
+                                              @class = "form-control",
+                                              @required = "true",
+                                              @placeholder = "Please enter P.R.#",
+                                              @caption="P.R.#",
+                                              @number = ""
+                                          }
+                                      }
+                                  )
+                </div>
+            </div>
+
+            <div class="row pr-additional-info">
+                @Html.ValidationMessageFor(model => model.classification, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.classification, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-6">                    
+                    <select id="classification" class="form-control pr-additional-info" required caption="@Html.DisplayNameFor(m => m.classification)"></select>
+                </div>
+            </div>
+            <div class="row pr-additional-info">
+                @Html.ValidationMessageFor(model => model.contract_type, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.contract_type, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-6">                    
+                    <select id="contract_type" class="form-control pr-additional-info" required caption="@Html.DisplayNameFor(m => m.contract_type)"></select>
+                </div>
+            </div>
+            <div class="row pr-additional-info">
+                @Html.ValidationMessageFor(model => model.security_level, "", new { @class = "text-danger" })
+                <div class="col-md-3 text-right">@Html.LabelFor(model => model.security_level, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-3">
+                    <select id="security_level" class="form-control pr-additional-info" required caption="@Html.DisplayNameFor(m => m.security_level)"></select>
+                </div>
+                @Html.ValidationMessageFor(model => model.delivery_type, "", new { @class = "text-danger" })
+                <div class="col-md-2 text-right">@Html.LabelFor(model => model.delivery_type, htmlAttributes: new { @class = "control-label" })<span class="divider">:</span></div>
+                <div class="col-md-4">                    
+                    <select id="delivery_type" class="form-control pr-additional-info" required caption="@Html.DisplayNameFor(m => m.delivery_type)"></select>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+<script type="text/javascript">
+    var ProjReqEditor = {
+        Initialize: function () {
+            //Site.GenerateControls("#projectRequestEditor"); Somehow this is already being run? Keeping this line creates two overlapping min/max remainlinglength texts
+            $("#projectRequestEditor .pr-additional-info").css("display", "none");
+            $('.modal-dialog').attr("style", "min-width: 1200px;")
+            $('.modal-content').attr("style", "")        
+        },
+        ShowClassification: function () {
+            $("#projectRequestEditor .pr-additional-info").css("display", "block");
+            $('.modal-dialog').attr("style", "min-width: 1200px; height: 700px !important;")
+            $('.modal-content').attr("style", "height: 700px !important;")
+        },
+        EnableFields: function () {
+            $("#projectRequestEditor .form-control").removeAttr("disabled");
+            $("#projectRequestItems .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#projectRequestEditor .form-control").attr("disabled", "disabled");
+
+        }
+    };
+    ProjReqEditor.Initialize();
+</script>

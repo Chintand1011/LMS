@@ -1,0 +1,43 @@
+﻿
+@model OPBids.Entities.View.ProjectRequest.ProjectSearchResultVM
+@Scripts.Render("~/bundles/incomingScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+</style>
+
+<table id="incomingTable" class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="10%" class="text-center">Date<br />Created</th>
+            <th scope="col" width="10%" class="text-center">Date Required<br />(Remaining Days)</th>
+            <th scope="col" width="15%">Requested By</th>
+            <th scope="col" width="15%">Project Grantee</th>
+            <th scope="col" width="25%">Project</th>
+            <th scope="col" width="15%" colspan="2">Estimated Budget</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr scope="row" itemscope itemid="@item.id" id="row-@item.id" data-description="@item.description" data-category="@item.category" data-grantee="@item.grantee" data-pr-number="@item.pr_number" data-requiredate="@item.required_date">
+                @Html.Partial("_DisplayTemplates/ProjectRequest", item)
+                <td data-th="">&nbsp;</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+
+<script type="text/javascript">
+    INCOMING.SetPagination(@Model.page_index, @Model.count);
+    @{if (Model.total > 0)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.ToString("N2") ");
+        }}
+</script>

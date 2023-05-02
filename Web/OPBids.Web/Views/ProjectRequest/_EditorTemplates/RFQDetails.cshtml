@@ -1,0 +1,153 @@
+﻿<style>
+    #dataRFQModal #table_rfq_summary {
+        margin: 20px;
+        font-size: 16px;
+    }
+
+    /*#dataRFQModal #div_bidder_list {
+        font-size: 11px;
+        margin-bottom: 50px;
+    }*/
+
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div data-backdrop="static" class="modal fade project-request" id="dataRFQModal" tabindex="-1" role="dialog" aria-labelledby="dataRFQModal" aria-hidden="true">
+        <div class="modal-dialog" style="min-width:1200px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="row">
+                        <div class="col-md-1 circle-div-container">
+                            <div class="circle-div"><span id="proj_id"></span></div>
+                        </div>
+                        <div class="col-md-7 modal-title-container">
+                            <span class="modal-title">
+                                <span id="project_title"></span>
+                                <span id="processId" style="visibility: hidden"></span>
+                            </span>
+                        </div>
+                        <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                    </div>
+                </div>
+                <div class="modal-container">
+                    <h3 class="downloadAndPrintButton"><a class="fa fa-download fa-dialog"></a>&nbsp;&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-3 align-right">
+                                <label>Project Description :&nbsp;</label>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="project_description"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 align-right">
+                                <label>Approved Budget :&nbsp;</label>
+                            </div>
+                            <div class="col-md-8">
+                                <span class="green">₱</span><span id="approved_budget"></span>
+                                &nbsp;
+                                (<span id="proj_procmethod"></span>&nbsp;-&nbsp;PR#<span id="proj_prnumber"></span>)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 align-right">
+                                <label>Category :&nbsp;</label>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="classification"></span>&nbsp;-&nbsp;<span id="proj_procmethod2"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 align-right">
+                                <label>End-User</label>&nbsp;<label style="font: 11px">(Implementing Office) :&nbsp;</label>
+                            </div>
+                            <div class="col-md-8">
+                                <span id="proj_user"></span>&nbsp;-&nbsp;<span id="proj_dep"></span>
+                            </div>
+                        </div>
+                        <div id="submission_section" style="padding-top: 30px;">
+                            <h3>Submission of Quotations</h3>
+                            @{ Html.RenderPartial("~/Views/ProjectRequest/_EditorTemplates/RFQ.cshtml", new OPBids.Entities.View.ProjectRequest.ProjectRequestVM()); }
+                        </div>                        
+                    </div>                    
+                </div>
+                <hr />
+                <div class="modal-footer">
+                    <div style="float:left;">
+                        <span style="margin-right: 15px">Set Information to be printed on the Request for Quotation</span>
+                    </div>
+                    <div style="float:right;">
+                        <button type="button" class="btn btn-danger btn-dialog" id="btnCancel" data-dismiss="modal"><i class="fa fa-close fa-dialog"></i> Cancel</button>
+                        <button type="button" class="btn btn-success btn-dialog" id="btnSave"><i class="fa fa-check fa-dialog"></i> Save</button>
+                        <button type="button" class="btn btn-danger btn-dialog" id="btnClose" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    var RFQDETAILS = {
+        Initialize: function () {
+            RFQ.HidePrint();
+
+            //$("#dataRFQModal #btnSave").unbind("click");
+            //$("#dataRFQModal #btnSave").click(function (e) {
+            //    e.preventDefault();
+            //    RFQDETAILS.SaveData();
+            //});
+        },
+        ShowModal: function (data) {
+            $("#dataRFQModal #proj_id").html(data.proj_id);
+            $("#dataRFQModal #project_title").html(data.proj_title);
+            $("#dataRFQModal #project_description").html(data.proj_description);
+            $("#dataRFQModal #approved_budget").html(data.approved_budget);
+            $("#dataRFQModal #proj_procmethod").html(data.proc_method);
+            $("#dataRFQModal #proj_prnumber").html(data.prn_number);
+            $("#dataRFQModal #classification").html(data.classification);
+            $("#dataRFQModal #proj_procmethod2").html(data.proc_method);
+            $("#dataRFQModal #proj_user").html(data.created_by);
+            $("#dataRFQModal #proj_dep").html(data.created_by_dept); 
+
+            $("#dataRFQModal #rfq_deadline").val(data.rfq_deadline);
+            $("#dataRFQModal #rfq_place").val(data.rfq_place);
+            $("#dataRFQModal #rfq_requestor").val(data.rfq_requestor);
+            $("#dataRFQModal #rfq_requestor_dept").val(data.rfq_requestor_dept);
+            $("#dataRFQModal #rfq_request_date").val(data.rfq_request_date); 
+
+            RFQ.InitFields();
+
+            $("#dataRFQModal #btnClose").hide();
+
+            $("#dataRFQModal").modal("show");
+        },
+        GetData: function () {
+            return RFQ.GetData();
+        },
+        SetupControls: function (forEdit) {
+            if (forEdit == false) {
+                $("#dataRFQModal #btnClose").show();
+                $("#dataRFQModal #btnCancel").hide();
+                $("#dataRFQModal #btnSave").hide();
+            } else {
+                $("#dataRFQModal #btnClose").hide();
+                $("#dataRFQModal #btnCancel").show();
+                $("#dataRFQModal #btnSave").show();
+            }
+        }
+        //SaveData: function () {
+            
+
+        //    var _filter = JSON.stringify({
+        //        'sub_menu_id': localStorage.getItem("sub-menu-id"),
+        //        'txn': CONST.process_id.edit,
+        //        'projectSearch': PROJECT.SearchParam,
+        //        'projectRequest': _param
+        //    });
+        //    ajaxHelper.Invoke("/ProjectRequest/ResultView", _filter, "json", Utilities.HandlerResultMessage(_result, msg));
+        //}
+    };
+    RFQDETAILS.Initialize();
+</script>

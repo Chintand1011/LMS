@@ -1,0 +1,125 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectBatchSearchResultVM
+@Scripts.Render("~/bundles/approvalHopeScript")
+
+<style>
+    .dashboard-table > tbody > tr > td {
+        vertical-align: middle;
+    }
+</style>
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" width="5%" class="text-center">Item #</th>
+            <th scope="col" width="5%" class="text-center">Batch #</th>
+            <th scope="col" width="10%">Date Created</th>
+            <th scope="col" width="10%"># of Projects</th>
+            <th scope="col" width="10%">Total Amount</th>
+            <th scope="col" width="10%">Applicable<br />Year</th>
+            <th scope="col" width="20%">Procurement Method</th>
+            <th scope="col" width="30%" colspan="2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr id="row-@item.id" scope="row" itemscope itemid="@item.id"
+                data-applicable-year="@item.applicable_year"
+                data-procurement-method="@item.procurement_method"
+                data-procurement-method-desc="@item.procurement_method_desc"
+                data-total-project="@item.total_projects"
+                data-total-amount="@item.total_amount"
+                data-created-date="@item.created_date"
+                data-created-by="@item.created_by_name"
+                data-project-substatus-desc="@item.project_substatus_desc">
+
+                <td class="text-center">
+                    @item.index
+                </td>
+                <td data-th="Ref #" class="text-center">
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td data-th="Date Created" created_date>
+                    @Html.DisplayFor(modelItem => item.created_date)
+                </td>
+                <td data-th="# of Projects" class="text-left" total_projects>
+                    @Html.DisplayFor(modelItem => item.total_projects)
+                </td>
+                <td data-th="Total Amount" class="text-left money" total_amount>
+                    @Html.DisplayFor(modelItem => item.total_amount)
+                </td>
+                <td data-th="Applicable Year" class="text-left" applicable_year>
+                    @Html.DisplayFor(modelItem => item.applicable_year)
+                </td>
+                <td data-th="Procurement Method" class="text-left" proc_method>
+                    @Html.DisplayFor(modelItem => item.procurement_method_desc)
+                </td>
+                <td data-th="Procurement Method" class="text-left" status>
+                    @Html.DisplayFor(modelItem => item.project_substatus_desc)
+                </td>
+                <td data-th="">
+                    <input type="hidden" name="hf_project_substatus" id="hf_project_substatus" value="@item.project_substatus" />
+
+                    @if (item.project_substatus == "PSS-5.1")
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Approval/ApprovalHopeTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Batch Information" }, { "show-approve-text", "Approve Batch" }, { "show-return-text", "Return to BAC SEC" } }); }
+                    }
+                    else
+                    {
+                        { Html.RenderPartial("~/Views/ProjectRequest/Approval/ApprovalHopeTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by_name }, { "show-view-text", "View Batch Information" } }); }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div style="text-align:right">
+    <ul id="pager"></ul>
+</div>
+<script type="text/javascript">
+    APP_HOPE.SetPagination(@Model.page_index, @Model.count);
+
+         @{if (Model.total.HasValue)
+        {
+            @: $(".page-header-total-amount span").html("₱ @Model.total.GetValueOrDefault().ToString("N2") ");
+        }}
+
+</script>
+<div data-backdrop="static" class="modal fade project-request" id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="dataEntryModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container"><div class="circle-div"><span id="modal_batch_id" style="font-size: 30px"></span></div></div>
+                    <div class="col-md-7 modal-title-container">
+                        <h4 class="modal-title" style="font-weight:bold;">
+                            <span id="modal_proc_method"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </h4>
+                    </div>
+                    <div class="col-md-3 modal-status-container">
+                        <span class="modal-status">
+                            <b>Status: </b><span id="modal_proc_status"></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("~/Views/ProjectRequest/_DisplayTemplates/ProjectRequestBatch.cshtml")
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6 align-left">
+                        <span id="footerNote" style="float:left;font-weight:bold" class="blue">Reject:&nbsp;</span><span>Not allowing all the projects in the list from undergoing procurement</span>
+                    </div>
+                    <div class="col-md-6 align-right">
+                        <button type="button" class="btn btn-danger" id="btnCancel" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary leftArrowDialogButton" id="btnReject"><span style="position:relative;left:-5px;"></span>Reject</button>
+                        <button type="button" class="btn btn-success positiveDialogButton" id="btnApprove"><span style="position:relative;left:-5px;"></span>Approve</button>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/ProjectRequest/_EditorTemplates/DocumentNotes.cshtml")

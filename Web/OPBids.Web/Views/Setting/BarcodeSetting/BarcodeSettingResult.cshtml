@@ -1,0 +1,26 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.BarcodeSettingVM>
+@Scripts.Render("~/bundles/bsScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    @{
+        var item = (Model.Count() <= 0 ? new OPBids.Entities.View.Setting.BarcodeSettingVM() : Model.FirstOrDefault());
+    }
+    <table class="barcodeEntry">
+        <tbody>
+            <tr itemid="@item.id">
+                <td><input type="radio" id="barcodeOnly" name="barcodeOpt" checked="@item.barcode_only" /></td>
+                <td><div class="barcodeImage barcodeOnly"></div><div>@Html.DisplayNameFor(m => m.barcode_only)</div></td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="barcodeWithPrint" name="barcodeOpt" checked="@item.barcode_with_print_date" /></td>
+                <td><div class="barcodeImage barcodeWithPrint"></div><div>@Html.DisplayNameFor(m => m.barcode_with_print_date)</div></td>
+            </tr>
+            <tr>
+                <td><input type="radio" id="qrOnly" name="barcodeOpt" checked="@item.qr_only" /></td>
+                <td><div class="barcodeImage qrOnly"></div><div>@Html.DisplayNameFor(m => m.qr_only)</div></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

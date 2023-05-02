@@ -1,0 +1,67 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.AccessGroupTypeVM>
+@Scripts.Render("~/bundles/agpScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <label for="cboAccessGroupPermission" class="control-label" style="display:inline-block;">@Html.DisplayNameFor(m => m.access_group)</label>:
+    <div style="width:300px;">
+        <select class="form-control selectpicker" data-actions-box="true" data-live-search="true" data-none-selected-text id="cboAccessGroupPermission" style="width: 300px;"></select><br /><br />
+    </div>
+    <table id="lstAccessGroupType" class="tableCollapser" style="width:90%;">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(m => m.name)</th>
+                <th scope="col" style="text-align:center !important;">@Html.DisplayNameFor(m => m.view_transact_data)</th>
+                <th scope="col" style="text-align:center !important;">@Html.DisplayNameFor(m => m.add_edit_data)</th>
+                <th scope="col" style="text-align:center !important;">@Html.DisplayNameFor(m => m.delete_data)</th>
+                <th scope="col" style="text-align:center !important;">@Html.DisplayNameFor(m => m.record_section)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (@item.status == "H")
+                {
+                    <tr section rowid="@item.parent_id">
+                        <td colspan="5" name>
+                            <span collapse="0">@Html.DisplayFor(modelItem => item.name)</span>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr details class="shown" rowid="@item.parent_id">
+                        <td name itemid="@item.access_group_type_id" access_group_id="@item.access_group_id" access_type_id="@item.access_type_id">
+                            @Html.DisplayFor(modelItem => item.name)
+                        </td>
+                        <td style="text-align:center !important;">
+                            @if (item.view_transact_data != null)
+                            {
+                                <input view_transact_data type="checkbox" @(item.view_transact_data == true ? "checked='checked'" : "") />
+                            }
+                        </td>
+                        <td style="text-align:center !important;">
+                            @if (item.add_edit_data != null)
+                            {
+                                <input add_edit_data type="checkbox" @(item.add_edit_data == true ? "checked='checked'" : "") />
+                            }
+                        </td>
+                        <td style="text-align:center !important;">
+                            @if (item.delete_data != null)
+                            {
+                                <input delete_data type="checkbox" @(item.delete_data == true ? "checked='checked'" : "") />
+                            }
+                        </td>
+                        <td style="text-align:center !important;">
+                            @if (item.record_section != null)
+                            {
+                                <input record_section type="checkbox" @(item.record_section == true ? "checked='checked'" : "") />
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

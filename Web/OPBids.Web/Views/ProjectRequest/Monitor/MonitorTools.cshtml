@@ -1,0 +1,18 @@
+﻿<div class="item-setting">
+    <div class="dropup" style="display:inline-block">
+        <a class="btn btn-secondary dropdown-toggle link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="setting-icon" src="~/Content/images/icon-gear.png" />
+        </a>
+
+        <div class="dropdown-menu setting-cmd" aria-labelledby="dropdownMenuLink">
+            <b>@this.ViewData["item_name"]</b><br />
+            <span>Created By</span>
+            <ul id="draft_tools">
+                @if (ViewData["show-view-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-view link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-text"]</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

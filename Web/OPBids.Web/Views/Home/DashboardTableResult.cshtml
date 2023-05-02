@@ -1,0 +1,33 @@
+﻿@model OPBids.Entities.View.Home.DashboardTableDataVM
+@*type1*@
+<section class="content">
+    @{Html.RenderPartial("DashboardTableHeader", Model.header)}
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">Ref #</th>
+                <th scope="col">Category</th>
+                <th scope="col">Aging in Days</th>
+                <th scope="col">Project</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var item in Model.result.Select((value, index) => new { index, value }))
+            {
+                <tr>
+                    <th class="text-center" scope="row">@(item.index + 1)</th>
+                    <td class="text-center">@item.value.refNo</td>
+                    <td>@item.value.category</td>
+                    <td class="text-center">@item.value.agingInDays</td>
+                    <td>@item.value.project</td>
+                    <td class="text-right">₱&nbsp;@item.value.amount.ToString("N2")</td>
+                    <td>@item.value.status</td>
+                </tr>
+            }
+
+    </table>
+</section>

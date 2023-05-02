@@ -1,0 +1,81 @@
+﻿@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <form>       
+        <div class="modal-container">
+            <div  id="ProjectInfo">
+                <table>
+                    <tr>
+                        <td><label>Project Description :</label></td>
+                        <td colspan="3"><span id="projDesc"></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>End User </label>
+                            <span>(Implementing Office)</span>
+                            <label> :</label>
+                        </td>
+                        <td colspan="3"><span id="endUser"></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Project Cost :</label>
+                        </td>
+                        <td colspan="3"><span style="color:#2AB106">₱ </span><span id="projCost" style="color:#2AB106"></span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%;"><label>Category :</label></td>
+                        <td style="width:25%;"><span id="catValue"></span></td>
+                        <td style="width:25%; text-align:right;"><label>Required Date :</label></td>
+                        <td style="width:25%;"><span id="reqDate"></span></td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <table>
+                    <thead>
+                        <tr>
+                            <td><label>Awarded Supplier</label></td>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><label>Bidder's Name :</label></td>
+                        <td><span id="bidderName"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label>Address :</label></td>
+                        <td><span id="address"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label>Authorized Rep :</label></td>
+                        <td><span id="authRep"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+}
+
+<script type="text/javascript">
+    var ProjReqEditor = {
+        Initialize: function () {
+            Site.GenerateControls("#projectRequestEditor");
+            $("#projectRequestEditor .pr-additional-info").css("display", "none");
+            $('.modal-dialog').attr("style", "min-width: 1200px;")
+            $('.modal-content').attr("style", "")
+        },
+        ShowClassification: function () {
+            $("#projectRequestEditor .pr-additional-info").css("display", "block");
+            $('.modal-dialog').attr("style", "min-width: 1200px; height: 700px !important;")
+            $('.modal-content').attr("style", "height: 700px !important;")
+        },
+        EnableFields: function () {
+            $("#projectRequestEditor .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#projectRequestEditor .form-control").attr("disabled", "disabled");
+        }
+    };
+    ProjReqEditor.Initialize();
+</script>

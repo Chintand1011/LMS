@@ -1,0 +1,152 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.SupplierVM>
+@Scripts.Render("~/bundles/supScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+
+    $(document).ready(function () {
+        $("#u_contact_no").forceNumeric();
+        $("#u_tin").forceNumeric();
+    });
+
+    jQuery.fn.forceNumeric = function () {
+        return this.each(function () {
+            $(this).keydown(function (e) {
+                var key = e.which || e.keyCode;
+
+                if (!e.shiftKey && !e.altKey && !e.ctrlKey &&
+                    // numbers   
+                    key >= 48 && key <= 57 ||
+                    // Numeric keypad
+                    key >= 96 && key <= 105 ||
+                    // comma, period and minus, . on keypad
+                    key == 190 || key == 188 || key == 109 || key == 110 ||
+                    // Backspace and Tab and Enter
+                    key == 8 || key == 9 || key == 13 ||
+                    // Home and End
+                    key == 35 || key == 36 ||
+                    // left and right arrows
+                    key == 37 || key == 39 ||
+                    // Del and Ins
+                    key == 46 || key == 45)
+                    return true;
+
+                return false;
+            });
+        });
+    }
+
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">Access UserName</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.contact_person)</th>
+                <th scope="col" hidden>@Html.DisplayNameFor(m => m.company_code)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.comp_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.address)</th>
+                <th scope="col" hidden>@Html.DisplayNameFor(m => m.email)</th>
+                <th scope="col" hidden>@Html.DisplayNameFor(m => m.contact_no)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.tin)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+            <tr id="row-@item.id">
+                <td><input type="checkbox" class="check-selected" itemid="@item.id" /><span class="incrementalNum"></span></td>
+                <td user_id="@Html.DisplayFor(modelItem => item.user_id)">
+                    <span first_name>@item.supp_first_name</span>&nbsp;
+                    <span mi>@item.supp_mi</span>&nbsp;
+                    <span last_name>@item.supp_last_name</span>
+                </td>
+                <td contact_person>
+                    @Html.DisplayFor(modelItem => item.contact_person)
+                </td>
+                <td company_code hidden>
+                    @Html.DisplayFor(modelItem => item.company_code)
+                </td>
+                <td comp_name>
+                    @Html.DisplayFor(modelItem => item.comp_name)
+                </td>
+                <td address>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td email hidden>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td contact_no hidden>
+                    @Html.DisplayFor(modelItem => item.contact_no)
+                </td>
+                <td tin>
+                    @Html.DisplayFor(modelItem => item.tin)
+                </td>
+                <td status statusid="@Html.DisplayFor(modelItem => item.status)"></td>
+                <td>
+                    @{Html.RenderPartial("~/Views/Setting/Supplier/SupplierTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.comp_name }, { "item_status", item.status } });}
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_user_id" class="control-label">Access UserName</label>:</div>
+                        <div class="col-md-8" style="text-align:left;">
+                            <select id="u_user_id" placeholder="Select Access UserName" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="Access UserName"></select>
+                            @*<select id="u_user_id" class="form-control selectpicker" placeholder="Select Supplier Name" data-actions-box="true" data-live-search="true" data-none-selected-text required caption="Access UserName"></select>*@
+                            <button type="button" id="btnCreateAccessUser" style="float:right;font-size:10px;" class="buttonLink">Create Access User</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_contact_person" class="control-label">@Html.DisplayNameFor(m => m.contact_person)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter contract person here..." type="text" id="u_contact_person" class="form-control" maxlength="100" required caption="@Html.DisplayNameFor(m => m.contact_person)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_company_code" class="control-label">@Html.DisplayNameFor(m => m.company_code)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter company code here..." type="text" id="u_company_code" class="form-control" maxlength="25" required caption="@Html.DisplayNameFor(m => m.company_code)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_comp_name" class="control-label">@Html.DisplayNameFor(m => m.comp_name)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter company name here..." type="text" id="u_comp_name" class="form-control" maxlength="100" required caption="@Html.DisplayNameFor(m => m.comp_name)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_address" class="control-label">@Html.DisplayNameFor(m => m.address)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter address here..." type="text" id="u_address" class="form-control" maxlength="150" required caption="@Html.DisplayNameFor(m => m.address)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_email" class="control-label">@Html.DisplayNameFor(m => m.email)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter email here..." type="text" id="u_email" class="form-control" maxlength="50" required caption="@Html.DisplayNameFor(m => m.email)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_contact_no" class="control-label">@Html.DisplayNameFor(m => m.contact_no)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter contact number here..." type="text" id="u_contact_no" class="form-control" maxlength="25" required caption="@Html.DisplayNameFor(m => m.contact_no)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_tin" class="control-label">@Html.DisplayNameFor(m => m.tin)</label></div>
+                        <div class="col-md-8"><input placeholder="Enter tin here..." type="text" id="u_tin" class="form-control" maxlength="50" required caption="@Html.DisplayNameFor(m => m.tin)" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Cancel</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+

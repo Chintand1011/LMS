@@ -1,0 +1,28 @@
+﻿@model  IEnumerable<OPBids.Entities.View.Supplier.SuppliersVM>
+@Scripts.Render("~/bundles/settingScript")
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" width="5%" class="text-center">Item #</th>
+                <th scope="col" width="5%" class="text-center">@Html.DisplayNameFor(m => m.ref_no)</th>
+                <th scope="col" width="20%">@Html.DisplayNameFor(m => m.category)</th>
+                <th scope="col" width="10%">@Html.DisplayNameFor(m => m.date_submitted)</th>
+                <th scope="col" width="auto">@Html.DisplayNameFor(m => m.project)</th>
+                <th scope="col" width="12%">@Html.DisplayNameFor(m => m.amount)</th>
+                <th scope="col" width="10%">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col" width="3%"></th>
+                <th scope="col" style="display:none;width:0px;">@Html.DisplayNameFor(m => m.deadline)</th>
+                <th scope="col" style="display:none;width:0px;">@Html.DisplayNameFor(m => m.approved_budget)</th>
+                <th scope="col" style="display:none;width:0px;">@Html.DisplayNameFor(m => m.bid_bond)</th>
+                <th scope="col" style="display:none;width:0px;">@Html.DisplayNameFor(m => m.project_desc)</th>
+                <th scope="col" style="display:none;width:0px;">@Html.DisplayNameFor(m => m.project_duration)</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div style="text-align:right">
+        <ul id="pager"></ul>
+    </div>
+</div>

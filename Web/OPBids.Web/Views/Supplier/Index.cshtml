@@ -1,0 +1,16 @@
+﻿@Scripts.Render("~/bundles/supplierIndexScript")
+<script type="text/javascript">
+    $(function () {
+        Site.UserId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.UserId)";
+        Site.UserName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.FullName)";
+        Site.DepartmentId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.DeptId)";
+        Site.DepartmentCode = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.DeptCode)";
+        Site.DepartmentName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.Department)";
+        Site.PageItemCount = @OPBids.Common.Constant.AppSettings.PageItemCount;
+    });
+</script>
+<div id="setting-Header-section"></div>
+<div>
+    @{Html.RenderPartial("_toolBar", null, null);}
+</div>
+<div id="contentSection"></div>

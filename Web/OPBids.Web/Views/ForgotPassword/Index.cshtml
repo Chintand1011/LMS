@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "ForgotPassword";
+    Layout = "~/Views/Shared/_UnAuthenticated.cshtml";
+}
+
+
+<style type="text/css">
+
+    .bgColor {
+        background-color: rgba(238,238,238,.98);
+    }
+
+    .forgot-password-icon {
+        background-image: url("../../Content/images/icon-forgot-password.png");
+        background-repeat: no-repeat;
+        background-color: #B5B5B5;
+        width: 170px;
+        height: 170px;
+        padding: 0;
+        border: 0;
+        position: relative;
+        background-position: center center;
+    }
+
+    .m100 {
+        margin-top: 100px;
+    }
+
+    .mTop7{
+        margin-top: 7px;
+    }
+
+    .inputBox {
+        border: 0;
+        background-color: white !important;
+        box-shadow: none;
+        font-size: 14px;
+        line-height: 22px
+    }
+
+    .fStyle {
+        background-color: #B5B5B5;
+        margin-top: 80px;
+        height:50px;
+    }
+
+    .pad100{
+        padding-left:100px;
+        padding-right:100px;
+    }
+
+    .padBottom20px {
+        padding-bottom:20px;
+    }
+
+</style>
+
+<div class="container-fluid pad100">
+    <div class="bgColor">
+        <div class="row">
+            <div class="col-xs-2">
+            </div>
+            <div class="col-xs-10">
+                <h1> Forgot Your Password?</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="m100"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2">
+            </div>
+
+            <div class="col-xs-2 forgot-password-icon">
+            </div>
+
+            <div class="col-xs-3">
+                <p class="padBottom20px">
+                    Enter your email or username. We'll email instructions on how to reset your password.
+                </p>
+                <p>
+                    Send an email to DTS Administrator @@ <a>dtsadmin@mmda.gov.ph</a>
+                </p>
+            </div>
+
+            <div class="col-xs-3">
+                <span>
+                    <input id="emailRadio" type="radio" />
+                    <label>YOUR EMAIL</label>
+                    <span class="glyphicon glyphicon-question-sign" title="The Email Used To Create Your Account">
+                    </span>
+                    <input type="text" class="inputBox" id="txtEmail"/>
+                </span>
+
+                <span>
+                    <input id="userNameRadio" type="radio" />
+                    <label>USERNAME</label>
+                    <span class="glyphicon glyphicon-question-sign" title="The UserId Used For Login"></span>
+                    <input type="text" class="inputBox" id="txtUserName"/>
+                </span>
+            </div>
+        </div>
+
+        <footer class="fStyle">
+            <div class="row">
+                <div class="col-xs-2">
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-default mTop7" id="backBtn">Back</button>
+                </div>
+                <div class="col-xs-5">
+                </div>
+                <div class="col-xs-2">
+                    <button class="btn btn-primary mTop7" id="submitBtn">Submit</button>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+
+        $("#txtUserName").click(function (e) {
+            $("#userNameRadio").prop("checked", true);
+            $("#emailRadio").prop("checked", false);
+        });
+
+        $("#txtEmail").click(function (e) {
+            $("#userNameRadio").prop("checked", false);
+            $("#emailRadio").prop("checked", true);
+        });
+
+        $("#backBtn").click(function (e) {
+            window.location.href = '@Url.Action("Index","Auth")';
+        });
+
+    });
+</script>

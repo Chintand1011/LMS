@@ -1,0 +1,64 @@
+﻿
+
+<section class="content db-section">
+    <div class="row dash-row" style="padding:5px 0px">
+        <div class="col-lg-12 small-box" style="padding:0 10px 0 10px">
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <span class="header-title">Projects&nbsp;&nbsp;&nbsp;&nbsp;<a id="view_all" href="#">(view all)</a></span>
+                </div>
+            </div>
+            <div class="table-container">
+                <div style="padding-left:-10px" id="table_result1">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+
+    var DashboardRenderTable1 = function (view_all) {
+        var _completion = [];
+        $('#filter_completion input:checked').each(function () {
+            _completion.push(this.value);
+        });
+
+        var _status = $('#filter_status').val();
+
+        var _filter = JSON.stringify({
+            'completion': _completion,
+            'status': _status,
+            'view_all': view_all?true:false
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/BudgetResultView",
+            contentType: "application/json; charset=utf-8",
+            data: _filter,
+            success: function (data) {
+                $('#table_result1').html(data)
+            }
+        });
+    }    
+     //Call on document ready
+    $(function () {
+
+        //Show BarCode section
+        $("#barcode-section").show();
+
+        //Table1 initial load
+        DashboardRenderTable1(); 
+        
+        $(".header-title #view_all").click(function () {
+            DashboardRenderTable1(true); 
+        });
+    });
+
+
+
+</script>

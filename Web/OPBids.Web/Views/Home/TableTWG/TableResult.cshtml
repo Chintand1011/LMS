@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OPBids.Entities.View.Home.DashboardTableResultVM>
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center" style="width:60px">Item #</th>
+            <th scope="col" class="text-center" style="width:60px">Ref #</th>
+            <th scope="col" class="text-center" style="width:130px">Date Submitted</th>
+            <th scope="col">Project</th>
+            <th scope="col" class="text-center" style="width:120px">Aging in TWG</th>
+            <th scope="col" class="text-center" style="width:120px">Aging in Status</th>
+            <th scope="col" class="text-center">Amount</th>
+            <th scope="col" class="text-center" style="width:120px">Status</th>
+            <th scope="col" style="width:80px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((value, index) => new { index, value }))
+        {
+        <tr>
+            <td class="text-right"><i class="fa fa-star" @(item.value.monitored ? Html.Raw("") : Html.Raw("style=\"visibility:hidden\""))/> @(item.index + 1).</td>
+            <td data-th="Ref #" class="text-center">@item.value.refNo</td>
+            <td data-th="Date Submitted">@item.value.dateSubmitted.ToString(OPBids.Common.Constant.DateFormat)</td>
+            <td data-th="Project">@item.value.project</td>
+            <td data-th="Aging in TWG" class="text-center">@item.value.agingInTWG</td>
+            <td data-th="Aging in Status" class="text-center">@item.value.agingInStatus</td>
+            <td data-th="Amount" class="text-right green money">@item.value.amount.ToString("N2")</td>
+            <td data-th="Status">@item.value.status</td>
+            <td><a class="item-setting-view" href="#" data-itemid="@item.value.refNo" onclick="ProjReqView.ViewRecord(@item.value.refNo)">VIEW</a></td>
+        </tr>
+        }
+
+</table>

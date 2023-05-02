@@ -1,0 +1,29 @@
+﻿<div class="item-setting">
+    <div class="show">
+        <button style="width:42px; height:14px; padding:0; line-height:1;" class="setting-icon" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-gear" ></i>&nbsp;&nbsp;<i class="fa fa-caret-down" ></i>
+        </button>
+        <div class="dropdown-menu setting-cmd" aria-labelledby="dropdownMenuLink" style="display:none;">
+            <span class="item-name">@this.ViewData["item_name"]</span><br />
+            <span class="sub-label">Created By</span>
+            <ul id="draft_tools">
+                @if (ViewData["show-edit-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-edit link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-edit-text"]</a></li>
+                }
+                @if (ViewData["show-cancel-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-cancel link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-cancel-text"]</a></li>
+                }
+                @if (ViewData["show-newdraft-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-newdraft link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-newdraft-text"]</a></li>
+                }
+                @if (ViewData["show-submit-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-text"]</a></li>
+                }                
+            </ul>
+        </div>
+    </div>
+</div>

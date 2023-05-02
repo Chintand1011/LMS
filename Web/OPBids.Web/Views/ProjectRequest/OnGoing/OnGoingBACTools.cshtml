@@ -1,0 +1,143 @@
+﻿
+
+<div class="item-setting">
+    <div class="show">
+        <button style="width:42px; height:14px; padding:0; line-height:1;" class="setting-icon" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-gear"></i>&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-menu setting-cmd" aria-labelledby="dropdownMenuLink" style="display:none;">
+            <b>@this.ViewData["item_name"]</b><br />
+            <span>Created By</span>
+            <ul id="ongoing_tools">
+                @if (ViewData["show-view-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-view link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-text"]</a></li>
+                }
+                @if (ViewData["show-view-rfq"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-rfq link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-rfq"]</a></li>
+                }
+                @if (ViewData["show-view-quote"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-quote link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-quote"]</a></li>
+                }
+                @if (ViewData["show-view-bidderlist-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-view-bidderlist link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-bidderlist-text"]</a></li>
+                }
+                @if (ViewData["show-view-lowest-bid-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-view-lowest-bid link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-lowest-bid-text"]</a></li>
+                }
+                @if (ViewData["show-update-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-update link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-update-text"]</a></li>
+                }
+                @if (ViewData["show-prepare-rfq-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-rfq link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-rfq-text"]</a></li>
+                }
+                @if (ViewData["show-prepare-abstract-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-abstract link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-abstract-text"]</a></li>
+                }
+                @if (ViewData["show-prepare-lcb-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-lcb link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-lcb-text"]</a></li>
+                }
+                @if (ViewData["show-prepare-PQ-report"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-pq-report link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-PQ-report"]</a></li>
+                }
+                @if (ViewData["show-prepare-PQ-notice"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-pq-notice link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-PQ-notice"]</a></li>
+                }
+                @if (ViewData["show-prepare-bac-reso"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-bac-reso link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-bac-reso"]</a></li>
+                }
+                @if (ViewData["show-prepare-app-bac-reso"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-prepare-app-bac-reso link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-prepare-app-bac-reso"]</a></li>
+                }
+                @if (ViewData["show-submit-advertising"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit-advertising link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-advertising"]</a></li>
+                }
+                @if (ViewData["show-submit-twg-eval-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-twg-eval link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-twg-eval-text"]</a></li>
+                }
+                @if (ViewData["show-notice-award"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-notice-award link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-notice-award"]</a></li>
+                }
+                @if (ViewData["show-notice-proceed"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-notice-proceed link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-notice-proceed"]</a></li>
+                }
+                @if (ViewData["show-awarding"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-awarding link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-awarding"]</a></li>
+                }
+                @if (ViewData["show-submit-twg-rank-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-twg-rank link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-twg-rank-text"]</a></li>
+                }
+                @if (ViewData["show-submit-budget-approval-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit-budget-approval link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-budget-approval-text"]</a></li>
+                }
+                @if (ViewData["show-submit-post-qualification-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit-post-qual link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-post-qualification-text"]</a></li>
+                }
+                @if (ViewData["show-submit-awarding"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit-awarding link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-awarding"]</a></li>
+                }
+                @if (ViewData["show-proceed-bid-opening-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-proceed-bid-opening link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-proceed-bid-opening-text"]</a></li>
+                }
+                @if (ViewData["show-proceed-recom"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-proceed-recom link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-proceed-recom"]</a></li>
+                }
+                @if (ViewData["show-update-comp-status"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-update-comp-status link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-update-comp-status"]</a></li>
+                }
+                @if (ViewData["show-advertise-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-advertise link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-advertise-text"]</a></li>
+                }
+                @if (ViewData["show-return-shortlist-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-return-shortlist link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-return-shortlist-text"]</a></li>
+                }
+                @if (ViewData["show-return-twg-rank-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-return-twg-rank link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-return-twg-rank-text"]</a></li>
+                }
+                @if (ViewData["show-return-twg-eval-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-return-twg-eval link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-return-twg-eval-text"]</a></li>
+                }
+                @if (ViewData["show-reopen-project-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-reopen-project link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-reopen-project-text"]</a></li>
+                }
+                @if (ViewData["show-close-shortlist-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-close-shortlist link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-close-shortlist-text"]</a></li>
+                }
+                @if (ViewData["show-attachment-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-attachment link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-attachment-text"]</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.SenderRecipientUserVM>
+    @Scripts.Render("~/bundles/srScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+@Styles.Render("~/Content/filter")
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col" style="width:70px;">@Html.DisplayNameFor(m => m.salutation)</th>
+                <th scope="col">Name</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.department_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.is_sender)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.is_recipient)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.id">
+                    <td email_address="@item.email_address" user_id="@item.user_id" mobile_no="@item.mobile_no">
+                        <input type="checkbox" itemscope class="check-selected" itemid="@item.id" /><span class="incrementalNum"></span>
+                    </td>
+                    <td salutation is_system_user="@Html.ValueFor(modelItem => item.is_system_user)">
+                        @Html.DisplayFor(modelItem => item.salutation)
+                    </td>
+                    <td full_name>
+                        <span style="display:none;" first_name>@item.first_name</span>
+                        <span style="display:none;" mi>@item.mi</span>
+                        <span style="display:none;" last_name>@item.last_name</span>
+                        @string.Concat(@item.first_name, " ", @item.mi, " ", @item.last_name)
+                    </td>
+                    <td department_name department_id="@Html.DisplayFor(modelItem => item.department_id)">
+                        @Html.DisplayFor(modelItem => item.department_name)
+                    </td>
+                    <td is_sender style="text-align:center;">
+                        @Html.DisplayFor(modelItem => item.is_sender)
+                    </td>
+                    <td is_recipient style="text-align:center;">
+                        @Html.DisplayFor(modelItem => item.is_recipient)
+                    </td>
+                    <td status statusid="@Html.DisplayFor(modelItem => item.status)"></td>
+                    <td>
+                        @{Html.RenderPartial("~/Views/Setting/SenderRecipient/SenderRecipientTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id },
+                              { "item_name", string.Concat(item.salutation, " ", string.Concat(item.first_name, " ", item.mi, " ", item.last_name)) },
+                              { "item_status", item.status } });}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:750px;">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h3 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="hidden" id="u_user_id" />
+                        <input type="checkbox" id="u_is_system_user" style="display:none;" />
+                        <div class="col-md-2 text-right"><label for="u_full_name" class="control-label">Name</label>:</div>
+                        <div class="col-md-1"style="padding: 1px;" ><select id="u_salutation" class="form-control" required style="padding:0px;" caption="@Html.DisplayNameFor(m => m.salutation)"></select></div>
+                        <div class="col-md-4"style="padding: 1px;" ><input type="text" id="u_first_name" personName class="form-control" maxlength="100" placeholder="First Name" required caption="@Html.DisplayNameFor(m => m.first_name)" /></div>
+                        <div class="col-md-1"style="padding: 1px;" ><input type="text" id="u_mi" personName class="form-control" maxlength="1" style="width:90px;" caption="@Html.DisplayNameFor(m => m.mi)" /></div>
+                        <div class="col-md-4"style="padding: 1px;" ><input type="text" id="u_last_name" personName class="form-control" maxlength="120" placeholder="Last Name" required caption="@Html.DisplayNameFor(m => m.first_name)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5 text-right"><label for="u_department_id" class="control-label">@Html.DisplayNameFor(m => m.department_name):</label></div>
+                        <div class="col-md-7" style="text-align:left;">
+                            <select id="u_department_id" class="form-control selectpicker" data-actions-box="true" data-max-options="15" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.department_name)">
+                                @foreach (var i in OPBids.Web.Helper.UserInfoStore.GetDepartment(Request.GetOwinContext()))
+                                {
+                                    <option desc='@i.dept_description' is_internal="@i.is_internal" value="@i.id">@i.dept_code</option>
+                                }
+                            </select>
+                            <button type="button" id="btnCreateDept" style="float:right;font-size:10px;" class="buttonLink">Create New Department</button><br /><br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5 text-right"><label for="u_email_address" class="control-label">@Html.DisplayNameFor(m => m.email_address)</label>:</div>
+                        <div class="col-md-7"><input type="text" id="u_email_address" class="form-control" email maxlength="100"  placeholder="Enter email address here" required caption="@Html.DisplayNameFor(m => m.email_address)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5 text-right"><label for="u_mobile_no" class="control-label">@Html.DisplayNameFor(m => m.mobile_no)</label>:</div>
+                        <div class="col-md-7"><input type="text" id="u_mobile_no" number class="form-control" maxlength="11" placeholder="Enter mobile number e.g. 09123456789" required caption="@Html.DisplayNameFor(m => m.mobile_no)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-5 text-right"></div>
+                        <div class="col-md-3" style="cursor:pointer;"><label for="u_is_sender" style="position:relative;top:-5px;margin-right:10px;" class="control-label">@Html.DisplayNameFor(m => m.is_sender)</label><input style="display:inline-block;width:20px;height:20px;" type="checkbox" id="u_is_sender" class="form-control" /></div>
+                        <div class="col-md-4" style="cursor:pointer;"><label for="u_is_recipient" style="position:relative;top:-5px;margin-right:10px;" class="control-label">@Html.DisplayNameFor(m => m.is_recipient)</label><input style="display:inline-block;width:20px;height:20px;" type="checkbox" id="u_is_recipient" class="form-control" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" ><span style="position:relative;left:-5px;"></span>&nbsp;Close</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-backdrop="static" class="modal fade" id="selectUserModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:700px;">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;">Please Find and Select an Existing User</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_fullname_search" class="control-label">Search Name</label></div>
+                        <div class="col-md-7" style="text-align:left;"><input type="text" id="u_fullname_search" class="form-control" maxlength="150" placeholder="Enter name here" /></div>
+                        <div class="col-md-2" style="text-align:left;"><button type="button" class="btn btn-primary" id="btnSearchAccessUser">Search</button></div>
+                    </div>
+                    <div class="form-group" style="height:400px;overflow:auto;">
+                        <div class="col-md-12">
+                            <table id="accessUserList" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

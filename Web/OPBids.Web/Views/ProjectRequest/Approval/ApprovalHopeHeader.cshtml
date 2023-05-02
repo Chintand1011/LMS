@@ -1,0 +1,76 @@
+﻿<div class="p-view-header">
+    <span class="page-header">For Approval</span> <span class="page-header-total-amount">(Total Amount : <span style="color: red"></span>)</span>
+    <div class="section-content">
+        <form>
+            <table class="table search-table">
+                <tbody>
+                    <tr class="form-inline">
+                        <td>&nbsp;</td>
+                        <td colspan="6" class="search-duration">
+                            <ul>
+                                <li><input type="radio" id="rbtnWeek" name="duration" value="1"> <span class="search-label">This Week</span></li>
+                                <li><input type="radio" id="rbtnMonth" name="duration" value="2"> <span class="search-label">This Month</span></li>
+                                <li><input type="radio" id="rbtnDays" name="duration" value="3"> <span class="search-label">Last 60 Days</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    <tr class="form-inline">
+                        <td width="200px" class="align-right"><span class="search-label">Date Created From :&nbsp;</span></td>
+                        <td width="250px">
+                            <input type='text' id='search_submit_from' class="form-control" style="background-color:transparent" datetime />
+                        </td>
+                        <td width="50px">&nbsp;</td>
+                        <td width="200px" class="align-right"><span class="search-label">Date Created To :&nbsp;</span></td>
+                        <td width="250px">
+                            <input type='text' id='search_submit_to' class="form-control" style="background-color:transparent" datetime />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+
+                    <tr class="form-inline">
+                        <td class="align-right"><span class="search-label">Batch Number :&nbsp;</span></td>
+                        <td>
+                            <input type='text' class="form-control" id="search_batch_id" />
+                        </td>
+                        <td>&nbsp;</td>
+                        <td class="align-right"><span class="search-label">Applicable Year :&nbsp;</span></td>
+                        <td>
+                            <input type='text' class="form-control" id="search_app_year" />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+
+                    <tr class="form-inline">
+                        <td class="align-right"><span class="search-label">Ref # :&nbsp;</span></td>
+                        <td>
+                            <input type='text' class="form-control" id="search_ref_no" />
+                        </td>
+                        <td>&nbsp;</td>
+                        <td class="align-right"><span class="search-label">Barcode :&nbsp;</span></td>
+                        <td>
+                            <input type='text' class="form-control" id="search_barcode" />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+
+                    <tr class="form-inline">
+                        <td class="align-right"><span class="search-label">Project Title :&nbsp;</span></td>
+                        <td colspan="4">
+                            <input type='text' class="form-control" id="search_project_name" style="width: 100%" />
+                        </td>
+                        <td colspan="2">
+                            <button id="btnSearch" type="button" class="btn btn-primary fa-align-left icon ion-search" style="min-width:72px;box-sizing:content-box;">SEARCH</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    Site.GenerateControls(".section-content");
+    new AutoNumeric.multiple('.input-numeric');
+    Site.GenerateSearch("#rbtnWeek", "#rbtnMonth", "#rbtnDays", "#search_submit_from", "#search_submit_to");
+</script>

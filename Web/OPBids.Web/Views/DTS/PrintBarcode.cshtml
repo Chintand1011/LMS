@@ -1,0 +1,15 @@
+﻿@model IEnumerable<OPBids.Entities.View.DTS.RequestBarcodeVM>
+@Scripts.Render("~/bundles/dtsPrintBarcodeScript")
+<div class="p-view-header">
+    <h2 id="headerTitle">Print Barcode</h2>
+</div>
+@{Html.RenderPartial("~/Views/DTS/BarcodeFilter.cshtml", new OPBids.Entities.View.DTS.DocumentSearchVM());}
+<div id="pageContainerDocument" style="display:inline-block;float:right;padding-top:15px;">Page&nbsp;<select class="paging"></select>&nbsp;&nbsp;of&nbsp;<span class="pageTotal"></span></div>
+@{Html.RenderPartial("~/Views/DTS/BarcodeList.cshtml", new List<OPBids.Entities.View.DTS.RequestBarcodeVM>());}
+<span id="dataEntry">
+    <input type="hidden" id="u_requested_quantity" />
+    <input type="hidden" id="u_printed_quantity" />
+    <input type="hidden" id="u_stat" />
+    <input type="hidden" id="u_remarks" />
+</span>
+<iframe id="printPreviewer" style="display:none;"></iframe>

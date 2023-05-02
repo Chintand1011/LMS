@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.AccessTypesVM>
+@Scripts.Render("~/bundles/atScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<style>
+
+</style>
+<div class="p-view-result">
+    <ul id="grpTabs" class="nav nav-tabs">
+        @foreach (var item in Model.Where(a => a.status == OPBids.Common.Constant.RecordStatus.Header))
+        {
+            <li @(item.sys_id == item.id ? "class=active" : "") itemscope itemid="@item.id" onclick='AT.GroupTabClick(this);'><a href="#">@item.name</a></li>
+        }
+    </ul>
+    <script type="text/javascript">Site.PopulateSequence();AT.CurrentGroupId=@Model.FirstOrDefault().sys_id;</script>
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Item #</th>
+                <th>@Html.DisplayNameFor(m => m.name)</th>
+                <th>@Html.DisplayNameFor(m => m.description)</th>
+                <th>@Html.DisplayNameFor(m => m.status)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var item in Model.Where(a => a.status == OPBids.Common.Constant.RecordStatus.Active || a.status == OPBids.Common.Constant.RecordStatus.Inactive))
+                {
+                    <tr details class="shown" rowid="@item.parent_id">
+                        <td itemid="@item.id"><span class="incrementalNum"></span></td>
+                        <td>@Html.Raw(item.name)</td>
+                        <td>@Html.Raw(item.description)</td>
+                        <td status statusid="@Html.DisplayFor(modelItem => item.status)">@(item.status == "A" ? "Active" : (item.status == "I" ? "Inactive" : ""))</td>
+                        <td>
+                            @{Html.RenderPartial("~/Views/Setting/AccessTypes/AccessTypesTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.name }, { "item_status", item.status } });}
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.WorkflowVM>
+@Scripts.Render("~/bundles/wfScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.type_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.seq_title)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.seq_no)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.seq_description)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.actor_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.sla)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.id">
+                    <td>
+                        <input type="checkbox" itemscope class="check-selected" itemid="@item.id" />
+                    </td>
+                    <td type typeid="@item.type">
+                        @Html.DisplayFor(modelItem => item.type_name)
+                    </td>
+                    <td seq_title>
+                        @Html.DisplayFor(modelItem => item.seq_title)
+                    </td>
+                    <td seq_no>
+                        @Html.DisplayFor(modelItem => item.seq_no)
+                    </td>
+                    <td seq_description>
+                        @Html.DisplayFor(modelItem => item.seq_description)
+                    </td>
+                    <td actor actorid="@item.actor">
+                        @Html.DisplayFor(modelItem => item.actor_name)
+                    </td>
+                    <td sla>
+                        @Html.DisplayFor(modelItem => item.sla)
+                    </td>
+                    <td status statusid="@item.status">
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @{Html.RenderPartial("~/Views/Setting/Workflow/WorkflowTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.seq_title }, { "item_status", item.status } });}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div data-backdrop="static" class="modal fade"id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="u_id" />
+                    <input type="hidden" id="u_status" />
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_type" class="control-label">@Html.DisplayNameFor(m => m.type_name)</label></div>
+                        <div class="col-md-9">
+                            @Html.DropDownList("u_type", (IEnumerable<SelectListItem>)ViewData["procureType"], new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_seq_title" class="control-label">@Html.DisplayNameFor(m => m.seq_title)</label></div>
+                        <div class="col-md-9"><input type="text" id="u_seq_title" class="form-control" maxlength="10" required caption="@Html.DisplayNameFor(m => m.seq_title)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_seq_no" class="control-label">@Html.DisplayNameFor(m => m.seq_no)</label></div>
+                        <div class="col-md-9"><input type="text" id="u_seq_no" class="form-control" maxlength="2" required caption="@Html.DisplayNameFor(m => m.seq_no)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_seq_description" class="control-label">@Html.DisplayNameFor(m => m.seq_description)</label></div>
+                        <div class="col-md-9"><input type="text" id="u_seq_description" class="form-control" maxlength="200" required caption="@Html.DisplayNameFor(m => m.seq_description)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_actor" class="control-label">@Html.DisplayNameFor(m => m.actor_name)</label></div>
+                        <div class="col-md-9">
+                            @Html.DropDownList("u_actor", (IEnumerable<SelectListItem>)ViewData["actorList"], new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_sla" class="control-label">@Html.DisplayNameFor(m => m.sla)</label></div>
+                        <div class="col-md-9"><input type="text" id="u_sla" class="form-control" maxlength="2" required caption="@Html.DisplayNameFor(m => m.sla)" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

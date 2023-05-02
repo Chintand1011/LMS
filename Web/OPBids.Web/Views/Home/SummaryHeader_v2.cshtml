@@ -1,0 +1,102 @@
+﻿@model OPBids.Entities.View.Home.DashboardSummaryVM
+<section class="content stat-box dashboardContents summary-header" style="padding:0px !important;text-align:center;">
+    <!--(Stat Box)-->
+    <div class="iconItemContainers iconItemContainerpfms inner @Model.summary1.iconCls" style="width:32%;display:inline-block;">
+        <div class="iconMask" style="height:100%;">
+            <div class="caption">
+                @Model.summary1.title
+            </div>
+            <table id="summary" >
+                @foreach (var item in Model.summary1.items)
+                {
+                    <tr>
+                        <td>@item.label:</td>
+                        <td><span style="color:red">&#8369</span></td>
+                        <td class="col-val @item.color">@item.value.ToString("N2")</td>
+                        <td><span class="amount" id="@item.id" data-menu-id="@item.menuId">@item.count</span></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="iconItemContainers iconItemContainerpfms inner @Model.summary2.iconCls" style="width:33%;display:inline-block;">
+        <div class="iconMask" style="height:100%;">
+            <div class="caption">
+                @Model.summary2.title
+            </div>
+            <table id="underDepartment">
+                @foreach (var item in Model.summary2.items)
+                {
+                    <tr>
+                        <td>@item.label:</td>
+                        <td><span style="color:red">&#8369</span></td>
+                        <td class="col-val @item.color">@item.value.ToString("N2")</td>
+                        <td><span class="amount" id="@item.id" data-menu-id="@item.menuId">@item.count</span></td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="iconItemContainers iconItemContainerpfms inner @Model.summary3.iconCls" style="width:33%;display:inline-block;">
+        <div class="iconMask" style="height:100%;">
+            <div class="caption">
+                @Model.summary3.title
+            </div>
+            <table id="documentAging">
+                @foreach (var item in Model.summary3.items)
+                {
+                    <tr>
+                        <td>@item.label:</td>
+                        <td><span style="color:red">&#8369</span></td>
+                        <td class="col-val @item.color">@item.value.ToString("N2")</td>
+                        <td><span class="amount" id="@item.id" data-menu-id="@item.menuId">@item.count</span></td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</section>
+<script type="text/javascript">
+    var SummaryHeader = {
+        Initialize: function () {
+            $(".iconItemContainerpfms").css({ "height": "auto" });
+            var pHeight = 0;
+            $(".iconItemContainerpfms").each(function () {
+                if (pHeight < $(this).height()) {
+                    pHeight = $(this).height();
+                }
+            });
+            $(".iconItemContainerpfms").css({ "height": [pHeight, "px"].join('') });
+
+            $(".summary-header .amount").click(function (e) {
+                var $sender = $(this);
+
+                var menuId = $sender.data("menuId");
+                var id = $sender.attr('id');
+
+
+                window.sessionStorage.removeItem("optDashboard");
+                var opt = null;
+
+                if (id != null) {
+                    opt = {
+                        dashboard_option: id
+                    }
+                }
+                window.sessionStorage.setItem("optDashboard", JSON.stringify(opt));
+
+                if (menuId != null && menuId != "") {
+                    Site.TriggerMenu(menuId, "");
+                }
+            })
+        },
+    }
+    $(function () {
+        SummaryHeader.Initialize();
+    });
+</script>

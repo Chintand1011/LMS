@@ -1,0 +1,94 @@
+﻿
+
+<section class="content db-section">
+    <div class="row dash-row">
+        <div class="col-lg-12 small-box" style="padding:0 10px 0 10px">
+            <div class="row" style="padding:5px 0px">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <span class="header-title">Projects&nbsp;&nbsp;&nbsp;&nbsp;<a id="view_all" href="#">(view all)</a></span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 dash-filter" id="filter_completion" style="padding-top: 5px;">
+                    &nbsp;&nbsp;
+                    <label for="comp2"><input type="checkbox" value="2" class="dashboard-checkbox first" checked id="comp2" />&nbsp;&nbsp;Above 80%</label>
+                    <label for="comp1"><input type="checkbox" value="1" class="dashboard-checkbox" checked id="comp1">&nbsp;&nbsp;50% - 80%</label>
+                    <label for="comp0"><input type="checkbox" value="0" class="dashboard-checkbox" checked id="comp0">&nbsp;&nbsp;Below 50%</label>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 dash-filter" style="text-align:right;">
+
+                    <select id="filter_status" style="width:auto;text-transform: uppercase;">
+                        <option value="1">Under Implementation</option>
+                        <option value="2">Under BAC Procurement</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="table-container">
+                <div style="padding-left:-10px" id="table_result1">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+
+    var DashboardRenderTable1 = function (view_all) {
+        var _completion = [];
+        $('#filter_completion input:checked').each(function () {
+            _completion.push(this.value);
+        });
+
+        var _status = $('#filter_status').val();
+
+        var _filter = JSON.stringify({
+            'completion': _completion,
+            'status': _status,
+            'view_all': view_all ? true : false
+        });
+        
+        $.ajax({
+            type: "POST",
+            url: "/Home/UserResultView",
+            contentType: "application/json; charset=utf-8",
+            data: _filter,
+            success: function (data) {
+                $('#table_result1').html(data)
+            }
+        });
+    }
+
+    //Call on document ready
+    $(function () {
+
+        //Show BarCode section
+        $("#barcode-section").show();
+
+        //Table1 initial load
+        DashboardRenderTable1();
+
+        //checkbox list filter change
+        $('#filter_completion').on('change', 'input[type=checkbox]', function () {
+            DashboardRenderTable1();
+        });
+
+        $('#filter_status').on('change', function () {
+            if (this.value == "2") {
+                $('#filter_completion label').hide();
+            }
+            else {
+                $('#filter_completion label').show();
+            }
+            DashboardRenderTable1();
+        });
+
+        $(".header-title #view_all").click(function () {
+            DashboardRenderTable1(true);
+        });
+    });
+
+
+
+</script>

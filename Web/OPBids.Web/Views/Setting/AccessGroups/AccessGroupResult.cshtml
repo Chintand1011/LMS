@@ -1,0 +1,70 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.AccessGroupVM>
+@Scripts.Render("~/bundles/agScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.group_code)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.group_description)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.id">
+                    <td><input type="checkbox" class="check-selected" itemid="@item.id" /><span class="incrementalNum"></span></td>
+                    <td group_code>
+                        @Html.Raw(@item.group_code)
+                    </td>
+                    <td group_description dashboard_id="@item.dashboard_id">
+                        @Html.Raw(@item.group_description)
+                    </td>
+                    <td status statusid="@Html.DisplayFor(modelItem => item.status)">
+                    </td>
+                    <td>
+                        @{Html.RenderPartial("~/Views/Setting/AccessGroups/AccessGroupTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.group_code }, { "item_status", item.status } });}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span> (Role)</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_group_code" class="control-label">@Html.DisplayNameFor(m => m.group_code)</label>:</div>
+                        <div class="col-md-9"><input placeholder="Enter access group code here..." type="text" id="u_group_code" class="form-control" maxlength="30" required caption="@Html.DisplayNameFor(m => m.group_code)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_group_description" class="control-label">@Html.DisplayNameFor(m => m.group_description)</label>:</div>
+                        <div class="col-md-9"><textarea placeholder="Enter group description here..." type="text" id="u_group_description" class="form-control" rows="3" maxlength="100" required caption="@Html.DisplayNameFor(m => m.group_description)" ></textarea></div>
+                    </div>
+                    <br /><br />
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_dashboard_id" class="control-label">@Html.DisplayNameFor(m => m.dashboard_id)</label>:</div>
+                        <div class="col-md-9"><select id="u_dashboard_id" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.dashboard_id)"></select></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Cancel</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,474 @@
+﻿<style>
+    #table_advertise_summary {
+        margin-bottom: 20px;
+    }
+
+    #dataAdvertisementModal .modal-section-label {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    #dataAdvertisementModal .browseContainer {
+        margin-top: 20px;
+    }
+
+    #dataAdvertisementModal .control-input {
+        margin-top: 10px;
+    }
+
+    #dataAdvertisementModal #formConspicuous .imgFile-img {
+        height: 50px;
+    }
+
+    #dataAdvertisementModal #formConspicuous .extend-height {
+        height: 165px;
+    }
+</style>
+<div data-backdrop="static" class="modal fade project-request" id="dataAdvertisementModal" tabindex="-1" role="dialog" aria-labelledby="dataAdvertisementModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container">
+                        <div class="circle-div"><span id="ad_id"></span></div>
+                    </div>
+                    <div class="col-md-7 modal-title-container">
+                        <span class="modal-title">
+                            <span id="ad_proc_method"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <div class="modal-container">
+                <h3 class="downloadAndPrintButton">
+                    <a class="fa fa-download fa-dialog download"></a>&nbsp;&nbsp;<a class="fa fa-print fa-dialog"></a>
+                </h3>
+                <div style="border-bottom: 1px solid #ccc;padding-left:10px">
+                    <table id="table_advertise_summary">
+                        <tr>
+                            <td width="250px" class="text-left"><label class="modal-section-label">Number of Projects :</label></td>
+                            <td><span id="ad_total_projects"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label class="modal-section-label">Date Created : </label></td>
+                            <td><span id="ad_created_date"></span>&nbsp;(<span id="ad_created_by"></span>)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label class="modal-section-label">Approved Budget : </label></td>
+                            <td class="font-green">₱ <span id="ad_proj_budget"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <table id="table_advertise" class="modal-body" style="width:100%;">
+                    <tr>
+                        <td style="width:10%;max-width:120px; vertical-align:top;border-right: 1px solid #d8d8d8;">
+                            <div class="sectionTab"><button type="button" id="philgepsTab" formid="formPhilgeps" class="tabCaption">PhilGEPS</button></div>
+                            <div class="sectionTab"><button type="button" id="mmdaTab" formid="formMMDA" class="tabCaption">MMDA Portal</button></div>
+                            <div class="sectionTab"><button type="button" id="conspicuousTab" formid="formConspicuous" class="tabCaption">Conspicuous<br />Places</button></div>
+                            <div class="sectionTab"><button type="button" id="newspaperTab" formid="formNewspaper" class="tabCaption">Newspaper</button></div>
+                        </td>
+                        <td style="width:90%;">
+                            <div class="scroller" style="overflow-y:scroll; max-height:320px; width: 100%">
+                                <form id="formPhilgeps" style="padding:0px 20px;vertical-align:top;">
+                                    <span class="modal-section-label">Post in PhilGEPS</span>
+                                    <div class="browseContainer">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="trigger">
+                                                    <button type="button" id="btnBrowse_philgeps" class="btnBrowse">+</button>
+                                                    <input type="file" id="fleBrowse_philgeps" style="display:none;" />
+                                                </div>
+                                                <div class="output"></div>
+                                            </div>
+                                            <div class="col-md-10 control-input">
+                                                <div class="row">
+                                                    <div class="col-md-2 align-right">
+                                                        <span style="margin-right: 10px;">Date Published : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_philgeps_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2 align-right">
+                                                        <span style="margin-right: 10px;">Posted By : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_philgeps_by" class="form-control" caption="Post in PhilGEPS By" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="formMMDA" style="padding:0px 20px;vertical-align:top;">
+                                    <span class="modal-section-label">Post in MMDA Portal</span>
+                                    <div class="browseContainer">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="trigger">
+                                                    <button type="button" id="btnBrowse_mmda" class="btnBrowse">+</button>
+                                                    <input type="file" id="fleBrowse_mmda" style="display:none;" />
+                                                </div>
+                                                <div class="output"></div>
+                                            </div>
+                                            <div class="col-md-10 control-input">
+                                                <div class="row">
+                                                    <div class="col-md-2 align-right">
+                                                        <span style="margin-right: 10px;">Date Posted : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_mmda_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2 align-right">
+                                                        <span style="margin-right: 10px;">Posted By : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_mmda_by" class="form-control" caption="Post in MMDA Portal By" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="formConspicuous" style="padding:0px 20px;vertical-align:top;">
+                                    <span class="modal-section-label">Post in Conspicuous Places</span>
+                                    <div class="browseContainer">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="row mmda extend-height">
+                                                    <div class="col-md-5">
+                                                        <div class="trigger">
+                                                            <button type="button" id="btnBrowse_cons_lobby" class="btnBrowse">+</button>
+                                                            <input type="file" id="fleBrowse_cons_mmda" style="display:none;" />
+                                                        </div>
+                                                        <div class="output"></div>
+                                                    </div>
+                                                    <div class="col-md-6 align-left" style="margin-top: 40px">
+                                                        <span>MMDA Lobby</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row redep extend-height">
+                                                    <div class="col-md-5">
+                                                        <div class="trigger">
+                                                            <button type="button" id="btnBrowse_cons_redep" class="btnBrowse">+</button>
+                                                            <input type="file" id="fleBrowse_cons_redep" style="display:none;" />
+                                                        </div>
+                                                        <div class="output"></div>
+                                                    </div>
+                                                    <div class="col-md-6 align-left" style="margin-top: 40px">
+                                                        <span>MMDA Redeption Center</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row command extend-height">
+                                                    <div class="col-md-5">
+                                                        <div class="trigger">
+                                                            <button type="button" id="btnBrowse_cons_command" class="btnBrowse">+</button>
+                                                            <input type="file" id="fleBrowse_cons_command" style="display:none;" />
+                                                        </div>
+                                                        <div class="output"></div>
+                                                    </div>
+                                                    <div class="col-md-6 align-left" style="margin-top: 40px">
+                                                        <span>MMDA Command Center</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 control-input" style="margin-top: 40px;">
+                                                <div class="row extend-height">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Date Posted : </span>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" id="ad_cons_lobby_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row extend-height">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Date Posted : </span>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" id="ad_cons_redep_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Date Posted : </span>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" id="ad_cons_command_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Posted By : </span>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <input type="text" id="ad_conspicuous_by" class="form-control" caption="Post in Conspicuous Places By" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="formNewspaper" style="padding:0px 20px;vertical-align:top;">
+                                    <span class="modal-section-label">Post in Newspaper</span>
+                                    <div class="browseContainer">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="trigger">
+                                                    <button type="button" id="btnBrowse_news" class="btnBrowse">+</button>
+                                                    <input type="file" id="fleBrowse_news" style="display:none;" />
+                                                </div>
+                                                <div class="output"></div>
+                                            </div>
+                                            <div class="col-md-10 control-input">
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Publisher / Newspaper : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_news_pub_name" class="form-control" caption="Publisher / Newspaper" required />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Date Sent to Vendor : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_news_sent_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Received By : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_news_received_by" class="form-control" caption="Received By" required />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Date Published : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_news_published_date" class="form-control" style="width: 250px" datetime />
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 align-right">
+                                                        <span>Posted By : </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="ad_news_posted_by" class="form-control" caption="Newspaper Posted By" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                         </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:120px;">Attachments are the Proof of Posting.</span>
+                <button type="button" id="btnAdvertiseCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Close</button>
+                <button type="button" id="btnAdvertiseSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var ADVERTISEMENT = {
+        Initialize: function () {
+            Site.GenerateControls("#dataAdvertisementModal");
+            $("#ad_philgeps_date,#ad_mmda_date,#ad_cons_lobby_date,#ad_cons_redep_date,#ad_cons_command_date,#ad_news_sent_date,#ad_news_published_date").datepicker({ format: CONST.dateformat });
+
+            $("#dataAdvertisementModal .sectionTab .tabCaption").click(function () {
+                $("#dataAdvertisementModal .sectionTab").removeAttr("selected");
+                $(this).parent().attr("selected", "");
+                $("#dataAdvertisementModal form").css({ "display": "none" });
+                $(["#dataAdvertisementModal #", $(this).attr("formid")].join('')).css({ "display": "" });
+            });
+
+            ATTACHMENT.HandleLimit("fleBrowse_philgeps");
+            ATTACHMENT.HandleLimit("fleBrowse_mmda");
+            ATTACHMENT.HandleLimit("fleBrowse_cons_mmda");
+            ATTACHMENT.HandleLimit("fleBrowse_cons_redep");
+            ATTACHMENT.HandleLimit("fleBrowse_cons_command");
+            ATTACHMENT.HandleLimit("fleBrowse_news");
+
+           
+
+        },
+        EnableFields: function () {
+            $("#dataAdvertisementModal .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#dataAdvertisementModal .form-control").attr("disabled", "disabled");
+        },
+        SetData: function () {
+
+        },
+        GetData: function (type) {
+            var data = {
+                'project_request_id': $("#dataAdvertisementModal #ad_id").html(),
+                'philgeps_publish_date': $("#dataAdvertisementModal #ad_philgeps_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'philgeps_publish_by': $("#dataAdvertisementModal #ad_philgeps_by").val(),
+                'mmda_publish_date': $("#dataAdvertisementModal #ad_mmda_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'mmda_publish_by': $("#dataAdvertisementModal #ad_mmda_by").val(),
+                'conspost_date_lobby': $("#dataAdvertisementModal #ad_cons_lobby_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'conspost_date_reception': $("#dataAdvertisementModal #ad_cons_redep_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'conspost_date_command': $("#dataAdvertisementModal #ad_cons_command_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'conspost_by': $("#dataAdvertisementModal #ad_conspicuous_by").val(),
+                'newspaper_sent_date': $("#dataAdvertisementModal #ad_news_sent_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'newspaper_publisher': $("#dataAdvertisementModal #ad_news_pub_name").val(),
+                'newspaper_received_by': $("#dataAdvertisementModal #ad_news_received_by").val(),
+                'newspaper_post_date': $("#dataAdvertisementModal #ad_news_published_date").data('datepicker').getFormattedDate(CONST.dateformat),
+                'newspaper_post_by': $("#dataAdvertisementModal #ad_news_posted_by").val()
+            };
+            if (type == CONST.data_type.json) {
+                return Utilities.CreateJSON(data);
+            } else {
+                return data;
+            }
+        },
+        ShowModal: function (_row) {
+            Site.ClearAllData('#dataAdvertisementModal');
+            ATTACHMENT.Reset();
+            $("#dataAdvertisementModal .sectionTab").removeAttr("selected");
+            $("#philgepsTab").parent().attr("selected", "");
+            $("#philgepsTab").click();
+
+            var _id = $(_row).attr("data-itemid");
+
+            if (_id !== null || _id !== undefined) {
+                $("#u_id").val(_id);
+                $("#dataAdvertisementModal #ad_id").html(_id);
+                $("#dataAdvertisementModal #adproc_method").html($("#row-" + _id).data("procurement-method-desc"));
+
+                $("#dataAdvertisementModal #ad_total_projects").html($("#row-" + _id).data("total-projects"));
+                $("#dataAdvertisementModal #ad_created_date").html($("#row-" + _id).data("created-date"));
+                $("#dataAdvertisementModal #ad_created_by").html($("#row-" + _id).data("created-by"));
+                $("#dataAdvertisementModal #ad_proc_method").html($("#row-" + _id).data("procurement-method-desc"));
+
+                $("#dataAdvertisementModal #ad_proj_budget").html($("#row-" + _id).data("total-amount"));
+                
+                var _param = JSON.stringify({
+                    'sub_menu_id': localStorage.getItem("sub-menu-id"),
+                    'id': _id,
+                });
+                var _result;
+
+                ajaxHelper.Invoke("/ProjectRequest/GetProjectRequestBatchAds", _param, "json", function (result) {
+                    if (result) {
+
+                        if (result.philgeps_publish_date != null) {
+                            var ad_philgeps_date = $.datepicker.formatDate("dd-M-yy", new Date(result.philgeps_publish_date));
+                            $("#dataAdvertisementModal #ad_philgeps_date").val(ad_philgeps_date);
+                            $("#dataAdvertisementModal #ad_philgeps_date").datepicker("setDate", ad_philgeps_date)
+                        }
+                        $("#dataAdvertisementModal #ad_philgeps_by").val(result.philgeps_publish_by);
+                        ATTACHMENT.SetValue("fleBrowse_philgeps", result.philgeps_att);
+
+                        if (result.mmda_publish_date != null) {
+                            var ad_mmda_date = $.datepicker.formatDate("dd-M-yy", new Date(result.mmda_publish_date));
+                            $("#dataAdvertisementModal #ad_mmda_date").val(ad_mmda_date);
+                            $("#dataAdvertisementModal #ad_mmda_date").datepicker("setDate", ad_mmda_date)
+                        }
+                        $("#dataAdvertisementModal #ad_mmda_by").val(result.mmda_publish_by);
+                        ATTACHMENT.SetValue("fleBrowse_mmda", result.mmda_portal_att);
+
+                        if (result.conspost_date_lobby != null) {
+                            var ad_cons_lobby_date = $.datepicker.formatDate("dd-M-yy", new Date(result.conspost_date_lobby));
+                            $("#dataAdvertisementModal #ad_cons_lobby_date").val(ad_cons_lobby_date);
+                            $("#dataAdvertisementModal #ad_cons_lobby_date").datepicker("setDate", ad_cons_lobby_date)
+                        }
+                        if (result.conspost_date_reception != null) {
+                            var ad_cons_redep_date = $.datepicker.formatDate("dd-M-yy", new Date(result.conspost_date_reception));
+                            $("#dataAdvertisementModal #ad_cons_redep_date").val(ad_cons_redep_date);
+                            $("#dataAdvertisementModal #ad_cons_redep_date").datepicker("setDate", ad_cons_redep_date)
+                        }
+
+                        if (result.conspost_date_command != null) {
+                            var ad_cons_command_date = $.datepicker.formatDate("dd-M-yy", new Date(result.conspost_date_command));
+                            $("#dataAdvertisementModal #ad_cons_command_date").val(ad_cons_command_date);
+                            $("#dataAdvertisementModal #ad_cons_command_date").datepicker("setDate", ad_cons_command_date)
+                        }
+                        $("#dataAdvertisementModal #ad_conspicuous_by").val(result.conspost_by);
+                        ATTACHMENT.SetValue("fleBrowse_cons_mmda", result.conspost_lobby_att);
+                        ATTACHMENT.SetValue("fleBrowse_cons_redep", result.conspost_reception_att);
+                        ATTACHMENT.SetValue("fleBrowse_cons_command", result.conspost_command_att);
+
+                        if (result.newspaper_sent_date != null) {
+                            var ad_news_sent_date = $.datepicker.formatDate("dd-M-yy", new Date(result.newspaper_sent_date));
+                            $("#dataAdvertisementModal #ad_news_sent_date").val(ad_news_sent_date);
+                            $("#dataAdvertisementModal #ad_news_sent_date").datepicker("setDate", ad_news_sent_date)
+                        }
+
+                        if (result.newspaper_post_date != null) {
+                            var ad_news_published_date = $.datepicker.formatDate("dd-M-yy", new Date(result.newspaper_post_date));
+                            $("#dataAdvertisementModal #ad_news_published_date").val(ad_news_published_date);
+                            $("#dataAdvertisementModal #ad_news_published_date").datepicker("setDate", ad_news_published_date)
+                        }
+                        $("#dataAdvertisementModal #ad_news_posted_by").val(result.newspaper_post_by);
+                        $("#dataAdvertisementModal #ad_news_received_by").val(result.newspaper_received_by);
+                        $("#dataAdvertisementModal #ad_news_pub_name").val(result.newspaper_publisher);
+                        ATTACHMENT.SetValue("fleBrowse_news", result.newspaper_att);
+
+
+                       
+                    }
+                    $('#dataAdvertisementModal').modal('show');
+                    if (result) {
+                        ADVERTISEMENT.LoadImage(_id, result.philgeps_att, 'formPhilgeps');
+                        ADVERTISEMENT.LoadImage(_id, result.mmda_portal_att, 'formMMDA');
+                        ADVERTISEMENT.LoadImage(_id, result.conspost_lobby_att, 'formConspicuous .mmda');
+                        ADVERTISEMENT.LoadImage(_id, result.conspost_reception_att, 'formConspicuous .redep');
+                        ADVERTISEMENT.LoadImage(_id, result.conspost_command_att, 'formConspicuous .command');
+                        ADVERTISEMENT.LoadImage(_id, result.newspaper_att, 'formNewspaper');
+                    }
+                });
+            }
+           
+        },
+
+        LoadImage: function (id, filename, container) {
+            if (filename == null || filename == "") {
+                return;
+            }
+            var _param = JSON.stringify({
+                'sub_menu_id': localStorage.getItem("sub-menu-id"),
+                'id': id,
+                'search_key': filename
+            });
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "/Shared/GetThumbnail",
+                data: _param,
+            }).done(function (result) {
+                console.log(result);
+
+                $('#' + container + " .attachmentItem .imgFile-img").css({
+                    'padding' : '0px',
+                    'background-image': 'none',
+                    'width': '120px',
+                    'height': '100px'
+
+                });
+                $('#' + container + " .attachmentItem img").attr('src', result);
+
+            }).fail(function (a, b, c) {
+                console.log("fail");
+                });
+        },
+    };
+    ADVERTISEMENT.Initialize();
+</script>

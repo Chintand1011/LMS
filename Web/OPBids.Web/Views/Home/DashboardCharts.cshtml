@@ -1,0 +1,203 @@
+﻿@model OPBids.Entities.View.Home.DashboardChartsVM
+
+<style>
+    .flex-container {
+        display: flex;
+    }
+        .flex-container .small-box {
+            padding: 10px 10px 0 20px;
+        }
+</style>
+
+<section class="db-section">
+    <div id="chartContainer1" class="chartContainers inner col-lg-6 h-100 flex-item" style="text-align:center;margin-top:0px;text-align:left;">
+        <div class="caption" style="padding:3px 0px;text-align:left;">
+            @Html.Raw(@Model.ChartGroup1.title)
+        </div>
+        <div style="vertical-align:top;padding-top:10px">
+            <table class="table table-striped" id="dashboard_chart_table" style="margin:0px;float:left;width:48%">
+                <thead>
+                    <tr style="background-color:#BFBFBF">
+                        <th scope="col">@Model.ChartGroup1.columnDescription</th>
+                        <th scope="col" style="width:100px"># of Projects</th>
+                        <th scope="col" style="width:100px">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.ChartGroup1.data)
+                    {
+                        <tr class="chartRow">
+                            <td style="text-align:left; white-space:normal">@(item.name)</td>
+                            <td class="text-center">@item.count</td>
+                            <td class="text-right">@item.amount.ToString("N2")</td>
+                        </tr>
+                    }
+
+            </table>
+            <div style="display:inline-block;padding-bottom:10px; padding-left:20px; float:right">
+                <canvas id="chart1" height="250" width="250"></canvas>
+            </div>
+        
+        </div>
+    </div>
+    <div id="chartContainer2" class="chartContainers inner col-lg-6 h-100 flex-item" style="float:right;width:50%;margin-top:0px;">
+        <div id="top5Caption" class="caption" style="text-align:left;padding-left:10px;text-overflow:ellipsis;overflow:hidden;">
+            @Html.Raw(Model.ChartGroup2.title)
+        </div>
+        <div style="overflow-x:auto;">
+            <div style="position: static; height:100%; width:100%">
+                <canvas id="chart2" height="250" style="height:100%"></canvas>
+            </div>
+            <div class="chart-legend">Legend : <div numProj>No. of Projects</div><div amtProj>Amt of Projects</div></div>
+        </div>
+    </div>
+</section>
+<script>
+        $(document).ready(function () {
+            var arrColor = ['#5A9BD5', '#ED7D31', '#A5A5A5', '#FFC000', '#4473C5', '#70AD46'];
+            var ctx1 = document.getElementById("chart1").getContext('2d');
+            var chartData1 = @Html.Raw(Json.Encode(Model.ChartGroup1.data.Select(d=>d.amount).ToArray()));
+
+            var chart1 = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    datasets: [
+                        {
+                            //data: [940250, 759258.16, 699079, 606400, 410000, 6177866],
+                            data: chartData1,
+                            backgroundColor: arrColor//['#5A9BD5', '#ED7D31', '#A5A5A5', '#FFC000', '#4473C5', '#70AD46']
+                        }
+                    ]
+
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    plugins: {
+                        labels: {
+                            render: 'percentage',
+                            fontColor: '#000',
+                            position: 'border',
+                            outsidePadding: 4
+                        },
+                        datalabels: {
+                            display: false
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            $('.chartRow').each(function (index) {
+                $(this).css('color', arrColor[index]);
+            });
+
+
+            var ctx2 = document.getElementById("chart2").getContext('2d');
+            var chartData2 = @Html.Raw(Json.Encode(Model.ChartGroup2.data.Select(d=>d.amount).ToArray()));
+            var chartData3 = @Html.Raw(Json.Encode(Model.ChartGroup2.data.Select(d=>d.count).ToArray()));
+            var chartLabel = @Html.Raw(Json.Encode(Model.ChartGroup2.data.Select(d=>d.name).ToArray()));
+           
+            var chart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    datasets:
+                        [
+                            {
+                                label: 'Line Dataset',
+                                //data: [1249.21, 1874.51, 940, 2114.50, 3564.99, 14752.11],
+                                data:chartData2,
+                                fill: false,
+                                type: 'line',
+                                yAxisID: 'right-y-axis',
+                                borderColor: '#F28B45',
+                                datalabels: {
+                                    color: "#FF6131",
+                                    backgroundColor: '#99CC65',
+                                    padding: 0,
+                                    formatter: function (value, context) {
+                                        return value.toLocaleString();
+                                    }
+                                }
+
+                            },
+                            {
+                                label: 'Bar Dataset',
+                                //data: [3, 3, 2, 3, 11, 21],
+                                data: chartData3,
+                                yAxisID: 'left-y-axis',
+                                backgroundColor: '#5B9CD6',
+                                datalabels: {
+                                    font : {
+                                        style: 'bold'
+                                    },
+
+                                    align: 'top'
+                                }
+                            }
+                        ],
+                    labels: chartLabel // ['Newly Requested', ['2. For', 'Budget'], '3. Pre-Bid', ['4. Under', 'TWG'], ['5. Under', 'Implementation'], '6. Completed']
+
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                id: 'left-y-axis',
+                                type: 'linear',
+                                position: 'left',
+                                ticks: {
+                                    beginAtZero: true                                
+                                }
+                            }, {
+                                id: 'right-y-axis',
+                                type: 'linear',
+                                position: 'right',
+                                ticks: {
+                                    callback: function (label, index, labels) {
+                                        return label.toLocaleString();
+                                    }
+                                }
+                            },
+                        ],
+                        xAxes: [
+                            {
+                                ticks: {
+                                    autoSkip: false
+
+                                }
+                            }
+                        ]
+                    },
+                    //ticks:
+                    //    {
+                    //        autoSkip: false
+                    //    }
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        enabled: false
+                    },
+                    plugins: {
+                        datalabels: {
+                            //fontColor: '#000',
+                            //align: 'left'
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+        });
+        window.onresize = function () {
+            $("#chartContainer1, #chartContainer2").css({ "height": "auto" }).css({ "height": [Math.max($("#chartContainer1").height(), $("#chartContainer2").height()), "px"].join('') });
+        }
+        window.onresize();
+</script>

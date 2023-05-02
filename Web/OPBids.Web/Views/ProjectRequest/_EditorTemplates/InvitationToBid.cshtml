@@ -1,0 +1,135 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectRequestBatchVM
+
+<style>
+    #table_invite_to_bid > thead > tr {
+        background-color: gray;
+        color: white;
+        line-height: 40px;
+    }
+
+    #table_invite_to_bid > tbody > tr > td {
+        border: 1px solid #ccc;
+        padding: 5px;
+    }
+</style>
+<div id="div_invite_to_bid" class="DrawConfidential">
+    <table id="table_invite_to_bid">
+        <thead>
+            <tr>
+                <th scope="col" width="140px" class="text-center">Event</th>
+                <th scope="col" width="200px" class="text-center">Date</th>
+                <th scope="col" width="140px" class="text-center">Time</th>
+                <th scope="col" width="480px" class="text-center">Place</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center">
+                    <span>Pre-Bid Conference</span>
+                </td>
+                <td>
+                    <div class='date'>
+                        @Html.EditorFor(model => model.pre_bid_date, new { htmlAttributes = new { @class = "form-control", @required = "true", @caption = "Pre-Bid Conference Date", @datetime = "" } })
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.pre_bid_time, new { htmlAttributes = new { @class = "form-control", @required = "true", @caption = "Pre-Bid Conference Time", @timepicker = "" } })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.pre_bid_place, new { @class = "form-control", @rows = "3", @required = "true", @caption = "Pre-Bid Conference Place" })
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <span>Deadline for<br />Submission of Bids</span>
+                </td>
+                <td>
+                    <div class='date'>
+                        @Html.EditorFor(model => model.bid_deadline_date, new { htmlAttributes = new { @class = "form-control", @required = "true", @caption = "Deadline of Submission Date", @datetime = "" } })
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.bid_deadline_time, new { htmlAttributes = new { @class = "form-control", @required = "true", @caption = "Deadline of Submission Time", @timepicker = "" } })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.bid_deadline_place, new { @class = "form-control", @rows = "3", @required = "true", @caption = "Deadline of Submission Place" })
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <span>Opening of Bids</span>
+                </td>
+                <td>
+                    <div class='date'>
+                        @Html.EditorFor(model => model.bid_opening_date, new { htmlAttributes = new { @class = "form-control", @required = "true", @caption = "Opening of Bids Date", @datetime = "" } })
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.bid_opening_time, new { htmlAttributes = new { @class = "form-control", @required = "true", @caption = "Opening of Bids Time", @timepicker = "" } })
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.bid_opening_place, new { @class = "form-control", @rows = "3", @required = "true", @caption = "Opening of Bids Place" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="print-itb" class="align-right" style="width: 100%; margin-top: 250px" >
+        <button type="button" class="btn btn-dialog" id="btnPrintITB" data-batch-id="@Model.id"><i class="fa fa-print fa-dialog"></i> PrintITB</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var INVITATIONTOBID = {
+        Initialize: function () {
+            $("#pre_bid_date,#bid_deadline_date,#bid_opening_date").datepicker({ format: 'dd-M-yyyy' });
+            $("#print-itb #btnPrintITB").unbind().click(function () {
+                var id = $(this).attr("data-batch-id");
+                window.open("/report/invitationtobid/" + id);
+            });
+        },
+        EnableFields: function () {
+            $("#div_invite_to_bid .form-control").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $("#div_invite_to_bid .form-control").attr("disabled", "disabled");
+        },
+        SetData: function (data) {
+            $('#pre_bid_date').datepicker("setDate", data.pre_bid_date);
+            $("#pre_bid_time").val(data.pre_bid_time);
+            $("#pre_bid_place").val(data.pre_bid_place);
+
+            $('#bid_deadline_date').datepicker("setDate", data.deadline_date);
+            $("#bid_deadline_time").val(data.deadline_time);
+            $("#bid_deadline_place").val(data.deadline_place);
+
+            $('#bid_opening_date').datepicker("setDate", data.opening_date);
+            $("#bid_opening_time").val(data.opening_time);
+            $("#bid_opening_place").val(data.opening_place);
+        },
+        GetData: function () {
+            var data = {
+                'pre_bid_date': $("#pre_bid_date").data('datepicker').getFormattedDate('dd-M-yyyy'),
+                'pre_bid_time': $("#pre_bid_time").val(),
+                'pre_bid_place': $("#pre_bid_place").val(),
+
+                'bid_deadline_date': $("#bid_deadline_date").data('datepicker').getFormattedDate('dd-M-yyyy'),
+                'bid_deadline_time': $("#bid_deadline_time").val(),
+                'bid_deadline_place': $("#bid_deadline_place").val(),
+
+                'bid_opening_date': $("#bid_opening_date").data('datepicker').getFormattedDate('dd-M-yyyy'),
+                'bid_opening_time': $("#bid_opening_time").val(),
+                'bid_opening_place': $("#bid_opening_place").val()
+            };
+            console.log(data);
+            
+            return data;
+        },
+        HidePrint: function () {
+            $("#div_invite_to_bid #print-itb").hide();
+        }
+    };
+
+    $(function () {
+        INVITATIONTOBID.Initialize();
+    });
+
+</script>

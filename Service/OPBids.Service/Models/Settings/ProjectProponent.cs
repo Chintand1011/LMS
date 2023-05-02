@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data.Entity;
+using OPBids.Service.Models.Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+
+namespace OPBids.Service.Models.Settings
+{
+    public class ProjectProponent: BaseModel
+    {
+
+        [Required]
+        [StringLength(250)]
+        public string proponent_name { get; set; }
+
+        [Required]
+        [StringLength(75)]
+        public string proponent_designation { get; set; }
+
+        [Required]
+        public int dept_id { get; set; }
+
+        public string department { get; set; }
+        
+        [Required]
+        [StringLength(75)]
+        public string proponent_emailadd { get; set; }
+
+        [Required]
+        [StringLength(75)]
+        public string proponent_contactno { get; set; }
+
+        [Required]
+        [StringLength(1)]
+        public string status { get; set; }
+    }
+}

@@ -1,0 +1,42 @@
+﻿@model List<OPBids.Common.BarcodeReader.Models.Document>
+
+
+@foreach (var itm in Model)
+{
+    
+
+        var fileType = "imgFile-pdf";
+
+        if(itm.FileType == ".jpg" || itm.FileType == ".png" || itm.FileType == ".jpeg")
+        {
+            fileType = "imgFile-img";
+        }
+        else if(itm.FileType == ".xls"  || itm.FileType == ".xlsx")
+        {
+            fileType = "imgFile-xls";
+        }
+        else if (itm.FileType == ".doc" || itm.FileType == ".docx")
+        {
+            fileType = "imgFile-doc";
+        }
+
+      
+    
+<div status="A" class="attachmentItem" guid="@itm.FileGuid" data-guid="@itm.FileGuid" process="CU" filename="@itm.NewFileName" style="float:left;" data-issuccess="@itm.isSuccess" >
+    <span actualfilename="@itm.NewFileName" style="display:none;">@itm.NewFileName</span>
+    <span class="label label-danger attachmentbadge" style="float: right;">5</span>
+    <div class="attachmentName breakWord" attachmentName="@itm.ActualFileName">@itm.ActualFileName</div>
+
+    <div class="@fileType" title="For upload"></div>
+    <input class="barcodeEntry" type="text" maxlength="20" value="@itm.Barcode">
+    <div style="text-align:center;width:100%;">
+        <button type="button" class="removeItem btn btn-danger btn-block delete_file" multiupload data-fileguid="@itm.FileGuid">REMOVE</button>
+    </div>
+</div>
+
+
+
+}
+
+
+

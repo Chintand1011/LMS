@@ -1,0 +1,187 @@
+﻿@model OPBids.Entities.View.Shared.UserInfoVM
+<!-- Header Navbar: style can be found in header.less -->
+<style>
+</style>
+
+<nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <div class="mobile-header">MMDA</div>
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown messages-menu">
+                <span class="user-header-date">@ViewBag.Today</span>
+            </li>
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa icon-announcement-sm" style="height:20px; width:20px"></i>
+                    <span id="user-announcements-badge" class="label label-danger"></span>
+                </a>
+                <ul class="dropdown-menu" style="width:400px;margin-top: 7px;">
+                    <li id="user-announcements-header" class="header">
+                        <span style="font-weight:bold;">Announcements</span>
+                    </li>
+                    <li>
+                        <!-- inner menu: contains the actual data -->
+                        <table id="user-announcements-list" class="clearTable menutablehover"><tbody></tbody></table>
+                    </li>
+                    <li id="userAnnouncementFooter" class="footer"><a href="/Shared/UserAnnouncement" menu-id="D-ANN" onclick='Site.SetActiveMenu("D-ANN");'><span style="color:#0061FE;font-weight:bold;">See All Announcements</span></a></li>
+                </ul>
+            </li>
+            <!-- Notifications: style can be found in dropdown.less -->
+            <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bell-o" style="font-size:20px"></i>
+                    <span id="user-notifications-badge" class="label label-danger"></span>
+                </a>
+                <ul class="dropdown-menu" style="margin-top: 10px;">
+                    <li id="user-notifications-header" class="header"></li>
+                    <li>
+                        <!-- inner menu: contains the actual data -->
+                        <ul id="user-notifications-list" class="menu"></ul>
+                    </li>
+                    <li class="footer"><a href="/Shared/UserNotification" menu-id="D-NOT" onclick='Site.SetActiveMenu("D-NOT");'><span style="color:#0061FE;font-weight:bold;">See All Notifications</span></a></li>
+                </ul>
+            </li>
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu" style="background-color: #fbfbfb;">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @*<img src="~/Content/images/icon-user.png" class="user-image" /><div width="auto" class="user-name-dept hidden-xs"><span>@Model.Name - @Model.Department</span></div>*@
+                   @* <img src="../../Content/images/icon-user.png" class="user-image" />*@
+                    <img class="user-image"  src="@Url.Content("~/User/UserProfileImage?userName=")@Model.username" >
+
+
+
+                    <span class="hidden-xs">@Model.Name - @Model.DeptCode</span>
+                    <i class="fa fa-angle-down" style="color:#007AFF"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- User image -->
+                    <li class="user-header">
+
+                    </li>
+                    <li class="user-header">
+                        <p style="color:#000">
+                            @Model.Name - @Model.Position
+                            @*<small>Member since Nov. 2012</small>*@
+                        </p>
+                    </li>
+                    <li style="padding:0px 0px;">
+                        @if (OPBids.Web.Helper.UserInfoStore.GetPfmsAccess(Request.GetOwinContext()) == true)
+                        {
+                            <button id="pfmsProduct" onclick="window.location.href = '../Auth/ChangeProduct?productId=1';" type="button" class="productType" @(OPBids.Web.Helper.UserInfoStore.GetCurrentProduct(Request.GetOwinContext()) == 1 ? "active disabled" : "")>PFMS: Monitoring System</button>
+                        }
+                        @if (OPBids.Web.Helper.UserInfoStore.GetDtsAccess(Request.GetOwinContext()) == true)
+                        {
+                            <button id="dtsProduct" onclick="window.location.href = '../Auth/ChangeProduct?productId=2';" type="button" class="productTypeBorder" @(OPBids.Web.Helper.UserInfoStore.GetCurrentProduct(Request.GetOwinContext()) == 2 ? "active disabled" : "")>DTS: Document Tracking System</button>
+                        }
+
+
+                        <button id="ActivityLog" onclick="window.location.href = '@Url.Content("~/activitylog/GetMyActivityLog")';" type="button" class="productType" )>Activity Log</button>
+                        @*<button id="accountinfo" onclick="window.location.href = '../Auth/LogOff';" type="button" class="productType" )>Account Information</button>*@
+                        
+                        <button id="accountinfo" onclick="window.location.href = '@Url.Content("~/User/GetMyUserInfo")';" type="button" class="productType" )>Account Information</button>
+
+                        
+
+                        <button id="ChangePassword" onclick="window.location.href = '../User/ChangePassword';"    type="button" class="productType" )>Change Password</button>
+                        @*<button id="Sign Out" onclick="window.location.href = '../Auth/LogOff';" type="button" class="productTypeBorder" )>Social Accounts</button>*@
+
+                        <button id="dtsProduct" onclick="window.location.href = '~/User/Settings';" type="button" class="productType" )>Settings</button>
+                        <button id="Sign Out" onclick="window.location.href = '../Auth/LogOff';" type="button" class="productType" )>SignOut</button>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<script language="javascript">
+    $(function () {
+        GetUserAlerts();
+    });
+
+    function GetUserAlerts() {
+        $.ajax({
+            url: '@Url.Action("GetUserAlerts", "Shared")',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: null,
+            type: "POST",
+            success: function (data) {
+                announcements_badge = $("#user-announcements-badge");
+                announcements_list = $("#user-announcements-list");
+
+                announcements_badge.text("");
+                announcements_list.empty()
+                if (data.Announcements) {
+
+                    if (data.Announcements.length > 0) {
+                        announcements_badge.text(data.Announcements.length)
+                        for (var i = 0; i < Math.min(data.Announcements.length, 8); i++) {
+                            //console.log(data.Announcements[index]);
+                            announcements_list.append(["<tr><td style='padding-left:10px;'>",
+                                "<div class='profilePic'></div></td><td style='padding-left:20px;' ",
+                                "><span style='font-size:14px;font-weight:bold;'>[", data.Announcements[i].sender_name,
+                                "]</span>&nbsp;", Site.ShortVal(data.Announcements[i].message, 50), "<br/><span style='font-size:10px;color:#0061FE;'>",
+                                data.Announcements[i].date_sent, "</span></td></tr>"].join(''));
+
+                            //left nav
+                            $(".side-menu-link[menu-id='D-ANN'] .badge").remove();
+                            var menu_not = $(".side-menu-link[menu-id='D-ANN']");
+                            if (menu_not) {
+                                menu_not.append("<div class='badge label-danger'>" + data.Announcements.length + "</div>");
+                            }
+                        }
+                    }
+                    else {
+                        $("#userAnnouncementFooter").html("<center>no announcement</center>");
+                    }
+
+                }
+
+                notifications_header = $("#user-notifications-header");
+                notifications_badge = $("#user-notifications-badge");
+                notifications_list = $("#user-notifications-list");
+
+                notifications_header.text("");
+                notifications_badge.text("");
+                notifications_list.empty()
+                if (data.Notifications) {
+
+                    notifications_header.text("You have " + data.Notifications.length + " notifications");
+
+                    if (data.Notifications.length > 0) {
+                        notifications_badge.text(data.Notifications.length)
+                        for (index = 0; index < data.Notifications.length; index++) {
+                            //console.log(data.Notifications[index]);
+                            notifications_list.append('<li><a href="#"><p>' + data.Notifications[index].Message + '</p></a></li>');
+
+                            //left nav
+                            $(".side-menu-link[menu-id='D-NOT'] .badge").remove();
+                            var menu_not = $(".side-menu-link[menu-id='D-NOT']");
+                            if (menu_not) {
+                                menu_not.append("<div class='badge label-danger'>" + data.Notifications.length + "</div>");
+                            }
+
+                        }
+                    }
+
+                }
+
+            },
+            error: function () {
+                //alert("Nope");
+            }
+
+        });
+
+
+
+
+    }
+</script>

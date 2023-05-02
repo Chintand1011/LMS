@@ -1,0 +1,19 @@
+﻿@Scripts.Render("~/bundles/dtsIndexScript")
+<script type="text/javascript">
+    $(function () {
+        Site.UserId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.UserId)";
+        Site.UserName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.FullName)";
+        Site.DepartmentId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.DeptId)";
+        Site.DepartmentCode = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.DeptCode)";
+        Site.DepartmentName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.Department)";
+        Site.FullName = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.FullName)";
+        Site.EmailAddress = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.Email)";
+        Site.PageItemCount = @OPBids.Common.Constant.AppSettings.PageItemCount;
+        DTS.IsRecordSection = $("ul.sidebar-menu li a[menu-id='D-ARCHIVED']").attr("record-section") == "1";
+    });
+</script>
+<div id="setting-Header-section"></div>
+<div>
+    @{Html.RenderPartial("_toolBar", null, null);}
+</div>
+<div id="contentSection"></div>

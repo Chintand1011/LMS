@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C3081B7-F695-4E9F-8227-0B1D32B76768}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OPBids.Entities</RootNamespace>
+    <AssemblyName>OPBids.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BaseVM.cs" />
+    <Compile Include="Common\KeyValue.cs" />
+    <Compile Include="Common\Payload.cs" />
+    <Compile Include="Common\Result.cs" />
+    <Compile Include="Common\Status.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Auth\AuthPayload.cs" />
+    <Compile Include="View\Auth\ChangePwdVM.cs" />
+    <Compile Include="View\Auth\LoginVM.cs" />
+    <Compile Include="View\DTS\RequestBarcodeVM.cs" />
+    <Compile Include="View\DTS\DocumentSearchVM.cs" />
+    <Compile Include="View\DTS\DocumentLogsVM.cs" />
+    <Compile Include="View\DTS\DocumentAttachmentVM.cs" />
+    <Compile Include="View\DTS\DocumentRoutesVM.cs" />
+    <Compile Include="View\DTS\DocumentsPayloadVM.cs" />
+    <Compile Include="View\DTS\DocumentsVM.cs" />
+    <Compile Include="View\Home\DashboardChartsVM.cs" />
+    <Compile Include="View\Home\DashboardPayloadVM.cs" />
+    <Compile Include="View\Home\DashboardTableDataVM.cs" />
+    <Compile Include="View\Home\DashboardTableHeaderVM.cs" />
+    <Compile Include="View\Home\DashboardTableResultVM.cs" />
+    <Compile Include="View\Home\DashboardSummaryVM.cs" />
+    <Compile Include="View\Home\SummaryInfoVM.cs" />
+    <Compile Include="View\Home\SummaryItemVM.cs" />
+    <Compile Include="View\Home\SummarySectionVM.cs" />
+    <Compile Include="View\Home\TWGResultHeadersVM.cs" />
+    <Compile Include="View\ProjectRequest\MonitoredProjectVM.cs" />
+    <Compile Include="View\Setting\RecordCategoryVM.cs" />
+    <Compile Include="View\Setting\RecordClassificationVM.cs" />
+    <Compile Include="View\Shared\ActivityLogModel.cs" />
+    <Compile Include="View\Shared\ProgressVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectBatchSearchResultVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectBidVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectRequestAdvertisementVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectRequestItemVM.cs" />
+    <Compile Include="View\Setting\ProjectAreasBarangayVM.cs" />
+    <Compile Include="View\Setting\ProjectAreasDistrictVM.cs" />
+    <Compile Include="View\Setting\ProjectAreasCityVM.cs" />
+    <Compile Include="View\Setting\ProjectGranteeVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectRequestAttachmentVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectRequestBatchVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectBidChecklistVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectRequestHistoryVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectRequestVM.cs" />
+    <Compile Include="View\ProjectRequest\PayloadVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectSearchResultVM.cs" />
+    <Compile Include="View\ProjectRequest\ProjectSearchVM.cs" />
+    <Compile Include="View\Setting\AccessGroupTypeVM.cs" />
+    <Compile Include="View\Setting\AccessGroupVM.cs" />
+    <Compile Include="View\Setting\AccessTypesVM.cs" />
+    <Compile Include="View\Setting\ContractTypeVM.cs" />
+    <Compile Include="View\Setting\DashboardConfigVM.cs" />
+    <Compile Include="View\Setting\ProcurementMethodVM.cs" />
+    <Compile Include="View\Setting\ProcurementTypeVM.cs" />
+    <Compile Include="View\Setting\ProjectCategoryVM.cs" />
+    <Compile Include="View\Setting\ProjectClassificationVM.cs" />
+    <Compile Include="View\Setting\ProjectProponentVM.cs" />
+    <Compile Include="View\Setting\ProjectAreasVM.cs" />
+    <Compile Include="View\Setting\ProjectStatusVM.cs" />
+    <Compile Include="View\Setting\ProjectSubCategoryVM.cs" />
+    <Compile Include="View\Setting\ProjectSubStatusVM.cs" />
+    <Compile Include="View\Setting\SenderRecipientUserVM.cs" />
+    <Compile Include="View\Setting\BarcodeSettingVM.cs" />
+    <Compile Include="View\Setting\CategoryVM.cs" />
+    <Compile Include="View\Setting\BarcodePrintingStatusVM.cs" />
+    <Compile Include="View\Setting\DocumentSecurityLevelVM.cs" />
+    <Compile Include="View\Setting\DocumentTypeVM.cs" />
+    <Compile Include="View\Setting\AccessUsersVM.cs" />
+    <Compile Include="View\Setting\DocumentCategoryVM.cs" />
+    <Compile Include="View\Setting\DeliveryVM.cs" />
+    <Compile Include="View\Setting\DepartmentVM.cs" />
+    <Compile Include="View\Setting\SettingVM.cs" />
+    <Compile Include="View\Setting\SourceFundsVM.cs" />
+    <Compile Include="View\Setting\SupplierVM.cs" />
+    <Compile Include="View\Setting\WorkflowVM.cs" />
+    <Compile Include="View\Shared\MenuVM.cs" />
+    <Compile Include="View\Shared\ProjectTotalVM.cs" />
+    <Compile Include="View\Shared\UserAlertsVM.cs" />
+    <Compile Include="View\Shared\UserAnnouncementVM.cs" />
+    <Compile Include="View\Shared\UserInfoVM.cs" />
+    <Compile Include="View\Shared\UserNavVM.cs" />
+    <Compile Include="View\Shared\UserNotificationVM.cs" />
+    <Compile Include="View\Suppliers\SupplierSearchVM.cs" />
+    <Compile Include="View\Suppliers\SupplierVM.cs" />
+    <Compile Include="View\Suppliers\SupplierPayloadVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OPBids.Common\OPBids.Common.csproj">
+      <Project>{39560cff-95a6-4f72-891f-ac31e7a61d62}</Project>
+      <Name>OPBids.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

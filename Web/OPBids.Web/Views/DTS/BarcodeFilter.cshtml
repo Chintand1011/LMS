@@ -1,0 +1,42 @@
+﻿@model OPBids.Entities.View.DTS.DocumentSearchVM
+<table class="filterContainer">
+    <tr>
+        <td></td>
+        <td colspan="3" class="search-duration">
+            <ul>
+                <li><input type="radio" name="durationOpt" value="0" dateValFrom="@System.DateTime.Now.AddDays(DayOfWeek.Sunday - System.DateTime.Now.DayOfWeek).ToString("dd-MMM-yyyy")" dateValTo="@System.DateTime.Today.AddDays(DayOfWeek.Saturday - System.DateTime.Now.DayOfWeek).ToString("dd-MMM-yyyy")" /> <span class="search-label">This Week</span></li>
+                <li><input type="radio" name="durationOpt" value="1" dateValFrom="@(new System.DateTime(System.DateTime.Today.Year, System.DateTime.Today.Month, 1).ToString("dd-MMM-yyyy"))" dateValTo="@(new System.DateTime(System.DateTime.Today.Year, System.DateTime.Today.Month + 1, 1).AddDays(-1).ToString("dd-MMM-yyyy"))" checked="checked" /> <span class="search-label">This Month</span></li>
+                <li><input type="radio" name="durationOpt" value="3" dateValFrom="@System.DateTime.Now.AddDays(-60).ToString("dd-MMM-yyyy")" dateValTo="@DateTime.Today.ToString("dd-MMM-yyyy")" /> <span class="search-label">Last 60 Days</span></li>
+            </ul>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right"><label for="u_date_request_from" class="control-label">@Html.DisplayNameFor(m => m.date_requested_from)</label>:</td>
+        <td><input type="text" id="u_date_request_from" class="form-control" datetime /></td>
+        <td class="text-right"><label for="u_date_request_to" class="control-label">@Html.DisplayNameFor(m => m.date_requested_to)</label>:</td>
+        <td><input type="text" id="u_date_request_to" class="form-control" datetime /></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right"><label for="u_request_no" class="control-label">Request No</label>:</td>
+        <td><input type="text" id="u_request_no" number maxlength="15" class="form-control" /></td>
+        <td class="text-right"><label for="u_requested_by" class="control-label">@Html.DisplayNameFor(m => m.requested_by)</label>:</td>
+        <td><input type="text" id="u_requested_by" maxlength="150" class="form-control" /></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="text-right"></td>
+        <td colspan="3">
+            <select id="u_status" class="form-control sender_id">
+                <option value="">Show Draft, Pending, Printed, Served and Cancelled Requests</option>
+                <option value="D">Show Draft Status</option>
+                <option value="P">Show Pending Status</option>
+                <option value="T">Show Printed Status</option>
+                <option value="S">Show Served Status</option>
+                <option value="C">Show Cancelled Status</option>
+            </select>
+        </td>
+        <td><button type="button" class="btn btn-primary fa-align-left icon ion-search">SEARCH</button></td>
+    </tr>
+</table>

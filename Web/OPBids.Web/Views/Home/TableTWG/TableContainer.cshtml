@@ -1,0 +1,181 @@
+﻿
+
+<section class="content db-section">
+    <div class="row dash-row" style="padding:5px 0px">
+        <div class="col-lg-12 small-box" style="padding:0 10px 0 10px">
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <span class="header-title">Projects&nbsp;&nbsp;&nbsp;&nbsp;<a id="view_all" href="#">(view all)</a></span>
+                </div>
+                <div class="col-lg-9 col-md-12 col-sm-12 dash-filter" style="text-align:right;">
+                    <div style="white-space:nowrap; margin-top:10px;color:#898989"><span style="font-size:0.9em">For Evaluation:</span> <span style="color:red; font-weight:600">&#8369</span> <span id="forEvaluationAmount" class="font-blue"></span> <span id="forEvaluationCount" style="font-weight:600"></span></div>
+                </div>
+
+            </div>
+            <div class="table-container">
+                <div style="padding-left:-10px" id="table_result1">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+@*<section class="content db-section">
+    <div class="row dash-row">
+        <div class="col-lg-12 small-box" style="padding:0 10px 0 10px">
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <span class="header-title">Delayed&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">(view all)</a></span>
+                </div>
+                <div class="col-lg-9 col-md-12 col-sm-12 dash-filter" style="text-align:right;">
+                    <div style="white-space:nowrap; margin-top:10px;color:#898989"><span style="font-size:0.8em">For Document Submission:</span> <span style="color:red; font-weight:600">&#8369</span> <span id="forDocSubmissionAmount" class="font-blue"></span> <span id="forDocSubmissionCount" style="font-weight:600"></span>&nbsp;&nbsp;<span style="font-size:0.8em">For Post-Qualification:</span> <span style="color:red; font-weight:600">&#8369</span> <span id="forPostQualificationAmount" class="font-blue"></span> <span id="forPostQualificationCount" style="font-weight:600"></span></div>
+                </div>
+            </div>
+            <div class="table-container">
+                <div style="padding-left:-10px" id="table_result2">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>*@
+<script>
+
+    var ResultHeaders = function () {
+        $.ajax({
+            url: '/Home/TWGResultHeaders',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: '{"id":"1"}',
+            type: "POST",
+            success: function (data) {
+                console.log(data);
+
+                forEvaluationAmount = $("#forEvaluationAmount");
+                forEvaluationCount = $("#forEvaluationCount");
+
+                if (data.forEvaluation) {
+                    forEvaluationAmount.text(data.forEvaluation.amount);
+                    forEvaluationCount.text("(" + data.forEvaluation.count + ")");
+                }
+                forDocSubmissionAmount = $("#forDocSubmissionAmount");
+                forDocSubmissionCount = $("#forDocSubmissionCount");
+                if (data.forDocumentSubmission) {
+                    forDocSubmissionAmount.text(data.forDocumentSubmission.amount);
+                    forDocSubmissionCount.text("(" + data.forDocumentSubmission.count + ")");
+                }
+
+                forPostQualificationAmount = $("#forPostQualificationAmount");
+                forPostQualificationCount = $("#forPostQualificationCount");
+                if (data.forPostQualification) {
+                    forPostQualificationAmount.text(data.forPostQualification.amount);
+                    forPostQualificationCount.text("(" + data.forPostQualification.count + ")");
+                }
+                //
+                //announcements_header.text("");
+                //announcements_badge.text("");
+                //announcements_list.empty()
+                //if (data.Announcements) {
+                //
+                //    announcements_header.text("You have " + data.Announcements.length + " announcements");
+                //
+                //    if (data.Announcements.length > 0) {
+                //        announcements_badge.text(data.Announcements.length)
+                //        for (index = 0; index < data.Announcements.length; index++) {
+                //        //console.log(data.Announcements[index]);
+                //        announcements_list.append('<li><a href="#"><p>' + data.Announcements[index].Message + '</p></a></li>');
+                //        }
+                //    }
+                //
+                //}
+                //
+                //notifications_header = $("#user-notifications-header");
+                //notifications_badge = $("#user-notifications-badge");
+                //notifications_list = $("#user-notifications-list");
+                //
+                //notifications_header.text("");
+                //notifications_badge.text("");
+                //notifications_list.empty()
+                //if (data.Notifications) {
+                //
+                //    notifications_header.text("You have " + data.Notifications.length + " announcements");
+                //
+                //    if (data.Notifications.length > 0) {
+                //        notifications_badge.text(data.Notifications.length)
+                //        for (index = 0; index < data.Notifications.length; index++) {
+                //        //console.log(data.Notifications[index]);
+                //        notifications_list.append('<li><a href="#"><p>' + data.Notifications[index].Message + '</p></a></li>');
+                //        }
+                //    }
+                //
+                //}
+
+            },
+            error: function () {
+                alert("Nope");
+            }
+
+        });
+    }
+
+    var DashboardRenderTable1 = function (view_all) {
+        var _completion = [];
+        $('#filter_completion input:checked').each(function () {
+            _completion.push(this.value);
+        });
+       
+        var _status = $('#filter_status').val();
+
+        var _filter = JSON.stringify({
+            'completion': _completion,
+            'status': _status,
+            'view_all': view_all ? true : false
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/TWGResultView",
+            contentType: "application/json; charset=utf-8",
+            data: _filter,
+            success: function (data) {
+                $('#table_result1').html(data)
+            }
+        });
+    }
+
+    //var DashboardRenderTable2 = function ()
+    //{
+    //        var _filter = JSON.stringify({
+    //            'status': 'delayed',
+    //        });
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url:"/Home/TWGResultView",
+    //            data: _filter,
+    //            success: function (data) {
+    //                $('#table_result2').html(data)
+    //            }
+    //        });
+    //}
+
+    //Call on document ready
+    $(function () {
+
+        //Show BarCode section
+        $("#barcode-section").show();
+
+        ResultHeaders();
+        //Table1 initial load
+        DashboardRenderTable1();
+
+        $(".header-title #view_all").click(function () {
+            DashboardRenderTable1(true);
+        });
+
+    });
+
+</script>

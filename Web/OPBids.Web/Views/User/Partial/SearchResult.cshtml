@@ -1,0 +1,41 @@
+﻿@model IEnumerable<OPBids.Entities.View.User.UserMainVM>
+
+<div id="search-result" class="section-content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Group Name
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userCredential.user_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user.first_name)&nbsp;@Html.DisplayFor(modelItem => item.user.last_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userRole.role)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userCredential.status)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

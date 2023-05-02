@@ -1,0 +1,568 @@
+﻿<MenuList>
+  <Menu>
+    <ID>P-DASH</ID>
+    <Name>Dashboard</Name>
+    <Icon></Icon>
+    <Controller>Home</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-home</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-Summary</ID>
+    <Name>Summary</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-summary2</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-APPROVED</ID>
+    <Name>Approved</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-approved</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-FAPPROVAL</ID>
+    <Name>For Approval</Name>
+    <Icon></Icon>
+    <Controller>ProjectRequest</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-approval</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-REJECTED</ID>
+    <Name>Rejected</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-drafts</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-COMPLETED</ID>
+    <Name>Completed</Name>
+    <Icon></Icon>
+    <Controller>ProjectRequest</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-completed</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-ONGOING</ID>
+    <Name>Ongoing</Name>
+    <Icon></Icon>
+    <Controller>ProjectRequest</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-ongoing</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-WITHSUBMITTEDBIDS</ID>
+    <Name>With Submitted BIDS</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-withsubmitted</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-LOSTOPP</ID>
+    <Name>Lost Oppotunities</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-lostopp</CssClass>
+  </Menu> 
+  
+  <Menu>
+    <ID>P-DRAFT</ID>
+    <Name>Draft</Name>
+    <Icon></Icon>
+    <Controller>ProjectRequest</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-drafts</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-DELAYED</ID>
+    <Name>Delayed</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-delayed</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-PPLAN</ID>
+    <Name>Project Plans</Name>
+    <Icon></Icon>
+    <Controller>ProjectRequest</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-incoming</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-INPROJ</ID>
+    <Name>Incoming Project</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-incoming</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-MONPROJ</ID>
+    <Name>Monitored Projects</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-monitored</CssClass>
+  </Menu>
+  
+  <Menu>
+    <ID>P-ANN</ID>
+    <Name>Announcements</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-announcement-sm</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-NOT</ID>
+    <Name>Notifications</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-notify</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-RPT</ID>
+    <Name>Reports</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-report</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-SET</ID>
+    <Name>Settings</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action></Action>
+    <CssClass>side-menu-link icon-gear</CssClass>
+    <!--<SubMenu>
+      <ID>P-SET-SENDRECIPIENT</ID>
+      <Name>Sender/Recipient</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>-->
+    <SubMenu>
+      <ID>P-SET-ACCTYPE</ID>
+      <Name>Access Types</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-ACCGRP</ID>
+      <Name>Access Groups</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-ACCGRPPER</ID>
+      <Name>Access Groups Permission</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+
+    <SubMenu>
+      <ID>P-SET-ACCUSER</ID>
+      <Name>Access Users</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-DOCCAT</ID>
+      <Name>Document Category</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-DOCTYP</ID>
+      <Name>Document Type</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-CAT</ID>
+      <Name>Category</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-SUBCAT</ID>
+      <Name>SubCategory</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-WFLOW</ID>
+      <Name>Workflow</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-DEL</ID>
+      <Name>Delivery</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-SUP</ID>
+      <Name>Supplier</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-CONTYPE</ID>
+      <Name>Contract Type</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-WFLOW</ID>
+      <Name>Workflow</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-DEL</ID>
+      <Name>Delivery</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>P-SET-DEPT</ID>
+      <Name>Department</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-SUPP</sub_menu_id>
+      <Name>Supplier</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>D-SET-BARCODE</ID>
+      <Name>Barcode Setting</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>D-BARCODEPRINTSTATUS</ID>
+      <Name>Barcode Printing Status</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <ID>D-DOCUMENTSECURITYLEVEL</ID>
+      <Name>Document Security Level</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>Index</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-PROCMETHOD</sub_menu_id>
+      <Name>Procurement Method</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-CONTYPE</sub_menu_id>
+      <Name>Contract Type</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-SOURCEFUNDS</sub_menu_id>
+      <Name>Source of Funds</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-PROJPROP</sub_menu_id>
+      <Name>Project Proponent</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-PROJAREA</sub_menu_id>
+      <Name>Project Area</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+    <SubMenu>
+      <sub_menu_id>P-SET-PROJSUBSTAT</sub_menu_id>
+      <Name>Project Sub-Status</Name>
+      <Icon></Icon>
+      <Controller>Setting</Controller>
+      <Action>ResultView</Action>
+      <CssClass>side-menu-link side-menu-link-setting</CssClass>
+    </SubMenu>
+  </Menu>
+
+  <!--<Menu>
+    <ID>D-REQBARCODE</ID>
+    <Name>Request for Barcode</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-drafts</CssClass>
+  </Menu>-->
+  <Menu>
+    <ID>P-SET-SENDRECIPIENT</ID>
+    <Name>Sender/Recipient</Name>
+    <Icon></Icon>
+    <Controller>Setting</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-senderrecipient</CssClass>
+  </Menu>
+  <Menu>
+    <ID>D-ONHAND</ID>
+    <Name>OnHand</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-onhand</CssClass>
+  </Menu>
+  <Menu>
+    <ID>D-RECEIVED</ID>
+    <Name>Received</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-received</CssClass>
+  </Menu>
+  <Menu>
+    <ID>D-FINALIZED</ID>
+    <Name>Finalized</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-completed</CssClass>
+  </Menu>
+  <Menu>
+    <ID>D-RECSECTION</ID>
+    <Name>@Records Section</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-recordsection</CssClass>
+  </Menu>
+  <Menu>
+    <ID>D-PRINTBARCODE</ID>
+    <Name>Print Barcode</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-barcodeprint</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-OPENBID</ID>
+    <Name>Open for Bidding</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-openbid</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-FORRANKING</ID>
+    <Name>For Ranking and Evaluation</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-ranking</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-POSTQA</ID>
+    <Name>For Post Qualification</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-postqa</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-Summary</ID>
+    <Name>Summary</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-summary2</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-APPROVED</ID>
+    <Name>Approved</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-approved</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-FAPPROVAL</ID>
+    <Name>For Approval</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-approval</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-REJECTED</ID>
+    <Name>Rejected</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-drafts</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-COMPLETED</ID>
+    <Name>Completed</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-completed</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-ONGOING</ID>
+    <Name>Ongoing</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-ongoing</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-WITHSUBMITTEDBIDS</ID>
+    <Name>With Submitted BIDS</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-withsubmitted</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-LOSTOPP</ID>
+    <Name>Lost Oppotunities</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-lostopp</CssClass>
+  </Menu> 
+  
+  <Menu>
+    <ID>P-DRAFT</ID>
+    <Name>Draft</Name>
+    <Icon></Icon>
+    <Controller>ProjectRequest</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-drafts</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-DELAYED</ID>
+    <Name>Delayed</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-delayed</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-INPROJ</ID>
+    <Name>Incoming Project</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-incoming</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-MONPROJ</ID>
+    <Name>Monitored Projects</Name>
+    <Icon></Icon>
+    <Controller>OpenBid</Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-monitored</CssClass>
+  </Menu>
+  
+  <Menu>
+    <ID>P-ANN</ID>
+    <Name>Announcements</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-announcement-sm</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-NOT</ID>
+    <Name>Notifications</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-notify</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-RPT</ID>
+    <Name>Reports</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-report</CssClass>
+  </Menu>
+  <Menu>
+    <ID>P-EXIT</ID>
+    <Name>Sign out</Name>
+    <Icon></Icon>
+    <Controller></Controller>
+    <Action>Index</Action>
+    <CssClass>side-menu-link icon-logout</CssClass>
+  </Menu>
+</MenuList>

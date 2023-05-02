@@ -1,0 +1,205 @@
+﻿@model OPBids.Entities.View.ProjectRequest.PayloadVM
+@Scripts.Render("~/bundles/projInfoScript")
+<style>
+    #MainModalContainer .modal-body-tab .sectionTab .tabCaption {
+        width: 160px;
+    }
+
+    #MainModalContainer .modal-body .modal-body-tab {
+        width: 17%;
+    }
+
+    #MainModalContainer .modal-body-content .content-form {
+        min-height: 65vh;
+        padding: 10px;
+        vertical-align: top;
+    }
+    #MainModalContainer .modal-body .modal-body-content {
+        padding-right: 0px !important;
+    }
+</style>
+<div data-backdrop="static" class="modal fade project-request" id="MainModalContainer" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="row">
+
+                    <div class="col-md-1 circle-div-container">
+                        <div class="circle-div"><span>@Model.projectRequest.id</span></div>
+                    </div>
+                    <div class="col-md-7 modal-title-container">
+                        <span class="modal-title">
+                            @Model.projectRequest.title
+                            <span id="processId" style="visibility: hidden"></span>
+                        </span>
+                    </div>
+                    <div class="col-md-3 modal-status-container">
+                        <span class="modal-status">
+                            <b>Status: </b><span>@Model.projectRequest.project_substatus_desc</span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <table class="modal-body">
+                <tr>
+                    <td class="modal-body-tab">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">Project Info</button></div>
+                        <div class="sectionTab"><button type="button" id="itemizedTab" formid="formItems" class="tabCaption">Itemized Request</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                        <div class="sectionTab"><button type="button" id="logsTab" formid="formLogs" class="tabCaption">Logs</button></div>
+                        @if (Model.projectRequestBatch != null)
+                        {
+                            if (Model.projectRequestBatch.procurement_mode == OPBids.Common.Constant.ProcurementMode.SVP)
+                            {
+                                <div class="sectionTab"><button type="button" id="rFQTab" formid="formRFQ" class="tabCaption">RFQ</button></div>
+                            }
+                            else
+                            {
+                                <div class="sectionTab"><button type="button" id="inviteBidTab" formid="formInviteBid" class="tabCaption">Invitation to Bid</button></div>
+                            }
+
+                            <div class="sectionTab"><button type="button" id="postApprovalTab" formid="formAdvertise" class="tabCaption">Posting Approval</button></div>
+                        }
+                        @if (Model.projectBids != null)
+                        {
+                            <div class="sectionTab"><button type="button" id="rankResultTab" formid="formRankResult" class="tabCaption">Ranking Result</button></div>
+                            <div class="sectionTab"><button type="button" id="abstractBidTab" formid="formAbstractBid" class="tabCaption">Abstract of Bids</button></div>
+                            <div class="sectionTab"><button type="button" id="lcbTab" formid="formLCB" class="tabCaption">LCB Notice</button></div>
+                            <div class="sectionTab"><button type="button" id="twgEvalTab" formid="twgEvalLCB" class="tabCaption">TWG Evaluation</button></div>
+
+                        }
+                        @if (Model.awardedBid != null)
+                        {
+                            <div class="sectionTab"><button type="button" id="pqNoticeTab" formid="formPQNotice" class="tabCaption">PQ Notice</button></div>
+                            <div class="sectionTab"><button type="button" id="pqReportTab" formid="formPQReport" class="tabCaption">PQ Report</button></div>
+                            <div class="sectionTab"><button type="button" id="bacResoTab" formid="formBACReso" class="tabCaption">BAC Resolution</button></div>
+                            <div class="sectionTab"><button type="button" id="noticeAwardTab" formid="formNoticeAward" class="tabCaption">Notice of Award</button></div>
+                            <div class="sectionTab"><button type="button" id="noticeProceedTab" formid="formNoticeProceed" class="tabCaption">Notice to Proceed</button></div>
+                            <div class="sectionTab"><button type="button" id="contractTab" formid="formContract" class="tabCaption">Contract</button></div>
+                        }
+                    </td>
+                    <td class="modal-body-content">
+                        <div>@*<div class="DrawConfidential">*@
+                            <form id="formGeneral" class="content-form">
+                                @Html.Partial("_DisplayTemplates/ProjectInformation", Model)
+                            </form>
+                        </div>
+                        <form id="formItems" class="content-form">
+                            <div>
+                                <h3 class="col-lg-10 col-md-10 col-sm-10">Itemized Request</h3>
+                                <h3 class="col-lg-2 col-md-2 col-sm-2 align-right"><a class="fa fa-download fa-dialog"></a>&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+                            </div>
+                            <h4 class="col-lg-12 col-md-12 col-sm-12 align-right" style="font-weight:bold;">P.R. #: @Model.projectRequest.pr_number</h4>                            
+                            @Html.Partial("~/Views/ProjectRequest/_DisplayTemplates/ProjectRequestItems.cshtml", Model.projectItems)
+                        </form>
+						<div class="DrawConfidential">
+							<form id="formAttachments" class="content-form">
+								<div style="display:inline-block;float:left;height:146px;width:140px;margin: 10px;text-align:center;">
+									<button type="button" id="btnBrowse" class="btnBrowse" style="margin-top:30px;">+</button>
+									<input type="file" id="fleBrowse" style="display:none;" />
+								</div>
+							</form>
+						</div>
+                        <form id="formLogs" class="content-form">
+                            <h3>Logs</h3>
+                            @Html.Partial("~/Views/ProjectRequest/_DisplayTemplates/ProjectLogs.cshtml", Model.projectRequestHistories)
+                        </form>
+
+                        @if (Model.projectRequestBatch != null)
+                        {
+                            if (Model.projectRequestBatch.procurement_mode == OPBids.Common.Constant.ProcurementMode.SVP)
+                            {
+                                <form id="formRFQ" class="content-form">
+                                    <h3>Request for Quotation</h3>
+                                    @Html.Partial("_EditorTemplates/RFQ", Model.projectRequest)
+                                </form>
+                            }
+                            else
+                            {
+                                <form id="formInviteBid" class="content-form">
+									<div>
+									<h3 class="col-lg-10 col-md-10 col-sm-10">Invitation to Bid2</h3>
+									<h3 class="col-lg-2 col-md-2 col-sm-2 align-right"><a class="fa fa-download fa-dialog"></a>&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+									</div>
+                                    @Html.Partial("_EditorTemplates/InvitationToBid", Model.projectRequestBatch)
+                                </form>
+                            }
+                            <form id="formAdvertise">
+                                <div class="DrawConfidential">
+                                    @Html.Partial("_DisplayTemplates/ViewBidAdvertise", Model.projectRequestBatch, new ViewDataDictionary(this.ViewData) { { "project_id", Model.projectRequest.id } })
+                                </div>
+                                <style>
+                                    .modal-content { height: 700px !important; }
+                                </style>
+                            </form>
+                        }
+
+                        @if (Model.projectBids != null)
+                        {
+                            <form id="formRankResult" class="content-form">
+                                <div>
+                                    <h3 class="col-lg-10 col-md-10 col-sm-10">Ranking Result 1</h3>
+                                    <h3 class="col-lg-2 col-md-2 col-sm-2 align-right"><a class="fa fa-download fa-dialog"></a>&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+                                </div>
+                                @Html.Partial("_DisplayTemplates/BidderList", Model.projectBids, new ViewDataDictionary(this.ViewData) { { "process", "rank" } })
+                            </form>
+                            <form id="formAbstractBid" class="content-form">
+                                <h3>Abstract of Bids</h3>
+                                @Html.Partial("_DisplayTemplates/BidderList", Model.projectBids,
+                        new ViewDataDictionary(this.ViewData) {
+                                                                                            { "process", "abstract" },
+                                                                                            { "abstract_what", Model.projectRequest.title },
+                                                                                            { "abstract_where", Model.projectRequestBatch.bid_opening_place },
+                                                                                            { "abstract_when", Model.projectRequestBatch.bid_opening_date },
+                                                                                            { "abstract_abc", Model.projectRequest.approved_budget },
+                                                                                            { "project_id", Model.projectRequest.id}
+                        })
+                            </form>
+
+                            <form id="formLCB" class="content-form">
+                                <h3>Lowest Calculated Bid Notice</h3>
+                                @Html.Partial("_DisplayTemplates/BidderList", Model.projectBids, new ViewDataDictionary(this.ViewData) { { "process", "notice" } })
+                            </form>
+                            <form id="twgEvalLCB" class="content-form">
+                                <h3>Evaluation of Bid Documents</h3>
+                                @Html.Partial("_DisplayTemplates/BidderList", Model.projectBids, new ViewDataDictionary(this.ViewData) { { "process", "eval" } })
+                            </form>
+                        }
+                        @if (Model.awardedBid != null)
+                        {
+                            <form id="formPQNotice" class="content-form">
+                                <h3>Post Qualification Notice</h3>
+                                @Html.Partial("_DisplayTemplates/LCB", Model.awardedBid,
+                        new ViewDataDictionary(this.ViewData) {
+                                                                                            { "process", "notice" }
+                        })
+                            </form>
+                            <form id="formPQReport" class="content-form">
+                                <h3>Post Qualification Report</h3>
+                                @Html.Partial("_DisplayTemplates/LCB", Model.awardedBid, new ViewDataDictionary(this.ViewData) { { "process", "report" }, { "project_id", Model.projectRequest.id } })
+                            </form>
+                            <form id="formBACReso" class="content-form">
+                                <h3>BAC Resolution</h3>
+
+                            </form>
+                            <form id="formNoticeAward" class="content-form">
+                                <h3>Notice of Award</h3>
+                                @Html.Partial("_DisplayTemplates/LCB", Model.awardedBid, new ViewDataDictionary(this.ViewData) { { "process", "award" }, { "project_id", Model.projectRequest.id } })
+                            </form>
+                            <form id="formNoticeProceed" class="content-form">
+                                <h3>Notice to Proceed</h3>
+                                @Html.Partial("_DisplayTemplates/LCB", Model.awardedBid, new ViewDataDictionary(this.ViewData) { { "process", "proceed" }, { "project_id", Model.projectRequest.id } })
+                            </form>
+                            <form id="formContract" class="content-form">
+                                <h3>Contract</h3>
+
+                            </form>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

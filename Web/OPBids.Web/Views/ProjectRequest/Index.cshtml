@@ -1,0 +1,90 @@
+﻿@model IEnumerable<OPBids.Entities.View.ProjectRequest.ProjectRequestVM>
+<script src="~/Scripts/Site/autoNumeric.min.js"></script>
+<script src="~/Scripts/Site/bootstrap-paginator.min.js"></script>
+<style>
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 3px;
+        border-top: none;
+    }
+    .table > thead > tr > th {
+        vertical-align: middle;
+        color: #1451ac;
+        border-top: 1px solid #a6a6a6;
+        background-color: #a6a6a6;
+    }
+    .table-striped > thead th {
+        border: 1px solid transparent !important;
+    }
+    .row {
+        margin-bottom: 10px;
+    }
+</style>
+<div id="request-Header-section"></div>
+<input type="hidden" id="u_id" />
+<input type="hidden" id="u_bid_id" />
+<input type="hidden" id="u_stage" />
+<div class="request-toolbar-section">
+    @{Html.RenderPartial("_toolBar", null, new ViewDataDictionary { { "page_name", "Draft" }, { "search_placeholder", "" }, { "hide-search", "true" } });}
+</div>
+<div id="request-Result-section"></div>
+<div id="dataMainModal"></div>
+<script type="text/javascript">
+    var PROJECT = {
+        Initialize: function () {
+            var _result;
+            var _subMenuID = localStorage.getItem("sub-menu-id"); 
+            PROJECT.SearchParam.get_total = true;
+            var _filter = JSON.stringify({ 'sub_menu_id': _subMenuID, 'txn': CONST.transaction_type.search, 'projectSearch': PROJECT.SearchParam });
+            PROJECT.SearchParam.get_total = false;
+            // Load Header Partial View
+            ajaxHelper.Invoke("/ProjectRequest/HeaderView", _filter, "html", renderHeaderCallback(_result));
+            // Load Result Partial View
+
+            ajaxHelper.Invoke("/ProjectRequest/ResultView", _filter, "html", renderResultCallback(_result));
+        },
+        SearchParam: {
+            page_index: 1,
+            page_size: 10,
+            submitted_from: '',
+            submitted_to: '',
+            required_from: '',
+            required_to: '',
+            budget_min: '',
+            budget_max: '',
+            grantee: '',
+            category: '',
+            project_name: '',
+            id: '',
+            batch_id: '',
+            applicable_year: '',
+            barcode: '',
+            get_total:null
+        },
+        PopulateProjectInformation: function (_this) {
+            var _id = $(_this).attr("data-itemid");
+            $("#u_id").val(_id);
+
+            var _filter = JSON.stringify({
+                'sub_menu_id': localStorage.getItem("sub-menu-id"),
+                'id': _id
+            });
+            ajaxHelper.Invoke("/ProjectRequest/GetProjectInformation", _filter, "html", function (result) {
+                $("#dataMainModal").html(result);
+                PROJINFO.InitializeProjectInformation(_id);
+            });
+        },
+    }
+    var renderHeaderCallback = function (result) {
+        return function (result) {
+            $("#request-Header-section").html(result);
+        };
+    }
+    var renderResultCallback = function (result) {
+        return function (result) {
+            $("#request-Result-section").html(result);
+        };
+    }
+    $(function () {
+        PROJECT.Initialize();
+    });    
+</script>

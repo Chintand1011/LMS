@@ -1,0 +1,51 @@
+﻿
+
+<div class="item-setting">
+    <div class="show">
+        <button style="width:42px; height:14px; padding:0; line-height:1;" class="setting-icon" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-gear"></i>&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-menu setting-cmd" aria-labelledby="dropdownMenuLink" style="display:none;">
+            <b>@this.ViewData["item_name"]</b><br />
+            <span>Created By</span>
+            <ul id="plan_tools">
+                @if (ViewData["show-view-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-view link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-text"]</a></li>
+                }
+                @if (ViewData["show-view-invite-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-view-invite link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-view-invite-text"]</a></li>
+                }
+                @if (ViewData["show-edit-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-edit link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-edit-text"]</a></li>
+                }
+                @if (ViewData["show-submit-hope-approval-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit-hope-approval link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-hope-approval-text"]</a></li>
+                }
+                @if (ViewData["show-cancel-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-cancel link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-cancel-text"]</a></li>
+                }
+                @if (ViewData["show-invite-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-invite link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-invite-text"]</a></li>
+                }
+                @if (ViewData["show-submit-advertising-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-submit-advertising link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-submit-advertising-text"]</a></li>
+                }
+                @if (ViewData["show-advertise-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-advertise link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-advertise-text"]</a></li>
+                }
+                @if (ViewData["show-close-shortlist-text"] != null)
+                {
+                    <li><a class="dropdown-item item-setting-close-shortlist link" href="#" data-itemid="@this.ViewData["item_id"]">@this.ViewData["show-close-shortlist-text"]</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,112 @@
+﻿<style>
+    #dataLowestBidderModal #table_summary {
+        margin: 20px;
+        font-size: 16px;
+    }
+
+</style>
+<div data-backdrop="static" class="modal fade"id="dataLowestBidderModal" tabindex="-1" role="dialog" aria-labelledby="dataLowestBidderModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <div class="row">
+                    <div class="col-md-1"><div class="circle-div"><span id="proj_id" style="font-size: 30px"></span></div></div>
+                    <div class="col-md-9" style="padding-top: 10px;">
+                        <h4 class="modal-title" style="font-weight:bold;">
+                            <span id="proj_title"></span>
+                            &nbsp;for the&nbsp;
+                            <span id="proj_grantee"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-container">
+                <div>
+                    <table id="table_summary">
+                        <tr>
+                            <td width="180px" class="text-left" style="vertical-align: top"><label>Project Description :</label></td>
+                            <td width="720px"><span id="proj_desc"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Approved Budget :</label></td>
+                            <td><span class="green">₱</span>&nbsp;<span id="approved_budget" class="green"></span>&nbsp;(<span id="procurement_method"></span>)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Requested By :</label></td>
+                            <td><span id="requested_by"></span>&nbsp;for&nbsp;<span id="grantee"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Category :</label></td>
+                            <td><span id="classification"></span>&nbsp;-&nbsp;<span id="category"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h3>Lowest Calculated Bidder</h3></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" style="vertical-align: top"><label>Bidder's Name :</label></td>
+                            <td><span id="bidder_name"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Address :</label></td>
+                            <td><span id="bidder_address"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Authorized Rep :</label></td>
+                            <td><span id="bidder_rep"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Total Bid Price :</label></td>
+                            <td><span class="green">₱</span>&nbsp;<span id="bid_price" class="green"></span>&nbsp;(<span id="bid_variance"></span>%&nbsp;Variance from ABC)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Bid Form :</label></td>
+                            <td><span id="bidder_form"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Bid Bond :</label></td>
+                            <td><span id="bidder_bond"></span>% of ABC</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left"><label>Project Duration :</label></td>
+                            <td><span id="bidder_proj_duration"></span>&nbsp;cd</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var LOWESTBIDDER = {
+        Initialize: function () {
+        },
+        EnableFields: function () {
+        },
+        DisableFields: function () {
+        },
+        SetData: function (row_data, lcb) {
+            console.log(lcb);
+            $("#dataLowestBidderModal #proj_id").html(row_data.attr("itemid"));
+            $("#dataLowestBidderModal #proj_desc").html(row_data.data("description"));
+            $("#dataLowestBidderModal #procurement_method").html(row_data.data("proc-method"));
+            $("#dataLowestBidderModal #proj_title").html(row_data.data("title"));
+            $("#dataLowestBidderModal #proj_grantee").html(row_data.data("grantee"));
+            $("#dataLowestBidderModal #approved_budget").html(row_data.data("approved-budget"));
+            $("#dataLowestBidderModal #requested_by").html(row_data.data("created-by"));
+            $("#dataLowestBidderModal #grantee").html(row_data.data("grantee"));
+            $("#dataLowestBidderModal #classification").html(row_data.data("classification-desc"));
+            $("#dataLowestBidderModal #category").html(row_data.data("category-desc"));
+            
+            $("#dataLowestBidderModal #bid_price").html(lcb.bid_amount);
+            $("#dataLowestBidderModal #bid_variance").html(lcb.variance);
+            $("#dataLowestBidderModal #bidder_form").html(lcb.bid_form);
+            $("#dataLowestBidderModal #bidder_bond").html(lcb.bid_bond);
+            $("#dataLowestBidderModal #bidder_proj_duration").html(lcb.duration);
+        }
+    };
+</script>

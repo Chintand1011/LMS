@@ -1,0 +1,167 @@
+﻿@model IEnumerable<OPBids.Entities.View.DTS.DocumentsVM>
+@Scripts.Render("~/bundles/dtsOnHandScript")
+<div class="p-view-header">
+    <h2 id="headerTitle">On-Hand Documents<span style="font-size:18px;">&nbsp;(Total: <span class="totalDocs" style="color:#ff0000;"></span>)</span></h2>
+</div>
+@{Html.RenderPartial("~/Views/DTS/DocumentFilter.cshtml", new OPBids.Entities.View.DTS.DocumentSearchVM());}
+<div id="addRemoveToolbar" class="col-md-5" style="padding:10px;">
+    <a id="btnTrackNewDocument" class="toolbar-add" href="#">
+        <img src="~/Content/images/icon-add.png" />
+        <span style="color: #4047cc;">Track New Document</span>
+    </a>
+</div>
+<div id="pageContainerDocument" style="display:inline-block;float:right;padding-top:15px;">Page&nbsp;<select class="paging"></select>&nbsp;&nbsp;of&nbsp;<span class="pageTotal"></span></div>
+@{Html.RenderPartial("~/Views/DTS/DocumentList.cshtml", new List<OPBids.Entities.View.DTS.DocumentsVM>());}
+<div class="modal fade" id="dataEntryModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" style="min-width:800px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;">Enter New Document Information</h4>
+            </div>
+            <table class="modal-body" style="width:100%;">
+                <tr>
+                    <td style="width:10%;max-width:120px; vertical-align:top;border-right: 1px solid #d8d8d8;">
+                        <div class="sectionTab"><button type="button" id="generalTab" formid="formGeneral" class="tabCaption">General</button></div>
+                        <div class="sectionTab"><button type="button" id="routesTab" formid="formRoutes" class="tabCaption">Routes</button></div>
+                        <div class="sectionTab"><button type="button" id="attachmentsTab" formid="formAttachments" class="tabCaption">Attachments</button></div>
+                    </td>
+                    <td style="width:90%;padding-top:10px;">
+                        <form id="formGeneral" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;">
+                            <div class="form-group" style="text-align:right;padding:0px;padding-right:50px;margin:0px;">
+                                <a class="toolbar-download" href="#" title="Download"><i class="fa fa-download" style="font-size:18px;color:#333"></i></a>
+                                <a class="toolbar-print" href="#" title="Print"><i class="fa fa-print" style="font-size:18px;color:#333"></i></a>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right required"><label for="u_document_code" class="control-label">@Html.DisplayNameFor(m => m.document_code)</label>:</div>
+                                <div class="col-md-7"><input type="text" id="u_document_code" alphanumeric class="form-control" maxlength="40" required caption="@Html.DisplayNameFor(m => m.document_code)" /></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right required"><label for="u_tags" class="control-label">@Html.DisplayNameFor(m => m.tags)</label>:</div>
+                                <div class="col-md-7">
+                                    <textarea style="margin-bottom:10px;" caption="@Html.DisplayNameFor(m => m.tags)"id="u_tags" class="form-control" rows="3" maxlength="2000" required></textarea>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_category_ids" class="control-label ">@Html.DisplayNameFor(m => m.category_name)</label>:</div>
+                                <div class="col-md-7">
+                                    <select id="u_category_ids" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.category_name)" data-none-selected-text>
+                                        @foreach (var i in OPBids.Web.Helper.UserInfoStore.GetDocumentCategory(Request.GetOwinContext()))
+                                        {
+                                            <option desc="@i.document_category_name" value="@i.id">@i.document_category_code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div><br /><br />
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_document_type_ids" class="control-label">@Html.DisplayNameFor(m => m.document_type_name)</label>:</div>
+                                <div class="col-md-7">
+                                    <select id="u_document_type_ids" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.document_type_name)" data-none-selected-text>
+                                        @foreach (var i in OPBids.Web.Helper.UserInfoStore.GetDocumentType(Request.GetOwinContext()))
+                                        {
+                                            <option desc="@i.document_type_description" categoryId="@i.document_category_id" userid="@i.id  " value="@i.id">@i.document_type_code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_sender_ids" class="control-label">@Html.DisplayNameFor(m => m.sender_name)</label>:</div>
+                                <div class="col-md-7"><select id="u_sender_ids" disabled="disabled" class="form-control sender_id" required caption="@Html.DisplayNameFor(m => m.sender_name)"></select></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_recipient_ids" class="control-label">@Html.DisplayNameFor(m => m.receipient_name)</label>:</div>
+                                <div class="col-md-7">
+                                    <select id="u_recipient_ids" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.receipient_name)" data-none-selected-text>
+                                        @foreach (var i in OPBids.Web.Helper.UserInfoStore.GetSenderRecipient(Request.GetOwinContext()))
+                                        {
+                                            if (i.is_recipient == true)
+                                            {
+                                                <option department_id="@i.department_id" email="@i.email_address" userid="@i.user_id" value="@i.id">@i.full_name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_etd_to_recipient" class="control-label">@Html.DisplayNameFor(m => m.etd_to_recipient)</label>:</div>
+                                <div class="col-md-4"><input type="text" id="u_etd_to_recipient" class="form-control" required datetime caption="@Html.DisplayNameFor(m => m.etd_to_recipient)" /></div>
+                                <div class="col-md-3"><input type="text" id="u_etd_to_recipient_time" timepicker class="form-control input-small" required caption="Time for ETD to Recipient" /></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_delivery_type_ids" class="control-label">@Html.DisplayNameFor(m => m.delivery_type_name)</label>:</div>
+                                <div class="col-md-7">
+                                    <select id="u_delivery_type_ids" class="form-control selectpicker dropup" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.delivery_type_name)" data-none-selected-text>
+                                        @foreach (var i in OPBids.Web.Helper.UserInfoStore.GetDeliveryType(Request.GetOwinContext()))
+                                        {
+                                            <option desc="@i.delivery_description" value="@i.id">@i.delivery_code</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 text-right"><label for="u_document_security_level_ids" class="control-label">@Html.DisplayNameFor(m => m.document_security_level)</label>:</div>
+                                <div class="col-md-7">
+                                    <select id="u_document_security_level_ids" class="form-control selectpicker dropup" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.document_security_level)" data-none-selected-text>
+                                        @foreach (var i in OPBids.Web.Helper.UserInfoStore.GetDocumentSecurity(Request.GetOwinContext()))
+                                        {
+                                            if (i.id != 5)
+                                            {
+                                                <option desc="@i.description" value="@i.id">@i.code</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-5">
+                                    <input id="rdoIsManual" name="IsIdoc" type="radio" /><span class="control-label" style="padding-left:10px;line-height:20px;">Requries physical document submission</span>
+                                </div>
+                                <div class="col-md-5">
+                                    <input id="rdoIsEdoc" name="IsIdoc" type="radio" /><span class="control-label" style="padding-left:10px;line-height:20px;">e-Doc : Does not require physical document submission</span>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="formRoutes" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;background-size: contain;">
+                            <div id="canvasImage" class="canvasImage">
+                                <div id="addRemoveToolbar" class="col-md-5" style="padding:10px;">
+                                    <a id="btnAddRoute" class="toolbar-add" href="#">
+                                        <img src="~/Content/images/icon-add.png" />
+                                        <span style="color: forestgreen">Add a Route</span>
+                                    </a>
+                                </div>
+                                <table id="lstRoutes" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th number style="max-width:10px;">Route#</th>
+                                            <th scope="col">Department</th>
+                                            <th scope="col">Recipient</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr rowcopy style="display:none;">
+                                            <td><button type="button" class="removeItem"></button></td>
+                                            <td number></td>
+                                            <td><select class="form-control department_id" caption="Department" data-actions-box="true" data-live-search="true" data-none-selected-text></select></td>
+                                            <td><select class="form-control receipient_id" caption="@Html.DisplayNameFor(m => m.receipient_name)" data-actions-box="true" data-live-search="true" data-none-selected-text></select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+
+                        <form id="formAttachments" style="height:550px;overflow-y:auto;padding:10px;vertical-align:top;" class="margin">
+                            @Html.Partial("_FileUploadLoadingObjects")
+                        </form>
+
+                    </td>
+                </tr>
+            </table>
+            <div class="modal-footer dialogFooter" style="border-top: 1px solid #d8d8d8;">
+                <span id="footerNote" style="float:left;padding-left:120px;">Document information will be saved and have an auto-generated batch number.</span><br /><br />
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;<b class="lblCancel">Cancel</b></button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>

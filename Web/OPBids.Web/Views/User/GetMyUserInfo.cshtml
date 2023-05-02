@@ -1,0 +1,134 @@
+﻿@model OPBids.Entities.View.Setting.AccessUsersVM
+@{
+    ViewBag.Title = "GetMyUserInfo";
+}
+
+<h2>Account Information</h2>
+<style>
+    .custom-table {
+        /*background-color:red;*/
+        margin-right: 100px;
+    }
+
+        .custom-table tbody tr td {
+            padding: 12px;
+            font-size: x-large;
+            /*font-weight:900;*/
+            color: dimgray;
+        }
+</style>
+
+<div class="row">
+
+
+    <div class="box margin">
+        <p>&nbsp;</p>
+
+        <table class="custom-table">
+
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="4"><img class="profile-user-img img-responsive img-circle" src="@Url.Content("~/User/UserProfileImage?userName=")@Model.username" alt="User profile picture" style="width:120px;"></td>
+                    <td style="width:100px;"></td>
+                </tr>
+                <tr>
+                    <td class="margin pad" style="width:300px;">User Name:</td>
+                    <td style="width:300px;">@Model.username</td>
+
+                </tr>
+                <tr>
+                    <td>Nick Name:</td>
+                    <td style="width:300px;">@Model.nickname</td>
+
+                </tr>
+                <tr>
+                    <td>Full Name</td>
+                    <td>@Model.last_name, @Model.first_name</td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td>@Model.address1, @Model.address2, @Model.address3</td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Birthday:</td>
+                    <td>@string.Format("{0:MMM dd, yyyy}", Convert.ToDateTime(Model.DOB))</td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Business Email:</td>
+                    <td>
+                        @Model.business_email_address
+                    </td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Personal Email:</td>
+                    <td>@Model.email_address</td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Contact Number:</td>
+                    <td>@Model.contact_no</td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>Mobile Number:</td>
+                    <td>@Model.mobile_no</td>
+                    <td></td>
+                    <td>&nbsp;</td>
+                </tr>
+
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary btn-block" onclick="javascript: window.location.href='@Url.Content("~/User/EditMyUserInfo")'">Update</button></td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tbody>
+
+
+        </table>
+
+
+        <table class="custom-table">
+
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td ></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

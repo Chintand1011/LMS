@@ -1,0 +1,41 @@
+﻿@model IEnumerable<OPBids.Entities.View.ProjectRequest.ProjectRequestHistoryVM>
+<style>
+    #ProjectLogs > .table .row {
+        margin-bottom: 15px;
+    }
+</style>
+<div id="ProjectLogs">
+    <div class="table" style="overflow-y: auto; overflow-x: hidden; height: 450px; font-size: 11px">
+
+        @if (Model != null)
+        {
+            <div class="row" style="background-color: #999999; color: #1451ac; height: 25px; padding-top: 4px;">
+                <div class="col-md-2 text-center"><label>Update #</label></div>
+                <div class="col-md-2 text-center"><label>Date</label></div>
+                <div class="col-md-2 text-center"><label>Time</label></div>
+                <div class="col-md-2 text-center"><label>Status</label></div>
+                <div class="col-md-4 text-center"><label>Remarks</label></div>
+            </div>
+
+            foreach (var m in Model)
+            {
+                <div class="row">
+                    <div class="col-md-2 text-center"><span></span></div>
+                    <div class="col-md-2 text-center"><span>@m.created_date</span></div>
+                    <div class="col-md-2 text-center"><span>@m.created_time</span></div>
+                    <div class="col-md-2 text-left"><span>@m.project_substatus_desc</span></div>
+                    <div class="col-md-4 text-left"><span>@m.change_log</span></div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-2 text-left"><label>Date</label></div>
+                <div class="col-md-2 text-left"><label>User</label></div>
+                <div class="col-md-3 text-left"><label>Department</label></div>
+                <div class="col-md-4 text-left"><label>Notes</label></div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<OPBids.Entities.View.Home.DashboardTableResultVM>
+<table class="table table-striped dashboard-table">
+    <thead>
+        <tr>
+            <th scope="col">Item #</th>
+            <th scope="col">Ref #</th>
+            <th scope="col">Category</th>
+            <th scope="col">Aging in Days</th>
+            <th scope="col">Project</th>
+            <th scope="col">Amount</th>
+            <th scope="col" colspan="2">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((value, index) => new { index, value }))
+            {
+        <tr>
+            <td class="text-center" scope="row">@(item.index + 1)</td>
+            <td data-th="Ref #" class="text-center">@item.value.refNo</td>
+            <td data-th="Category" class="text-center">@item.value.category</td>
+            <td data-th="Aging in Days" class="text-center">@item.value.agingInDays</td>
+            <td data-th="Project">@item.value.project</td>
+            <td data-th="Amount" class="text-right green money">@item.value.amount.ToString("N2")</td>
+            <td data-th="Status">@item.value.status</td>
+            <td><a class="item-setting-view" href="#" data-itemid="@item.value.refNo" onclick="ProjReqView.ViewRecord(@item.value.refNo)">VIEW</a></td>
+        </tr>
+            }
+
+</table>

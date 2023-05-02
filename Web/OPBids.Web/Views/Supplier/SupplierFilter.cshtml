@@ -1,0 +1,147 @@
+﻿@model OPBids.Entities.View.Supplier.SupplierSearchVM
+<style>
+    .page-header {
+        border: 0px none transparent;
+    }
+
+    .page-header-total-amount {
+        color: gray;
+        margin: 0 0 10px 15px;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    .search-table {
+        color: #5f5f5f;
+    }
+
+        .search-table > tbody > tr > td {
+            vertical-align: middle;
+             border-top:0px none transparent !important;
+        }
+
+        .search-table .date {
+            width: 100%;
+            min-width: 150px;
+        }
+
+        .search-table .select, .search-table input[type=text] {
+            width: 100%;
+        }
+
+    .search-duration li {
+        list-style-type: none;
+        float: left;
+        display: inline;
+        margin-right: 60px;
+    }
+
+        .search-duration li > input[type=radio] {
+            vertical-align: bottom;
+        }
+
+    .search-duration .search-label {
+        font-size: 12px;
+    }
+
+    .search-label {
+        font-size: 16px;
+    }
+
+    .glyphicon-calendar {
+        width: 0px;
+    }
+</style>
+<script type="text/javascript">
+    $(function () {
+        Site.GenerateControls(".search-table");
+    });
+</script>
+<div class="section-content">
+    <form>
+        <table class="table search-table">
+            <tbody>
+                <tr class="form-inline">
+                    <td>&nbsp;</td>
+                    <td colspan="6" class="search-duration">
+                        <ul>
+                            <li><input type="radio" name="durationOpt" value="0" dateValFrom="@System.DateTime.Now.AddDays(DayOfWeek.Sunday - System.DateTime.Now.DayOfWeek).ToString(OPBids.Common.Constant.DateFormat)" dateValTo="@System.DateTime.Today.AddDays(DayOfWeek.Saturday - System.DateTime.Now.DayOfWeek).ToString(OPBids.Common.Constant.DateFormat)" /> <span class="search-label">This Week</span></li>
+                            <li><input type="radio" name="durationOpt" value="1" dateValFrom="@(new System.DateTime(System.DateTime.Today.Year, System.DateTime.Today.Month, 1).ToString(OPBids.Common.Constant.DateFormat))" dateValTo="@System.DateTime.Today.AddMonths(1).AddDays((System.DateTime.Today.Day * - 1)).ToString(OPBids.Common.Constant.DateFormat)" checked="checked" /><span class="search-label">This Month</span></li>
+                            <li><input type="radio" name="durationOpt" value="3" dateValFrom="@System.DateTime.Now.AddDays(-60).ToString(OPBids.Common.Constant.DateFormat)" dateValTo="@DateTime.Today.ToString(OPBids.Common.Constant.DateFormat)" /><span class="search-label">Last 60 Days</span></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="form-inline">
+                    <td width="200px"><span class="search-label">@Html.DisplayNameFor(m => m.submitted_from)</span></td>
+                    <td width="250px">
+                        <input type='text' id='search_submit_from' class="form-control" style="background-color:transparent" datetime />
+                    </td>
+                    <td width="50px">&nbsp;</td>
+                    <td width="200px"><span class="search-label">@Html.DisplayNameFor(m => m.submitted_to)</span></td>
+                    <td width="250px">
+                        <input type='text' id='search_submit_to' class="form-control" style="background-color:transparent" datetime />
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="form-inline">
+                    <td><span class="search-label">@Html.DisplayNameFor(m => m.required_from)</span></td>
+                    <td>
+                        <input type='text' id='search_required_from' class="form-control" style="background-color:transparent" datetime />
+                    </td>
+                    <td>&nbsp;</td>
+                    <td><span class="search-label">@Html.DisplayNameFor(m => m.required_to)</span></td>
+                    <td>
+                        <input type='text' id='search_required_to' class="form-control" style="background-color:transparent" datetime />
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="form-inline">
+                    <td><span class="search-label">@Html.DisplayNameFor(m => m.budget_min)</span></td>
+                    <td>
+                        <div style="display:table-cell">Min&nbsp;</div><div style="display:table-cell; width:100%"><input type='text' number class="form-control input-numeric" id="search_budget_min" style="width:100%; text-align:right" /></div>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>-</td>
+                    <td>
+                        <div style="display:table-cell; width:100%"><input type='text' number class="form-control input-numeric" id="search_budget_max" style="width:100%; text-align:right" /></div><div style="display:table-cell">&nbsp;Max</div>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="form-inline">
+                    <td><span class="search-label">@Html.DisplayNameFor(m => m.grantee)</span></td>
+                    <td>
+                        <select class="form-control selectpicker" id="search_grantee" multiple title="" data-actions-box="true">
+                                @foreach (var item in OPBids.Web.Logic.ProjectRequest.CommonLogic.GetProjectGranteeFilter().ToList())
+                                {
+                                    <option value="@item.id">@item.grantee_name</option>
+                                }
+                        </select>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td><span class="search-label">@Html.DisplayNameFor(m => m.category)</span></td>
+                    <td>
+                        <select class="form-control selectpicker" id="search_category" multiple title="" data-actions-box="true">
+                                @foreach (var item in OPBids.Web.Logic.ProjectRequest.CommonLogic.GetProjectCategoryFilter().ToList())
+                                {
+                                    <option value="@item.id">@item.proj_cat</option>
+                                }
+                        </select>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr class="form-inline">
+                    <td><span class="search-label">@Html.DisplayNameFor(m => m.project_name)</span></td>
+                    <td colspan="3">
+                        <input type='text' class="form-control" id="search_project_name" style="width: 100%" />
+                    </td>
+                    <td>
+                        <input type='text' class="form-control" id="search_draft_no" />
+                    </td>
+                    <td colspan="2">
+                        <button id="btnSearch" type="button" class="btn btn-primary fa-align-left icon ion-search" style="min-width:72px;box-sizing:content-box;">SEARCH</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

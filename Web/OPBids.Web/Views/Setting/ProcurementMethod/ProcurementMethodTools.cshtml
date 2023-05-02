@@ -1,0 +1,20 @@
+﻿<div class="item-setting">
+    <div class="show">
+        <button style="width:42px" class="setting-icon" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-gear" style="padding-top:2px; font-size:14px"></i>&nbsp;&nbsp;<i class="fa fa-caret-down" style="padding-top:2px; font-size:14px"></i>
+        </button>
+        @*<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="setting-icon" src="~/Content/images/icon-gear.png" />
+        </a>*@
+
+        <div class="dropdown-menu setting-cmd" aria-labelledby="dropdownMenuLink" style="display:none">
+            <div style="white-space:nowrap;font-size:20px;font-weight:bold;">@this.ViewData["item_name"]</div>
+            <span statusid="@this.ViewData["item_status"]"></span>
+            <ul>
+                <li><a class="dropdown-item item-setting-edit" href="#" data-itemid="@this.ViewData["item_id"]">Edit <span class="moduleCaption"></span></a></li>
+                <li><a class="dropdown-item item-setting-delete" href="#" data-itemid="@this.ViewData["item_id"]">Remove <span class="moduleCaption"></span></a></li>
+                <li><a class="dropdown-item item-setting-inactive" href="#" statusidsetter="@this.ViewData["item_status"]" data-itemid="@this.ViewData["item_id"]">Set as Inactive</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

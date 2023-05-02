@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.DocumentTypeVM>
+@Scripts.Render("~/bundles/docTypeScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.document_category_code)</th>
+                <th scope="col" hidden>@Html.DisplayNameFor(m => m.document_category_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.document_type_code)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.document_type_description)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.id">
+                    <td><input type="checkbox" class="check-selected" itemid="@item.id" /><span class="incrementalNum"></span></td>
+                    <td document_category_id="@Html.DisplayFor(modelItem => item.document_category_id)">
+                        @Html.DisplayFor(modelItem => item.document_category_code)
+                    </td>
+                    <td document_category_name hidden>
+                        @Html.DisplayFor(modelItem => item.document_category_name)
+                    </td>
+                    <td document_type_code>
+                        @Html.DisplayFor(modelItem => item.document_type_code)
+                    </td>
+                    <td document_type_description>
+                        @Html.DisplayFor(modelItem => item.document_type_description)
+                    </td>
+                    <td status statusid="@Html.DisplayFor(modelItem => item.status)"></td>
+                    <td>
+                        @{Html.RenderPartial("~/Views/Setting/DocumentType/DocumentTypeTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.document_type_code }, { "item_status", item.status } });}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_document_category_id" class="control-label">@Html.DisplayNameFor(m => m.document_category_code)</label>:</div>
+                        <div class="col-md-9"><select placeholder="Select category code" id="u_document_category_id" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.document_category_code)"></select></div>                        
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_document_type_code" class="control-label">@Html.DisplayNameFor(m => m.document_type_code)</label>:</div>
+                        <div class="col-md-9"><textarea placeholder="Enter document type code here..." id="u_document_type_code" class="form-control" maxlength="75" rows="10" style="height:60px;" required caption="@Html.DisplayNameFor(m => m.document_type_code)"></textarea></div>
+                    </div><br />
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_document_type_description" class="control-label">@Html.DisplayNameFor(m => m.document_type_description)</label>:</div>
+                        <div class="col-md-9"><textarea placeholder="Enter document type description here..." id="u_document_type_description" class="form-control" maxlength="150" rows="10" style="height:100px;" required caption="@Html.DisplayNameFor(m => m.document_type_description)"></textarea></div>
+                    </div><br /><br />
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Cancel</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>        
+    </div>
+</div>

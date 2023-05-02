@@ -1,0 +1,102 @@
+﻿
+@model OPBids.Entities.View.ProjectRequest.PayloadVM
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_DisplayTemplates/ProgressBar", Model.progressList)
+    <hr style="margin-top: 0px;" />
+    <form>
+        <div class="modal-body-content DrawConfidential" style="width: 100%; height: 400px;">
+            <div class="row">
+                <div class="col-md-3 align-right">
+                    <label class="control-label">Project Description&nbsp;:</label>
+                </div>
+                <div class="col-md-9">
+                    <span class="control-value">@Html.DisplayFor(model => model.projectRequest.description)</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 align-right">
+                    <label class="control-label">End User</label>&nbsp;
+                    <span style="font-size: 11px;">(Implementing Office)</span>&nbsp;
+                    <label class="control-label">:</label>
+                </div>
+                <div class="col-md-9">
+                    <span class="control-value">
+                        @Html.DisplayFor(model => model.projectRequest.created_by_name)
+                        &nbsp;for the&nbsp;
+                        @Html.DisplayFor(model => model.projectRequest.grantee)
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 align-right">
+                    <label class="control-label">Approved Budget&nbsp;:</label>
+                </div>
+                <div class="col-md-9">
+                    <span class="control-value">
+                        <span style="color:#2AB106">₱&nbsp;@Html.DisplayFor(model => model.projectRequest.approved_budget)</span>
+                        (@Html.DisplayFor(model => model.projectRequest.procurement_method) - P.R.#&nbsp;@Html.DisplayFor(model => model.projectRequest.pr_number))
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 align-right">
+                    <label class="control-label">Category&nbsp;:</label>
+                </div>
+                <div class="col-md-3">
+                    <span class="control-value">
+                        @Html.DisplayFor(model => model.projectRequest.category_desc)
+                    </span>
+                </div>
+                <div class="col-md-3 align-right">
+                    <label class="control-label">Required Date&nbsp;:</label>
+                </div>
+                <div class="col-md-3">
+                    <span class="control-value">
+                        @Html.DisplayFor(model => model.projectRequest.required_date)
+                    </span>
+                </div>
+            </div>
+            @if (Convert.ToBoolean(ViewBag.hasProjecBids))
+            {
+                <div class="row">
+                    <div class="col-md-13 align-left">
+                        <label class="control-label">Lowest Calculated Bidder</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 align-right">
+                        <label class="control-label">Bidder's Name&nbsp;:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="control-value">
+                            @ViewBag.LowestBidName
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 align-right">
+                        <label class="control-label">Address&nbsp;:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="control-value">
+                            @ViewBag.LowestBidAddress
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 align-right">
+                        <label class="control-label">Authorized Rep&nbsp;:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="control-value">
+                            @ViewBag.LowestBidAuthRep
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+}

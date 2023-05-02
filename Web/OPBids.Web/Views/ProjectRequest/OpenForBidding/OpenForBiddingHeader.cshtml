@@ -1,0 +1,109 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectSearchVM
+<style>
+    .page-header {
+        border: 0px none transparent;
+    }
+</style>
+<div class="p-view-header">
+    <span class="page-header">Open for Bidding</span>
+    <div class="section-content">
+        <form>
+            <table class="table search-table">
+                <tbody>
+                    <tr class="form-inline">
+                        <td>&nbsp;</td>
+                        <td colspan="6" class="search-duration">
+                            <ul>
+                                <li><input type="radio" name="durationOpt" value="0" id="rbtnWeek" dateVal="@System.DateTime.Now.AddDays(-7).ToString("dd-MMM-yyyy")" /><span class="search-label">This Week</span></li>
+                                <li><input type="radio" name="durationOpt" value="1" id="rbtnMonth" dateVal="@System.DateTime.Now.AddMonths(-1).ToString("dd-MMM-yyyy")" checked="checked" /><span class="search-label">This Month</span></li>
+                                <li><input type="radio" name="durationOpt" value="3" id="rbtnDays" dateVal="@System.DateTime.Now.AddDays(-60).ToString("dd-MMM-yyyy")" /><span class="search-label">Last 60 Days</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr class="form-inline">
+                        <td width="200px"><span class="search-label">@Html.DisplayNameFor(m => m.submitted_from)</span></td>
+                        <td width="250px">
+                            <input type='text' id='search_submit_from' class="form-control" style="background-color:transparent" datetime />
+                        </td>
+                        <td width="50px">&nbsp;</td>
+                        <td width="200px"><span class="search-label">@Html.DisplayNameFor(m => m.submitted_to)</span></td>
+                        <td width="250px">
+                            <input type='text' id='search_submit_to' class="form-control" style="background-color:transparent" datetime />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr class="form-inline">
+                        <td><span class="search-label">@Html.DisplayNameFor(m => m.required_from)</span></td>
+                        <td>
+                            <input type='text' id='search_required_from' class="form-control" style="background-color:transparent" datetime />
+                        </td>
+                        <td>&nbsp;</td>
+                        <td><span class="search-label">@Html.DisplayNameFor(m => m.required_to)</span></td>
+                        <td>
+                            <input type='text' id='search_required_to' class="form-control" style="background-color:transparent" datetime />
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr class="form-inline">
+                        <td><span class="search-label">@Html.DisplayNameFor(m => m.budget_min)</span></td>
+                        <td>
+                            <div style="display:table-cell">Min&nbsp;</div><div style="display:table-cell; width:100%"><input type='text' class="form-control input-numeric" id="search_budget_min" style="width:100%; text-align:right" money="true" /></div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>-</td>
+                        <td>
+                            <div style="display:table-cell; width:100%"><input type='text' class="form-control input-numeric" id="search_budget_max" style="width:100%; text-align:right" money="true" /></div><div style="display:table-cell">&nbsp;Max</div>
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr class="form-inline">
+                        <td><span class="search-label">@Html.DisplayNameFor(m => m.grantee)</span></td>
+                        <td>
+                            <select class="form-control selectpicker" id="search_grantee" multiple title="" data-actions-box="true" data-live-search="true">
+                                @if (ViewData["project_grantee_filter"] != null)
+                                {
+                                    foreach (var item in (List<OPBids.Entities.View.Setting.ProjectGranteeVM>)ViewData["project_grantee_filter"])
+                                    {
+                                        <option value="@item.id">@item.grantee_name</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td><span class="search-label">@Html.DisplayNameFor(m => m.category)</span></td>
+                        <td>
+                            <select class="form-control selectpicker" id="search_category" multiple title="" data-actions-box="true" data-live-search="true">
+                                @if (ViewData["project_category_filter"] != null)
+                                {
+                                    foreach (var item in (List<OPBids.Entities.View.Setting.ProjectCategoryVM>)ViewData["project_category_filter"])
+                                    {
+                                        <option value="@item.id">@item.proj_cat</option>
+                                    }
+                                }
+                            </select>
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr class="form-inline">
+                        <td><span class="search-label">@Html.DisplayNameFor(m => m.project_name)</span></td>
+                        <td colspan="3">
+                            <input type='text' class="form-control" id="search_project_name" style="width: 100%" />
+                        </td>
+                        <td>
+                            <input type='text' class="form-control" id="search_draft_no" />
+                        </td>
+                        <td colspan="2">
+                            <button id="btnSearch" type="button" class="btn btn-primary fa-align-left icon ion-search" style="min-width:72px;box-sizing:content-box;">SEARCH</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    new AutoNumeric.multiple('.input-numeric');
+    Site.GenerateControls(".section-content");
+    Site.GenerateSearch("#rbtnWeek", "#rbtnMonth", "#rbtnDays", "#search_submit_from", "#search_submit_to");
+</script>

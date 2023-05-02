@@ -1,0 +1,33 @@
+﻿@model IEnumerable<OPBids.Entities.View.User.UserMainVM>
+
+@{
+    ViewBag.Title = "Access User";
+    ViewBag.PageTitle = "Access User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+@*@using (Ajax.BeginForm("Search", "User", new AjaxOptions { UpdateTargetId = "search-result", HttpMethod = "Post" }))
+{*@
+    <div class="section-content">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="txtCode" class="col-md-2 control-label">Access Type Code</label>
+                <div class="col-md-2">@Html.TextBox("access_type_code", null, new { @class = "form-control" })</div>
+                <label for="txtName" class="col-md-2 control-label">Access Type Name</label>
+                <div class="col-md-2">@Html.TextBox("access_type_name", null, new { @class = "form-control" })</div>
+                <div class="col-md-2"><input type="submit" id="btnSearch" value="Search" class="btn btn-primary" /></div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+@*}*@
+
+<div id="result">
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/appscripts")
+@Scripts.Render("~/bundles/userscripts")

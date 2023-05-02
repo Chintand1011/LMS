@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OPBids.Entities.View.ProjectRequest.ProjectRequestVM>
+<table class="table">
+    <tr>
+        <th>
+            Item #
+        </th>
+        <th>
+            Date Created
+        </th>
+        <th>
+            Rem Days before Required Date
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.required_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.grantee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estimated_budget)
+        </th>
+        <th>
+            &nbsp;
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="row-@item.id">
+            <td>
+                <input type="checkbox" class="check-selected" id="@item.id" />
+            </td>
+            <td created_date>
+                @Html.DisplayFor(modelItem => item.created_date)
+            </td>
+            <td>&nbsp;</td>
+            <td required_date>
+                @Html.DisplayFor(modelItem => item.required_date)
+            </td>
+            <td grantee>
+                @Html.DisplayFor(modelItem => item.grantee)
+            </td>
+            <td proj_title>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td budget>
+                @Html.DisplayFor(modelItem => item.estimated_budget)
+                <input type="hidden" id="description" value="@item.description" />
+                <input type="hidden" id="category" value="@item.category" />
+            </td>
+            <td>
+                @{Html.RenderPartial("~/Views/Supplier/ProjectListTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.created_by } });}
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<OPBids.Entities.View.DTS.RequestBarcodeVM>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" number>Item #</th>
+                <th scope="col" number>Request Number</th>
+                <th scope="col">Requested Date</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.requested_by)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.requested_quantity)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.printed_quantity)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.remarks)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

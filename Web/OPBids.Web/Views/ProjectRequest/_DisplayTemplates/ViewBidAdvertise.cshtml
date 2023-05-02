@@ -1,0 +1,306 @@
+﻿@model OPBids.Entities.View.ProjectRequest.ProjectRequestBatchVM
+
+<style>
+    #view_bid_advertise .modal-section-label {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    #view_bid_advertise .tab_row {
+        border-bottom: 1px solid #d8d8d8;
+        height: 50px
+    }
+
+        #view_bid_advertise .tab_row, #view_bid_advertise .tab_row .tabCaption {
+            height: 50px;
+            width: 100%;
+        }
+
+    #view_bid_advertise .horizontalTab {
+        width: 110px;
+        border: 1px solid #d8d8d8;
+    }
+
+        #view_bid_advertise .horizontalTab .tabCaption {
+            padding: 0px;
+            text-align: center;
+        }
+
+    #view_bid_advertise .fa {
+        font-size: 20px;
+        margin-left: 10px;
+        text-align: right;
+    }
+
+    #view_bid_advertise .tab_forms {
+        height: 530px;
+        vertical-align: top;
+    }
+
+        #view_bid_advertise .tab_forms .form_item {
+            padding: 0px 40px;
+            vertical-align: top;
+            margin-top: 50px;
+        }
+
+            #view_bid_advertise .tab_forms .form_item label {
+                font-size: 18px;
+            }
+
+            #view_bid_advertise .tab_forms .form_item.cons .btnBrowse {
+                padding: 10px 20px;
+            }
+
+            #view_bid_advertise .tab_forms .form_item.cons label, #view_bid_advertise .tab_forms .form_item.cons input {
+                margin-top: 30px
+            }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="view_bid_advertise">
+        <table style="width: 95%">
+            <tbody>
+                <tr class="tab_row">
+                    <td class="35%">
+                        <label class="modal-section-label">Posting and Approval</label>
+                    </td>
+                    <td width="10%" class="bodytab horizontalTab">
+                        <div class="horizontal">
+                            <button type="button" id="philGepsTab" formid="formPhilgeps" class="tabCaption">PhilGEPS</button>
+                        </div>
+                    </td>
+                    <td width="10%" class="bodytab horizontalTab">
+                        <div class="horizontal">
+                            <button type="button" id="mmdaTab" formid="formMMDA" class="tabCaption">MMDA Portal</button>
+                        </div>
+                    </td>
+                    <td width="10%" class="bodytab horizontalTab">
+                        <div class="horizontal">
+                            <button type="button" id="conspicuousTab" formid="formConspicuous" class="tabCaption">Conspicuous<br />Places</button>
+                        </div>
+                    </td>
+                    <td width="10%" class="bodytab horizontalTab">
+                        <div class="horizontal">
+                            <button type="button" id="newspaperTab" formid="formNewspaper" class="tabCaption">Newspaper</button>
+                        </div>
+                    </td>
+                    <td width="18%" class="align-right">
+                        <a class="fa fa-download fa-dialog"></a>&nbsp;<a class="fa fa-print fa-dialog"></a>
+                    </td>
+                </tr>
+                <tr class="tab_forms">
+                    <td colspan="6">
+                        <div id="formPhilgeps" class="form_item">
+                            <span class="modal-section-label">Post in PhilGEPS</span>
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col-md-4 align-center">
+                                    <button type="button" id="btnBrowse_philgeps" class="btnBrowse">+</button>
+                                    <input type="file" id="fleBrowse_philgeps" style="display:none;" />
+                                </div>
+                                <div class="col-md-8" style="padding-top: 10px;">
+                                    <div class="row">
+                                        <div class="col-md-4 align-right">
+                                            <label>Date Published&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.philgeps_publish_date, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 align-right">
+                                            <label>Posted By&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.philgeps_publish_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="formMMDA" class="form_item">
+                            <span class="modal-section-label">Post in MMDA Portal</span>
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col-md-4 align-center">
+                                    <button type="button" id="btnBrowse_mmda" class="btnBrowse">+</button>
+                                    <input type="file" id="fleBrowse_mmda" style="display:none;" />
+                                </div>
+                                <div class="col-md-8" style="padding-top: 10px;">
+                                    <div class="row">
+                                        <div class="col-md-4 align-right">
+                                            <label>Date Posted&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.mmda_publish_date, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 align-right">
+                                            <label>Posted By&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.mmda_publish_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="formConspicuous" class="form_item cons">
+                            <span class="modal-section-label">Post in Conspicuous Places</span>
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col-md-2 align-center">
+                                    <button type="button" id="btnBrowse_lobby" class="btnBrowse">+</button>
+                                    <input type="file" id="fleBrowse_lobby" style="display:none;" />
+                                </div>
+                                <div class="col-md-4 align-left">
+                                    <label>MMDA Lobby</label>
+                                </div>
+                                <div class="col-md-3 align-right">
+                                    <label>Date Posted&nbsp;:&nbsp;</label>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.EditorFor(model => model.conspost_date_lobby, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-center">
+                                    <button type="button" id="btnBrowse_redeption" class="btnBrowse">+</button>
+                                    <input type="file" id="fleBrowse_redeption" style="display:none;" />
+                                </div>
+                                <div class="col-md-4 align-left">
+                                    <label>MMDA Redeption Center</label>
+                                </div>
+                                <div class="col-md-3 align-right">
+                                    <label>Date Posted&nbsp;:&nbsp;</label>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.EditorFor(model => model.conspost_date_reception, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-center">
+                                    <button type="button" id="btnBrowse_command" class="btnBrowse">+</button>
+                                    <input type="file" id="fleBrowse_command" style="display:none;" />
+                                </div>
+                                <div class="col-md-4 align-left">
+                                    <label>MMDA Command Center</label>
+                                </div>
+                                <div class="col-md-3 align-right">
+                                    <label>Date Posted&nbsp;:&nbsp;</label>
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.EditorFor(model => model.conspost_date_command, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 align-center">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-3 align-left">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-3 align-right">
+                                    <label>Posted By&nbsp;:&nbsp;</label>
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.EditorFor(model => model.conspost_by, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                </div>
+                            </div>
+                        </div>
+                        <div id="formNewspaper" class="form_item">
+                            <span class="modal-section-label">Post in Newspaper</span>
+                            <div class="row" style="margin-top: 20px">
+                                <div class="col-md-3 align-center">
+                                    <button type="button" id="btnBrowse_news" class="btnBrowse">+</button>
+                                    <input type="file" id="fleBrowse_news" style="display:none;" />
+                                </div>
+                                <div class="col-md-9" style="padding-top: 10px;">
+                                    <div class="row">
+                                        <div class="col-md-5 align-right">
+                                            <label>Publisher / Newspaper&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.newspaper_publisher, new { htmlAttributes = new { @class = "form-control", @datetime = "" } })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 align-right">
+                                            <label>Date Sent to Vendor&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.newspaper_sent_date, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 align-right">
+                                            <label>Received By&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.newspaper_received_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 align-right">
+                                            <label>Date Published&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.newspaper_post_date, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5 align-right">
+                                            <label>Posted By&nbsp;:&nbsp;</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            @Html.EditorFor(model => model.newspaper_post_by, new { htmlAttributes = new { @class = "form-control" } })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <div id="print-advertise" class="align-right print-btn-cntr" data-project-id="@ViewData["project_id"]">
+                            <button type="button" class="btn btn-dialog" id="btnPrintAdvertise"><i class="fa fa-print fa-dialog"></i> Print Report</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
+<script type="text/javascript">
+    var VIEWBIDADVERTISE = {
+        Initialize: function () {
+            $("#philgeps_publish_date").datepicker({ format: 'dd-M-yyyy' });
+
+            $("#view_bid_advertise .horizontalTab .tabCaption").click(function (e) {
+                e.preventDefault();
+                $("#view_bid_advertise .horizontalTab").removeAttr("selected");
+                $(this).parent().parent().attr("selected", "");
+                $("#view_bid_advertise .tab_forms .form_item").css({ "display": "none" });
+
+                $(["#view_bid_advertise #", $(this).attr("formid")].join('')).css({ "display": "" });
+            });
+
+            $("#view_bid_advertise #philGepsTab").click();
+
+            $("#print-advertise #btnPrintAdvertise").unbind().click(function () {
+                var id = $(this).closest(".print-btn-cntr").attr("data-project-id");
+                window.open("/report/PostingApproval/" + id);
+            });
+
+            Site.GenerateControls("#view_bid_advertise");
+        },
+        DisableFields: function () {
+            $("#view_bid_advertise .form-control").attr("disabled", "disabled");
+        }
+    };
+    $(function () {
+        VIEWBIDADVERTISE.Initialize();
+    });
+</script>

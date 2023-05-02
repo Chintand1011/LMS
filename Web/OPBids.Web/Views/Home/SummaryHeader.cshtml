@@ -1,0 +1,78 @@
+﻿@model OPBids.Entities.View.Home.DashboardSummaryVM
+<section class="content summary-header">
+    <!--(Stat Box)-->
+    <div class="row dash-row">
+        <div class="col-lg-4 col-md-6">
+            <!-- small box -->
+            <div class="small-box stat-box" style="height:150px">
+                <div class="inner @Model.summary1.iconCls" style="width:100%; text-align:right">
+                    <div class="caption">
+                        @Model.summary1.title
+                    </div>
+                    <table id="summary">
+                        <colgroup><col><col width="10"><col><col width="50"></colgroup>
+                        @foreach (var item in Model.summary1.items)
+                        {
+                            <tr>
+                                <td>@item.label:</td>
+                                <td><span style="color:red">&#8369</span></td>
+                                <td class="col-val @item.color">@item.value.ToString("N2")</td>
+                                <td><span class="amount">@item.count</span></td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-md-6">
+            <!-- small box -->
+            <div class="small-box stat-box" style="height:150px">
+                <div class="inner @Model.summary2.iconCls" style="width:100%; text-align:right">
+                    <div class="caption">
+                        @Model.summary2.title
+                    </div>
+                    <table class="stat-summary">
+                        <colgroup><col><col width="10"><col><col width="50"></colgroup>
+                        @foreach (var item in Model.summary2.items)
+                        {
+                            <tr>
+                                <td>@item.label:</td>
+                                <td><span style="color:red">&#8369</span></td>
+                                <td class="col-val @item.color">@item.value.ToString("N2")</td>
+                                <td><span class="badge @item.color">@item.count</span></td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-md-6">
+            <!-- small box -->
+            <div class="small-box stat-box" style="height:150px">
+                <div class="inner @Model.summary3.iconCls" style="width:100%; text-align:right">
+                    <div class="caption">
+                        @Model.summary3.title
+                    </div>
+                    <table class="stat-summary">
+                        <colgroup><col><col width="10"><col><col width="50"></colgroup>
+                        @foreach (var item in Model.summary3.items)
+                        {
+                            <tr>
+                                <td>@item.label:</td>
+                                <td><span style="color:red">&#8369</span></td>
+                                <td class="col-val @item.color">@item.value.ToString("N2")</td>
+                                <td><span class="badge @item.color">@item.count</span></td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

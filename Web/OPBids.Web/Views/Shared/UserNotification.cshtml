@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OPBids.Entities.View.Shared.UserNotificationVM>
+@Scripts.Render("~/bundles/notificationScript")
+<script type="text/javascript">
+    UN.UserId = "@OPBids.Web.Helper.AuthHelper.GetClaims(Request.GetOwinContext(), OPBids.Common.Constant.Auth.Claims.UserId)";
+</script>
+<div class="p-view-header">
+    <h2 style="border-bottom: 1px solid #d8d8d8;"><span id="headerTitle">Notification</span><span style="font-size:18px;">&nbsp;&nbsp;(Unread: <span class="totalNotifications" style="color:#ff0000;"></span>)</span></h2>
+</div>
+<table id="lstNotifications" class="clearTable">
+    <thead>
+        <tr>
+            <td style="width:65px;">
+                <input type="checkbox" id="chkAll" style="display:inline-block;" />
+                <div class="dropdown" style="display:inline-block;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="margin-top:-10px;border: 0px none transparent;color:#000000;padding:2px;background-color:transparent;">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">All</a></li>
+                        <li><a href="#">None</a></li>
+                        <li><a href="#">Read</a></li>
+                        <li><a href="#">Unread</a></li>
+                        <li><a href="#">Starred</a></li>
+                        <li><a href="#">Unstarred</a></li>
+                    </ul>
+                </div>
+            </td>
+            <td colspan="2">
+                <button type="button" class="clearButton" id="btnMarkAsRead">Mark As Read</button>
+                <button type="button" class="clearButton" id="btnMarkAsUnread">Mark As Unread</button>
+                <button type="button" class="clearButton" id="btnStarred">Starred</button>
+                <button type="button" class="clearButton" id="btnRemoveStar">Remove Star</button>
+                <button type="button" class="clearButton" id="btnHideAnnouncement">Hide Notification</button>
+            </td>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>

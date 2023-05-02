@@ -1,0 +1,123 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.AccessUsersVM>
+@Scripts.Render("~/bundles/auScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.username)</th>
+                <th scope="col">Name</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.group_code)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.vip_access)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.pfms_access)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.dts_access)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.status)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 0;}
+            @foreach (var item in Model)
+            {
+            <tr id="row-@item.id">               
+                <td><input type="checkbox" class="check-selected" itemid="@item.id" /><span class="incrementalNum"></span></td>
+                <td dept_id style="display:none;">@Html.DisplayFor(modelItem => item.dept_id)</td>
+                <td email_address style="display:none;">@item.email_address</td>
+                <td username salutation="@Html.DisplayFor(modelItem => item.salutation)">
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+                <td full_name>
+                    <span first_name>@item.first_name</span>&nbsp;
+                    <span mi >@item.mi</span>&nbsp;
+                    <span last_name>@item.last_name</span>
+                </td>
+                <td group_id="@Html.DisplayFor(modelItem => item.group_id)">
+                    @Html.DisplayFor(modelItem => item.group_code)
+                </td>
+                <td vip_access style="text-align:center;">
+                    @Html.DisplayFor(modelItem => item.vip_access)
+                </td>
+                <td pfms_access style="text-align:center;">
+                    @Html.DisplayFor(modelItem => item.pfms_access)
+                </td>
+                <td dts_access style="text-align:center;">
+                    @Html.DisplayFor(modelItem => item.dts_access)
+                </td>
+                <td status statusid="@Html.DisplayFor(modelItem => item.status)"></td>
+                <td>
+                    @{Html.RenderPartial("~/Views/Setting/AccessUsers/AccessUsersTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", item.username }, { "item_status", item.status } });}
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:850px;">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_group_id" class="control-label">@Html.DisplayNameFor(m => m.group_code)</label>:</div>
+                        <div class="col-md-8"><select id="u_group_id" class="form-control selectpicker" data-actions-box="true" data-live-search="true" data-none-selected-text required caption="@Html.DisplayNameFor(m => m.group_code)"></select>
+                            <button type="button" id="btnCreateAccessGroup" style="float:right;font-size:10px;" class="buttonLink">Create Access Group</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_dept_id" class="control-label">@Html.DisplayNameFor(m => m.dept_description)</label>:</div>
+                        <div class="col-md-8"><select id="u_dept_id" class="form-control selectpicker" data-actions-box="true" data-live-search="true" data-none-selected-text required caption="@Html.DisplayNameFor(m => m.dept_description)"></select></div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_username" class="control-label">@Html.DisplayNameFor(m => m.username)</label>:</div>
+                        <div class="col-md-8"><input type="text" id="u_username" class="form-control" maxlength="75" required placeholder="Enter username here..." caption="@Html.DisplayNameFor(m => m.username)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_password" class="control-label">@Html.DisplayNameFor(m => m.password)</label>:</div>
+                        <div class="col-md-8"><input type="password" id="u_password" class="form-control" minlength="6" maxlength="30" required caption="@Html.DisplayNameFor(m => m.password)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_repassword" class="control-label">Re-type Password</label>:</div>
+                        <div class="col-md-8"><input type="password" id="u_repassword" class="form-control" minlength="6" maxlength="30" required caption="Re-type Password" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_email_address" class="control-label">@Html.DisplayNameFor(m => m.email_address)</label>:</div>
+                        <div class="col-md-8"><input type="text" id="u_email_address" email class="form-control" maxlength="100" required caption="@Html.DisplayNameFor(m => m.email_address)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-1 text-right"><label for="u_full_name" class="control-label" style="white-space:nowrap;">Name:</label></div>
+                        <div class="col-md-1" style="padding: 1px;"><select id="u_salutation" class="form-control" required style="padding:0px;" caption="@Html.DisplayNameFor(m => m.salutation)"></select></div>
+                        <div class="col-md-5" style="padding: 1px;"><input type="text" id="u_first_name" personName class="form-control" maxlength="100" placeholder="First Name" required caption="@Html.DisplayNameFor(m => m.first_name)" /></div>
+                        <div class="col-md-1" style="padding: 1px;"><input type="text" style="width:90px;" personName id="u_mi" class="form-control" maxlength="1" caption="@Html.DisplayNameFor(m => m.mi)" /></div>
+                        <div class="col-md-4" style="padding: 1px;"><input type="text" id="u_last_name" personName class="form-control" maxlength="120" placeholder="Last Name" required caption="@Html.DisplayNameFor(m => m.last_name)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_vip_access" class="control-label">@Html.DisplayNameFor(m => m.vip_access)</label>:</div>
+                        <div class="col-md-8"><input style="display:inline-block;width:20px;margin-top:-5px;" type="checkbox" id="u_vip_access" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_pfms_access" class="control-label">@Html.DisplayNameFor(m => m.pfms_access)</label>:</div>
+                        <div class="col-md-8"><input style="display:inline-block;width:20px;margin-top:-5px;" type="checkbox" id="u_pfms_access" class="form-control" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 text-right"><label for="u_dts_access" class="control-label">@Html.DisplayNameFor(m => m.dts_access)</label>:</div>
+                        <div class="col-md-8"><input style="display:inline-block;width:20px;margin-top:-5px;" type="checkbox" id="u_dts_access" class="form-control" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton"data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Cancel</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>

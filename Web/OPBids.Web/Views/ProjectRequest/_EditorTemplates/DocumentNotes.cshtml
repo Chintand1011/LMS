@@ -1,0 +1,26 @@
+﻿<div data-backdrop="static" class="modal fade"id="ProjectRequestNoteModal" tabindex="-1" role="dialog" aria-labelledby="ProjectRequestNoteModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1000px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="modal-note-title"></span></h4>
+            </div>
+            <table class="modal-body" style="width:100%;">
+                <tr>
+                    <td style="width:90%;padding-top:10px;">
+                        <form id="formNote" style="min-height:300px;padding:20px;vertical-align:top;">
+                            <b><span id="modal-note-label" style="font-size: 22px;">Note</span></b>
+                            <textarea id="txtDocumentNote" rows="8" style="margin-top: 20px" class="form-control dr-notes" required caption="Note" maxlength="1000"></textarea>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <hr style="margin-top: 0px" />
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;"></span>
+                <button type="button" class="ui-button ui-corner-all ui-widget negativeDialogButton" id="btnCancel" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>Cancel</button>
+                <button type="button" class="ui-button ui-corner-all ui-widget positiveDialogButton" id="btnSaveNoteModal"><span style="position:relative;left:-5px;"></span>Save</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+﻿<style>
+    .batch-selection .table-batch-container {
+        min-height: 450px;
+        overflow-y: auto;
+    }
+    .batch-selection .table-batch-selection tr {
+        height: 30px;
+    }
+    .batch-selection .modal-label {
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .batch-selection table {
+        width: 100%;
+    }
+    .batch-selection input[type=checkbox] {
+        vertical-align: bottom;
+        margin-right: 5px;
+    }
+    .batch-selection .border-green {
+        border: 1px solid #73b011;
+        margin-bottom: 2px;
+    }
+    .batch-selection .icon-move {
+        height: 24px;
+    }
+    .batch-selection .icon-move:hover {
+        cursor: pointer;
+    }
+</style>
+<div class="batch-selection">
+    <div class="row">
+        <div class="col-md-2 text-right">
+            <span class="modal-label">Applicable Year : </span>
+        </div>
+        <div class="col-md-2">
+            <select id="batch_applicable_year" style="width: 200px" class="form-control" caption="Applicable Year" required>
+                <option value="">-- Please select --</option>
+                <option value="@DateTime.Now.Year">@DateTime.Now.Year</option>
+                <option value="@DateTime.Now.AddYears(1).Year">@DateTime.Now.AddYears(1).Year </option>
+                <option value="@DateTime.Now.AddYears(2).Year">@DateTime.Now.AddYears(2).Year </option>
+                <option value="@DateTime.Now.AddYears(3).Year">@DateTime.Now.AddYears(3).Year </option>
+                <option value="@DateTime.Now.AddYears(4).Year">@DateTime.Now.AddYears(4).Year </option>
+            </select>
+        </div>
+        <div class="col-md-3 text-right">
+            <span class="modal-label">Procurement Method : </span>
+        </div>
+        <div class="col-md-5">
+            <select id="batch_procurement_method" class="form-control" caption="Procurement Method" required></select>
+        </div>
+    </div>
+    <table class="table-batch-main">
+        <tr style="font-size: 11px;">
+            <td style="width: 45%">
+                <table class="table-batch-section">
+                    <tr>
+                        <td>
+                            <input type="text" id="batch_search_from" class="form-control border-green" placeholder="Please type Project Title, Ref #, or Requesting Person's Name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-batch-container border-green">
+                                <table id="batch_selection_from" class="table-batch-selection selection-box" caption="Selected Batch">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="15%" class="text-center">Ref #</th>
+                                            <th scope="col" width="40%">Project Title</th>
+                                            <th scope="col" width="30%">Requested By</th>
+                                            <th scope="col" width="15%">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 10%; text-align: center">
+                <a id="btnMoveRight" class="icon-move">
+                    <img src="~/Content/images/icon-move-right.png" />
+                </a>
+                <br /><br />
+                <a id="btnMoveLeft">
+                    <img src="~/Content/images/icon-move-left.png" />
+                </a>
+            </td>
+            <td style="width: 45%">
+                <table class="table-batch-section">
+                    <tr>
+                        <td>
+                            <input type="text" id="batch_search_to" class="form-control border-green"  placeholder="Please type Project Title, Ref #, or Requesting Person's Name" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="table-batch-container border-green">
+                                <table id="batch_selection_to" class="table-batch-selection">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" width="15%" class="text-center">Ref #</th>
+                                            <th scope="col" width="40%">Project Title</th>
+                                            <th scope="col" width="30%">Requested By</th>
+                                            <th scope="col" width="15%">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var BATCHSELECTION = {
+        Initialize: function () {
+        },
+        EnableFields: function () {
+            $(".batch-selection .table-batch-main").removeAttr("disabled");
+        },
+        DisableFields: function () {
+            $(".batch-selection .table-batch-main").attr("disabled", "disabled");
+        }
+    };
+    BATCHSELECTION.Initialize();
+</script>

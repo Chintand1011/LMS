@@ -1,0 +1,72 @@
+﻿
+<style>
+</style>
+<div data-backdrop="static" class="modal fade"id="dataImplementationModal" tabindex="-1" role="dialog" aria-labelledby="dataImplementationModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <div class="row">
+                    <div class="col-md-1"><div class="circle-div"><span id="bid_proj_id" style="font-size: 30px"></span></div></div>
+                    <div class="col-md-4" style="padding-top: 10px;">
+                        <h4 class="modal-title" style="font-weight:bold;">
+                            <span></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-container">
+                <div style="border-bottom: 1px solid #ccc; margin-bottom: 20px">
+                    <table id="table_bid_summary">
+                        <tr>
+                            <td width="200px" class="text-left" style="vertical-align: top"><label>What :</label></td>
+                            <td width="750px"><span id="proj_procmethod"></span> for the <span id="proj_title"></span></td>
+                        </tr>
+                        <tr>
+                            <td width="200px" class="text-left"><label>Where :</label></td>
+                            <td width="750px"><span id="opening_place"></span></td>
+                        </tr>
+                        <tr>
+                            <td width="200px" class="text-left"><label>When :</label></td>
+                            <td width="750px"><span id="opening_date"></span></td>
+                        </tr>
+                        <tr>
+                            <td width="200px" class="text-left"><label>ABC :</label></td>
+                            <td width="750px"><span id="approved_budget"></span></td>
+                        </tr>
+
+                        <tr>
+                            <td width="200px" class="text-left"><label>Completion % :</label></td>
+                            <td width="750px">
+                                <select id="imp_status" class="form-control" style="width: 200px;">
+                                    <option value="16.1">Initial Installation</option>
+                                    <option value="16.2">40%</option>
+                                    <option value="16.3">80%</option>
+                                    <option value="17.1">Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <span id="footerNote" style="float:left;padding-left:120px;"></span>
+                <button type="button" class="btn btn-default" id="btnCancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var IMPLEMENTATION = {
+        Initialize: function () {
+        },
+        EnableFields: function () {
+        },
+        DisableFields: function () {
+        }
+    };
+    IMPLEMENTATION.Initialize();
+</script>

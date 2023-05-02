@@ -1,0 +1,316 @@
+﻿@model OPBids.Entities.View.Setting.AccessUsersVM
+@{
+    ViewBag.Title = "GetMyUserInfo";
+}
+
+
+
+@section mycss
+{
+    <style>
+        .custom-table-edit {
+            /*background-color:red;*/
+            margin-right: 100px;
+        }
+
+            .custom-table-edit tbody tr td {
+                padding: 12px;
+                font-size: x-large;
+                /*font-weight:900;*/
+                color: dimgray;
+            }
+
+                .custom-table-edit tbody tr td.tbentry input {
+                    font-size: x-large;
+                    /*font-weight:900;*/
+                    border-bottom-color: none;
+                    color: dimgray;
+                    border-width: 0px;
+                    border-bottom-width: 1px;
+                    border-bottom-style: solid;
+                    border-bottom-color: #d6d0d0;
+                }
+
+        .img-circle {
+            width: 150px;
+        }
+
+
+        input {
+            border-bottom-color: #d6d0d0;
+        }
+    </style>
+}
+
+
+
+
+<h2>Account Information</h2>
+
+<div class="box margin">
+    <p>&nbsp;</p>
+    <div class="row">
+
+        <p>&nbsp;</p>
+
+        <form id="dataentry">
+
+            @Html.EditorFor(model => model.imagefileupload, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+
+            @Html.HiddenFor(x => x.profile_link)
+
+            <table class="custom-table-edit">
+                <tbody>
+                    <tr>
+                        <td class="tbheader">User Name:</td>
+                        <td class="tbentry">@Html.EditorFor(x => x.username, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</td>
+                        <td class="" rowspan="2">
+                            <div class="">
+                                <img id="imagepreview" class="profile-user-img img-responsive img-circle" src="@Url.Content("~/User/UserProfileImage?userName=")@Model.username" alt="User profile picture">
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader">Nick Name:</td>
+                        <td class="tbentry" style="width:400px;">@Html.EditorFor(x => x.nickname, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td class="tbheader">First Name:</td>
+                        <td class="tbentry" colspan="2">@Html.EditorFor(x => x.first_name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td class="tbheader">Last Name:</td>
+                        <td class="tbentry" colspan="2">@Html.EditorFor(x => x.last_name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader">Address:</td>
+                        <td class="tbentry" colspan="2">@Html.EditorFor(x => x.address1, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader"></td>
+                        <td class="tbentry" colspan="2">@Html.EditorFor(x => x.address2, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td class="tbheader">Birtday:</td>
+                        <td class="tbentry" colspan="2">
+                            @{
+
+                                var dob = "";
+
+                                if (Model.DOB != "")
+                                {
+                                    dob = string.Format("{0:dd/MM/yyyy}", Convert.ToDateTime(Model.DOB));
+                                }
+
+
+
+                            }
+
+                            <input type="text" value="@dob" datetime class="form-control" id="DOB" name="DOB" />
+                        </td>
+                        <td class=""></td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td class="tbheader">Email Address:</td>
+                        <td class="tbentry" colspan="2">@Html.EditorFor(x => x.business_email_address, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader">Personal Email:</td>
+                        <td class="tbentry" colspan="2">@Html.EditorFor(x => x.email_address, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader">Contact No:</td>
+                        <td class="tbentry">@Html.EditorFor(x => x.contact_no, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader">Mobile No:</td>
+                        <td class="tbentry">@Html.EditorFor(x => x.mobile_no, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td class=""></td>
+
+                    </tr>
+
+                    <tr>
+                        <td class="tbheader"></td>
+                        <td class="" colspan="2" style="text-align:right">
+                            <div class="">
+
+                                <a href="@Url.Content("~/User/GetMyUserInfo")" class="btn btn-primary btn-custom btn-custom-color-red"><span class="fa fa-close"> Cancel</span></a>
+
+
+                                <button type="submit" class="btn btn-primary btn-custom btn-custom-color-green saveinfo"><span class="fa  fa-check"></span> Save</button>
+                            </div>
+
+                        </td>
+                        <td class=""></td>
+
+                    </tr>
+
+
+
+
+                </tbody>
+            </table>
+        </form>
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+
+    
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script>
+
+        $().ready(function () {
+
+            $('#DOB').datepicker({
+                autoclose: true,
+                format: "dd/mm/yyyy"
+            });
+
+            var saveMyUserInfo = function () {
+                //evt.preventDefault();
+                var $form = $('form');
+                if ($form.valid()) {
+                    //Ajax call here
+                   // alert('valid');
+                }
+                else {
+                    return false
+                }
+
+               // return false;
+
+                $.ajax({
+                    url: "@Url.Content("~/User/UpdateMyUserInfo")",
+                    type: "post",
+                    data: $('form').serialize(),
+                    success: function (data) {
+
+                        if (data.result == true) {
+
+                            Site.Dialogs.Alert("Account info has been updated.", "Got it!",function () {
+
+                            window.location.href = '@Url.Content("~/User/GetMyUserInfo")';
+
+                        });
+
+                        }
+
+                    },
+                        error: ""
+                    });
+
+
+                return false;
+
+            };
+
+
+            $(".saveinfo").on("click", saveMyUserInfo);
+
+
+            $("#imagepreview").on("click", function () {
+
+                $("#imagefileupload").click()
+            });
+
+
+            // file selected
+            $("#imagefileupload").change(function () {
+
+                var files = $("#imagefileupload").get(0).files;
+                var fd = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    fd.append("file", files[i]);
+                }
+
+                uploadData(fd);
+            });
+
+            // Sending AJAX request and upload file
+            function uploadData(formdata) {
+
+                $.ajax({
+                    url: '/User/UploadUserImage',
+                    type: 'post',
+                    data: formdata,
+                    contentType: false,
+                    processData: false,
+                    //dataType: 'json',
+                    success: function (response) {
+
+                        //loadFiles(response);
+
+                        if (response.isSuccess == true)
+                        {
+                           // $("#imagepreview").src =
+
+                            $("#imagepreview").attr('src', "@Url.Content("~/UserImages/temp/")" + response.filename);
+
+                            $("#profile_link").val(response.filename);
+                        }
+
+                        console.log(response);
+
+                    }
+                });
+            }
+
+        });
+
+        </script>
+
+    }

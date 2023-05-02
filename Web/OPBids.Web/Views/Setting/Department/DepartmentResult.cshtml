@@ -1,0 +1,151 @@
+﻿@model IEnumerable<OPBids.Entities.View.Setting.DepartmentsVM>
+@Scripts.Render("~/bundles/deptScript")
+<script type="text/javascript">
+    Site.FillPagingValues(@ViewBag.page_count, @(ViewBag.page_reset == true ? 1 : 0));
+</script>
+<div class="p-view-result">
+    <table id="grdLst" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item #</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.dept_code)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.dept_description)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.headed_by_name)</th>
+                <th scope="col">@Html.DisplayNameFor(m => m.designation)</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.id">
+                    <td parent_dept_id="@Html.DisplayFor(modelItem => item.parent_dept_id)">
+                        <input type="checkbox" itemscope class="check-selected" itemid="@item.id" /><span class="incrementalNum"></span>
+                    </td>
+                    <td is_internal="@(item.is_internal == true ? "1":"0")" dept_code>
+                        @Html.DisplayFor(modelItem => item.dept_code)
+                    </td>
+                    <td dept_description>
+                        @Html.DisplayFor(modelItem => item.dept_description)
+                    </td>
+                    <td headed_by="@Html.DisplayFor(modelItem => item.headed_by)">
+                        @Html.DisplayFor(modelItem => item.headed_by_name)
+                    </td>
+                    <td designation>
+                        @Html.DisplayFor(modelItem => item.designation)
+                    </td>
+                    <td statusid="@Html.DisplayFor(modelItem => item.status)">
+                        @{Html.RenderPartial("~/Views/Setting/Department/DepartmentTools.cshtml", null, new ViewDataDictionary { { "item_id", item.id }, { "item_name", string.Concat(item.dept_code) }, { "item_sub_name", string.Concat(item.headed_by_name, " - ", item.designation) }, { "item_status", item.status }, { "parent_dept_id", item.parent_dept_id } });}
+                    </td>
+                </tr>
+                            }
+        </tbody>
+    </table>
+    <script type="text/javascript">Site.PopulateSequence()</script>
+</div>
+<div data-backdrop="static" class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:700px;">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;"><span id="processId"></span> <span class="moduleCaption"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_dept_code" class="control-label">@Html.DisplayNameFor(m => m.dept_code)</label>:</div>
+                        <div class="col-md-9"><input placeholder="Enter code here..." type="text" id="u_dept_code" class="form-control" maxlength="120" required caption="@Html.DisplayNameFor(m => m.dept_code)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_dept_description" class="control-label">@Html.DisplayNameFor(m => m.dept_description)</label>:</div>
+                        <div class="col-md-9"><input placeholder="Enter description here..." type="text" id="u_dept_description" class="form-control" maxlength="250" required caption="@Html.DisplayNameFor(m => m.dept_description)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_headed_by" class="control-label">@Html.DisplayNameFor(m => m.headed_by_name)</label>:</div>
+                        <div class="col-md-9" style="text-align:left;">
+                            <select id="u_headed_by" placeholder="Select Department Head" class="form-control selectpicker" data-actions-box="true" data-live-search="true" required caption="@Html.DisplayNameFor(m => m.headed_by_name)"></select>
+                            <button type="button" id="btnViewUserInfo" style="float:right;font-size:10px;" class="buttonLink">View User Information</button><br /><br />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right"><label for="u_designation" class="control-label">@Html.DisplayNameFor(m => m.designation)</label>:</div>
+                        <div class="col-md-9"><input type="text" id="u_designation" placeholder="Enter designation here..." class="form-control" maxlength="100" required caption="@Html.DisplayNameFor(m => m.designation)" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 text-right" style="padding-top:10px;"><label for="u_is_internal" class="control-label">@Html.DisplayNameFor(m => m.is_internal)</label>:</div>
+                        <div class="col-md-9"><input style="display:inline-block; width:20px;" type="checkbox" id="u_is_internal" class="form-control" /></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer dialogFooter">
+                <button type="button" id="btnCancel" class="ui-button ui-corner-all ui-widget negativeDialogButton" data-dismiss="modal"><span style="position:relative;left:-5px;"></span>&nbsp;Cancel</button>
+                <button type="button" id="btnSave" class="ui-button ui-corner-all ui-widget positiveDialogButton"><span style="position:relative;left:-5px;"></span>&nbsp;Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-backdrop="static" class="modal fade" id="assignSubLevel" tabindex="-1" role="dialog" aria-labelledby="saveModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="min-width:800px;">
+            <div class="modal-header">
+                <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" style="font-weight:bold;">Assign <span class="moduleCaption"></span> Sub-Level</h4>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0px !important;">
+                <form>
+                    <div class="form-group" style="padding-bottom: 0px !important;">
+                        <div style="font-size:24px;color:#808080;">For: <span class="lblParentDepartment"></span></div>
+                        <div style="font-size:12px;color:#808080;">Headed By: <span class="lblHeadedBy"></span></div>
+                        <table style="width:100%;margin-top:10px;">
+                            <tr>
+                                <td style="width:48%;padding-right:5px;vertical-align:top;">
+                                        <table class="tableSelectorsLeftRight">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="2" style="padding: 7px;background-color: #a8a8a8;color: #0451a4;font-size: 12px;">Select <span class="moduleCaption"></span> to include as Sub-Level</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <input type="text" id="txSearchAvailable" search class="form-control" maxlength="300" title="Please fill this with your keywords and press enter to refine the search results below." />
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div style="overflow-y:auto;height:300px;border: 1px solid #d8d8d8;">
+                                            <table id="departmentsAvailable" class="tableSelectorsLeftRight" tile="The search results only shows maximum of 1000 records. Refine your search using the above and press enter if you did not find the department from this list.">
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                </td>
+                                <td style="width:4%;vertical-align:middle;"><button class="btnArrows" id="rightArrow" type="button">&rarr;</button><br /><button class="btnArrows" id="leftArrow" type="button">&larr;</button><br /><button class="btnArrows" id="rightrightArrow" type="button">&#x21C9;</button><br /><button class="btnArrows" id="leftleftArrow" type="button">&#x21C7;</button></td>
+                                <td style="width:48%;padding-left:5px;vertical-align:top;">
+                                    <table class="tableSelectorsLeftRight">
+                                        <thead>
+                                            <tr>
+                                                <td colspan="2" style="padding: 7px;background-color: #a8a8a8;color: #0451a4;font-size: 12px;">Current <span class="moduleCaption"></span> under <span class="lblParentDepartment"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <input type="text" id="txSearchSelected" search class="form-control" maxlength="300" />
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                    <div style="overflow-y:auto;height:300px;border: 1px solid #d8d8d8;">
+                                        <table id="subDepartments" class="tableSelectorsLeftRight">
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSaveSubDepartments" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,129 @@
+﻿
+<style>
+    #dataLCBNoticeModal #table_lcbnotice_summary {
+        margin: 20px;
+        font-size: 16px;
+    }
+
+    #dataLCBNoticeModal #div_bidder_list {
+        font-size: 11px;
+        margin-bottom: 50px;
+    }
+
+    #dataLCBNoticeModal .modal-container {
+        padding-top: 0px;
+    }
+
+</style>
+<div data-backdrop="static" class="modal fade project-request" id="dataLCBNoticeModal" tabindex="-1" role="dialog" aria-labelledby="dataLCBNoticeModal" aria-hidden="true">
+    <div class="modal-dialog" style="min-width:1200px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-md-1 circle-div-container">
+                        <div class="circle-div"><span id="bid_proj_id"></span></div>
+                    </div>
+                    <div class="col-md-7 modal-title-container">
+                        <span class="modal-title">
+                            <span id="project_title"></span>
+                            &nbsp;for the&nbsp;
+                            <span id="project_grantee"></span>
+                            <span id="processId" style="visibility: hidden"></span>
+                        </span>
+                    </div>
+                    <button type="button" class="close glyphicon glyphicon-remove-circle" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+            </div>
+            <div class="modal-container">
+                <h3 class="downloadAndPrintButton"><a class="fa fa-download fa-dialog"></a>&nbsp;&nbsp;<a class="fa fa-print fa-dialog"></a></h3>
+                <div style="border-bottom: 1px solid #ccc; margin-bottom: 20px">
+                    <table id="table_lcbnotice_summary">
+                        <tr>
+                            <td width="200px" class="text-right" style="vertical-align: top"><label>Project Description :</label></td>
+                            <td>&nbsp;</td>
+                            <td width="750px" style="vertical-align: top">
+                                <span id="project_description"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" style="vertical-align: top"><label>Approved Budget : </label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <span class="green">₱</span><span id="approved_budget"></span>
+                                &nbsp;
+                                (<span id="proj_procmethod"></span>)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><label>Requested By :</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <span id="created_by"></span>
+                                &nbsp;for the&nbsp;
+                                <span id="grantee"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><label>Category :</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <span id="classification"></span>
+                                <span id="proj_procmethod2"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="div_bidder_list">
+            </div>
+            <div id="div_prepared" class="modal-container" style="border-bottom: 1px solid #ccc">
+                <table>
+                    <tr style="line-height: 40px">
+                        <td width="100px"><label>Prepared By&nbsp;:</label></td>
+                        <td width="250px"><input type="text" id="bidlist_prepared_by" class="form-control" style="width: 250px" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Prepare Date&nbsp;:</label></td>
+                        <td><input type="text" id="bidlist_prepared_date" class="form-control" style="width: 250px" datetime /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <div style="float:left;">
+                    <span style="margin-right: 15px">LCB Notice will be based on the Lowest Calculated Bidder that passed Evaluation.</span>
+                </div>
+                <div style="float:right;">
+                    <button type="button" id="btnPrintLCBNotice" class="btn btn-gray" value="Print Notice" style="width:130px; font-weight: 700; color: white"><i class="fa fa-print fa-dialog"></i>&nbsp;&nbsp;Print Notice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var LCBNOTICE = {
+        Initialize: function () {
+            $(".modal-footer #btnPrintLCBNotice").unbind().click(function () {
+                var id = $("#dataLCBNoticeModal #bid_proj_id").html();
+                window.open("/report/LCBNotice/" + id);
+            });
+        },
+        EnableFields: function () {
+        },
+        DisableFields: function () {
+        },
+        SetData: function (row_data, id) {
+            $("#dataLCBNoticeModal #bid_proj_id").html(id);
+            $("#dataLCBNoticeModal #project_title").html(row_data.data("title"));
+            $("#dataLCBNoticeModal #project_description").html(row_data.data("description"));
+            $("#dataLCBNoticeModal #classification").html(row_data.data("classification-desc") + " - ");            
+            $("#dataLCBNoticeModal #proj_procmethod").html(row_data.data("proc-method"));
+            $("#dataLCBNoticeModal #proj_procmethod2").html(row_data.data("proc-method"));
+            $("#dataLCBNoticeModal #approved_budget").html(row_data.data("approved-budget"));            
+            $("#dataLCBNoticeModal #project_grantee").html(row_data.data("grantee"));
+            $("#dataLCBNoticeModal #grantee").html(row_data.data("grantee"));
+            $("#dataLCBNoticeModal #created_by").html(row_data.data("created-by"));
+            
+        }
+    };
+    LCBNOTICE.Initialize();
+</script>

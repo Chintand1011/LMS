@@ -1,0 +1,120 @@
+﻿
+
+@model OPBids.Entities.View.ProjectRequest.ProjectBidVM
+
+<style>
+    .lcb-content {
+        padding-left: 40px;
+    }
+        .lcb-content .lcb-content-detais {
+            min-height: 400px;
+        }
+        .lcb-content .lcb-content-detais label {
+            font-size: 18px;
+        }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="lcb-content">
+    <div class="lcb-content-detais">
+        <div class="row">
+            <div class="col-md-3"><label>Bidder's Name :</label></div>
+            <div class="col-md-9">@Html.DisplayFor(model => model.bidder_name)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><label>Address :</label></div>
+            <div class="col-md-9">@Html.DisplayFor(model => model.bidder_address)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><label>Authorized Rep :</label></div>
+            <div class="col-md-9">@Html.DisplayFor(model => model.auth_rep)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><label>Total Bid Price :</label></div>
+            <div class="col-md-9">
+                <span class="green"><b>₱&nbsp;</b></span>
+                @Html.DisplayFor(model => model.bid_amount)
+                <span>&nbsp;(&nbsp;<span class="green">@Html.DisplayFor(model => model.variance)%</span>&nbsp;Variance from ABC)</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"><label>Project Duration :</label></div>
+            <div class="col-md-9">@Html.DisplayFor(model => model.duration)&nbsp;cd</div>
+        </div>
+    </div>
+    <div class="lcb-content-prepared">
+        <div id="div_prepared">
+            <div class="row">
+                <div class="col-md-2 align-right">
+                    <label>Prepared By :&nbsp;</label>
+                </div>
+                <div class="col-md-3 align-left">
+                    <input type="text" class="form-control" id="prepared_by" />
+                </div>
+                <div class="col-md-7">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 align-right">
+                    <label>Prepared Date :&nbsp;</label>
+                </div>
+                <div class="col-md-3 align-left">
+                    <input type="text" class="form-control" id="prepared_date" datetime />
+                </div>
+                <div class="col-md-7">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="print-lcb-section" class="align-right print-btn-cntr" data-project-id="@ViewData["project_id"]">
+        @if (ViewData["process"] != null && ViewData["process"].ToString() == "notice")
+        {
+            <button type="button" class="btn btn-dialog" id="btnPrintlcbNotice"><i class="fa fa-print fa-dialog"></i> Print Notice</button>
+        }
+        @if (ViewData["process"] != null && ViewData["process"].ToString() == "report")
+        {
+            <button type="button" class="btn btn-dialog" id="btnPrintlcbReport"><i class="fa fa-print fa-dialog"></i> Print Report</button>
+        }
+        @if (ViewData["process"] != null && ViewData["process"].ToString() == "award")
+        {
+            <button type="button" class="btn btn-dialog" id="btnPrintlcbAward"><i class="fa fa-print fa-dialog"></i> Print Notice</button>
+        }
+        @if (ViewData["process"] != null && ViewData["process"].ToString() == "proceed")
+        {
+            <button type="button" class="btn btn-dialog" id="btnPrintlcbProceed"><i class="fa fa-print fa-dialog"></i> Print Notice</button>
+        }
+    </div>
+</div>
+
+<script>
+        var LCBReport = {
+            Initialize: function (stage) {
+
+                $("#print-bid-list #btnPrintBidResult").unbind().click(function () {
+                });
+                $("#print-lcb-section #btnPrintlcbReport").unbind().click(function () {
+                    var id = $(this).closest(".print-btn-cntr").attr("data-project-id");
+                    window.open("/report/postqualification/" + id);
+                });
+
+                $("#print-lcb-section #btnPrintlcbProceed").unbind().click(function () {
+                    var id = $(this).closest(".print-btn-cntr").attr("data-project-id");
+                    window.open("/report/nop/" + id);
+                });
+
+                $("#print-lcb-section #btnPrintlcbAward").unbind().click(function () {
+                    var id = $(this).closest(".print-btn-cntr").attr("data-project-id");
+                    window.open("/report/noa/" + id);
+                });
+            },
+        }
+        $(function () {
+            LCBReport.Initialize();
+        });
+</script>
+}
